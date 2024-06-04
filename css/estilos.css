@@ -1,0 +1,528 @@
+
+/*ESTILOS PARA EL HEADER*/
+:root {
+    --primary-color: #c7a17a;
+    --background-color: #f9f5f0;
+    --dark-color: #151515;
+}
+
+/* Reset de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos para el encabezado */
+.contenido-inicial {
+    background-color: var(--background-color);
+}
+
+/* Estilos para el contenedor inicial */
+.contenedor-inicial {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+/* Estilos para el soporte al cliente */
+.soporte-cliente {
+    display: flex;
+    align-items: center;
+}
+
+.contenedor-logo{
+    display: flex;
+    align-items: center;
+}
+
+i{
+    font-size: 30px;
+}
+
+.usuario-contenedor{
+    display: flex;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.usuario-contenedor .fa-user{
+    font-size: 3rem;
+    padding-right: 2.5rem;
+    color: var(--primary-color);
+    border-right: 1px solid #eee;
+}
+.usuario-contenedor .fa-shopping-basket{
+    font-size: 3rem;
+    padding-left: 2.5rem;
+    color: var(--primary-color);
+}
+.carrito-contenedor{
+    display: flex;
+    flex-direction: column;
+}
+.navegacion-contenedor{
+    background-color: var(--primary-color);
+}
+.contenido-navegacion{
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+.contenido-navegacion .fa-bars{
+    display: none;
+}
+
+.menu{
+    display: flex;
+    gap: 2rem;
+}
+.menu li{
+    list-style: none;
+}
+
+.menu a{
+    text-decoration: none;
+    font-size: 1rem;
+    color: var(--dark-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    position: relative;
+}
+.menu a::after{
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background-color: #fff;
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    opacity: 0;
+    transition: all .3s ease;
+}
+
+.menu:hover::after{
+    opacity: 1;
+}
+
+.menu a:hover{
+    color: #fff;
+}
+
+.buscar{
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 2px solid #fff;
+    border-radius: 2rem;
+    background-color: #fff;
+    height: 3rem;
+    overflow: hidden;
+}
+.buscar input{
+    outline: none;
+    font-family: inherit;
+    border: none;
+    width: 20rem;
+    font-size: 1.2rem;
+    padding: 0rem;
+    color: #777;
+    margin: 20px;
+    cursor: pointer;
+}
+.buscar input::-webkit-search-cancel-button{
+    appearance: none;
+}
+
+.btn-buscar{
+    border: none;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 1rem;
+}
+
+.btn-buscar i{
+    font-size: 1.4rem;
+    color: #eee
+}
+
+/*Estliso para el body*/
+
+.banner{
+    background-image: linear-gradient(100deg, #000000, #00000020) ,url(/imagenes/concha-chocolate.jpg);
+    height: 40rem;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: flex-start; /* Alinea el contenido a la izquierda */
+    align-items: center; /* Centra el contenido verticalmente */
+}
+
+.banner-contenido{
+    max-width: 90rem;
+    margin: 0 auto;
+    padding: 25rem 0;
+    margin-left: 5rem; /* Ajusta este valor según lo que necesites */
+    text-align: left; /* Ajusta el texto alinear a la izquierda */
+}
+
+.banner-contenido p{
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.banner-contenido h2{
+    color: #fff;
+    font-size: 3.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.banner-contenido a{
+    margin-top: 2rem;
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--primary-color);
+    display: inline-block;
+    padding: 1rem 3rem;
+    text-transform: uppercase;
+    border-radius: 3rem;
+}
+
+/*MAIN CONTENT*/
+.main-content{
+    background-color: var(--background-color);
+    margin-left: 3rem;
+}
+
+.facturas-contenido{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    padding: 3rem 0;
+    margin-left: 200px;
+}
+
+.card-feature{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1.5rem 0;
+}
+
+.card-feature i{
+    font-size: 2.7rem;
+    color: var(--primary-color);
+}
+
+.feateure-content{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.feateure-content span{
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--dark-color);
+}
+
+.feateure-content p{
+    color: #777;
+    font-weight: 500 ;
+}
+
+.contenido-categorias{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.container-categorias{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+}
+
+.card-category-concha-rosada{
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2rem;
+    gap: 2rem;
+    background-image: linear-gradient(#00000080, #00000080), url(/imagenes/concha-rosa.jpg);
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+.card-category-cuernito{
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2rem;
+    gap: 2rem;
+    background-image: linear-gradient(#00000080, #00000080), url(/imagenes/cuernito.jpg);
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+.card-category-capuchino{
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2rem;
+    gap: 2rem;
+    background-image: linear-gradient(#00000080, #00000080), url(/imagenes/capucchino.jpg);
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+
+.heading-1{
+    text-align: center;
+    font-weight: 500;
+    font-size: 2.5rem;
+}
+
+.container-categorias p::after{
+    content: '';
+    width: 2.5rem;
+    height: 2px;
+    background-color: #fff;
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+.container-categorias p{
+    font-size: 2.5rem;
+    color: #fff;
+    text-transform: capitalize;
+    position: relative;
+}
+
+.container-categorias span{
+    font-size: 1.6rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+.container-categorias span:hover{
+    color: var(--primary-color);
+}
+
+/*TOP PRODUCTS*/
+.container-products{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.conteiner-options{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.conteiner-options span{
+    color: #777;
+    background-color: #fff;
+    padding: .7rem 3rem;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+    border-radius: 2rem;
+    cursor: pointer;
+    border: 1px solid var(--primary-color); /* Cambia "red" al color que desees */
+}
+.conteiner-options span:hover{
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.conteiner-options span.active{
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+/* PRODUCTOS */
+
+.conteiner-products{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 3rem;
+}
+
+.card-product{
+    background-color: #fff;
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+    cursor: pointer;
+    margin-left: 1rem;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--primary-color); /* Cambia "red" al color que desees */
+}
+
+.container-img{
+    position: relative;
+}
+
+.container-img img{
+    width: 100%;
+}
+
+.container-img .descuento{
+    position: absolute;
+    left: 0;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 2px 1.2rem;
+    border-radius: 1rem;
+    font-size: 1rem;
+}
+
+.card-product:hover .descuento{
+    background-color: #000000;
+}
+
+.button-group{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    position: absolute;
+    top: 0;
+    right: -3rem;
+    z-index: -1;
+    transition: all .4s ease;
+}
+
+.button-group span i{
+    font-size: 1.3rem;
+    color: var(--primary-color);
+}
+
+.button-group span:hover i{
+    color: #fff;
+}
+
+.button-group span{
+    border: 1px solid var(--primary-color);
+    padding: .8rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all .4s ease;
+}
+
+.button-group span:hover{
+    background-color: var(--primary-color);
+}
+
+.card-product:hover .button-group{
+    z-index: 0;
+    right: -1rem;
+}
+
+.content-card-product{
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, main-content);
+    row-gap: 1rem;
+}
+
+.rango-starts{
+    grid-row: 1/2;
+    grid-column: 1/-1;
+}
+
+.rango-starts i{
+    font-size: 1.3rem;
+    color: var(--primary-color);
+}
+
+.content-card-product h3{
+    grid-row: 2/3;
+    grid-column: 1/-1;
+
+    font-weight: 400;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.content-card-product h3:hover{
+    color: var(--primary-color);
+}
+
+.add-cart{
+    justify-self: start;
+    border: 2px solid var(--primary-color);
+    padding: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all .4s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-cart:hover{
+    background-color: var(--primary-color);
+}
+
+.add-cart i{
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.add-cart:hover i{
+    color: #fff;
+}
+
+.content-card-product .precio{
+    justify-self: end;
+    align-self: center;
+
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.content-card-product .precio span{
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-decoration: line-through;
+    color: #777;
+    margin-left: .5rem
+}
+
+
+
