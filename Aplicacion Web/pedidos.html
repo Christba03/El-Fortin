@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedidos</title>
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="tabla.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <a href="index.html"><li><i class="fa fa-home"></i> Inicio</li></a>
+            <a href="clientes.html"><li><i class="fa fa-users" aria-hidden="true"></i>Clientes</li></a>
+            <a href="empleados.html"><li><i class="fa fa-users" aria-hidden="true"></i> Empleados</li></a>
+            <a href="productos.html"><li><i class="fa fa-shopping-bag" aria-hidden="true"></i>Productos</li></a>
+            <a class="activo" href="pedidos.html"><li><i class="fa fa-sticky-note-o" aria-hidden="true"></i>Pedidos</li></a>
+            <a href="recetas.html"><li><i class="fa fa-cutlery" aria-hidden="true"></i>Recetas</li></a>
+            <a href="detallesVenta.html"><li><i class="fa fa-ticket" ></i>Detalles de Ventas</li></a>
+             
+               
+            <li><i class="fa fa-sign-out"></i>Cerrar sesión</li>
+             
+        </ul>
+    </nav>
+
+    <div class="contenido">
+        <h1>Pedidos</h1>
+        <p>Gestión de pedidos</p>
+
+        <div class="btn-agregar">
+            <a href="pedidosFormulario.html">
+                <button><i class="fa fa-plus"></i> Agregar Pedido</button>
+            </a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>                    
+                    <th>Cliente</th>
+                    <th>Empleado</th>
+                    <th>Mesa</th>
+                    <th>Forma de pago</th>
+                    <th>IVA a pagar</th>
+                    <th>Monto Total</th>
+<!-- ? -->          <th>Fecha</th>
+                    <th>Descuento</th>
+                    <th>Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Registo de ejemplo -->
+                <tr>
+                    <td>Jose Angel Lopez Rivera</td>
+                    <td>Jose Manuel Lara Villalobos</td>
+                    <td>2</td>
+                    <td>Efectivo</td>
+                    <td>$128</td>
+                    <td>$928</td>
+                    <td>04/06/2024</td>
+                    <td>No</td>
+                    <td>
+                        <div class="operaciones">
+                        </a>
+                        <button><a href="pedidosView.html"><i class="fa fa-eye"></i>Ver</button>            
+                            <button><i class="fa fa-pencil"></i> Editar</button>                           
+                            <button><i class="fa fa-trash"></i> Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

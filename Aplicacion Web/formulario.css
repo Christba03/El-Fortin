@@ -1,0 +1,121 @@
+nav{
+    width: 210px;
+    background-color: grey;
+    padding-top: 20px;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
+}
+
+nav ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li{
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: bacground-color 0.3s;
+}
+
+nav ul li:hover{
+    background-color: rgb(255, 255, 255);
+}
+nav ul li i{
+    margin-right: 20px;
+}
+
+.contenido{
+    margin-left: 220px;
+    padding: 20px;
+    width: calc(100% - 210px);
+    border: none;
+    border-radius: 30px;
+}
+
+nav a{
+    text-decoration: none;
+    color: inherit;
+}
+
+form {
+    margin: auto;
+    padding-right: 50px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: inline-block; /* Para alinear las etiquetas horizontalmente */
+    margin-left: 5px; /* Espacio entre el checkbox y su etiqueta */
+    vertical-align: middle; /* Alineación vertical con el checkbox */
+}
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 20px;
+}
+
+.form-group input[type="checkbox"], .form-group input[type="radio"]{
+    width: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.form-group select{
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 20px;
+}
+
+.btn-agregar {
+    margin-bottom: 20px;
+}
+.btn-agregar button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: rgb(0, 98, 209);
+    color: white;
+    transition: background-color 0.3s;
+    border-radius: 20px;
+}
+.btn-agregar button:hover {
+    background-color: blue;
+    color: white;
+}
+
+body{
+    background-color: rgba(14, 13, 13, 0.959);
+}
+
+label{
+    color: white;
+}
+
+h1{
+    color: white;
+}
+
+textarea{
+    width: 1000px;
+    height: 100px;
+}
+
+nav ul a.activo{
+    text-decoration:none;
+    color: rgb(255, 255, 255);
+}
+
+nav ul a.activo li{
+    background-color: rgb(0, 0, 0);
+    
+}

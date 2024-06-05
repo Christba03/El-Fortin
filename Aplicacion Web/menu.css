@@ -1,0 +1,55 @@
+nav{
+    width: 200px;
+    background-color: darkslategrey;
+    padding-top: 20px;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
+}
+
+nav ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li{
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: bacground-color 0.3s;
+    color :aliceblue ;
+}
+
+nav ul li:hover{
+    background-color: rgb(107, 107, 107);
+}
+nav ul li i{
+    margin-right: 20px;
+}
+
+.contenido{
+    margin-left: 200px;
+    padding: 20px;
+    width: calc(100% - 230px);
+    background-color: rgb(255, 255, 255);
+}
+
+.contenido h1, p{
+    color: rgb(0, 0, 0);
+}
+
+nav a{
+    text-decoration: none;
+    color: white;
+}
+
+nav ul a.activo{
+    text-decoration:none;
+    color: rgb(255, 255, 255);
+}
+
+nav ul a.activo li{
+    background-color: rgb(0, 0, 0);
+    
+}
