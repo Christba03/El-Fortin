@@ -159,7 +159,7 @@ i{
 /*Estliso para el body*/
 
 .banner{
-    background-image: linear-gradient(100deg, #000000, #00000020) ,url(/imagenes/concha-chocolate.jpg);
+    background-image: linear-gradient(100deg, #000000, #00000020) ,url("../imagenes/concha-chocolate.jpg");
     height: 40rem;
     background-size: cover;
     background-position: center;
@@ -268,7 +268,7 @@ i{
     justify-content: center;
     border-radius: 2rem;
     gap: 2rem;
-    background-image: linear-gradient(#00000080, #00000080), url(/imagenes/concha-rosa.jpg);
+    background-image: linear-gradient(#00000080, #00000080), url("../imagenes/concha-rosa.jpg");
     background-size: cover;
     background-position: bottom;
     background-repeat: no-repeat;
@@ -281,7 +281,7 @@ i{
     justify-content: center;
     border-radius: 2rem;
     gap: 2rem;
-    background-image: linear-gradient(#00000080, #00000080), url(/imagenes/cuernito.jpg);
+    background-image: linear-gradient(#00000080, #00000080), url("../imagenes/cuernito.jpg");
     background-size: cover;
     background-position: bottom;
     background-repeat: no-repeat;
@@ -294,7 +294,7 @@ i{
     justify-content: center;
     border-radius: 2rem;
     gap: 2rem;
-    background-image: linear-gradient(#00000080, #00000080), url(/imagenes/capucchino.jpg);
+    background-image: linear-gradient(#00000080, #00000080), url("../imagenes/capucchino.jpg");
     background-size: cover;
     background-position: bottom;
     background-repeat: no-repeat;
