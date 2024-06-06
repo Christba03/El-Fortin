@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="view.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Vista de Venta</title>
+</head>
+<body>
+    <nav>
+        <ul>   
+            
+            <a href="index.html"><li><i class="fa fa-home"></i> Inicio</li></a>
+            <a href="clientes.html"><li><i class="fa fa-users" aria-hidden="true"></i>Clientes</li></a>
+            <a href="empleados.html"><li><i class="fa fa-users" aria-hidden="true"></i> Empleados</li></a>
+            <a href="productos.html"><li><i class="fa fa-shopping-bag" aria-hidden="true"></i>Productos</li></a>
+            <a href="pedidos.html"><li><i class="fa fa-sticky-note-o" aria-hidden="true"></i>Pedidos</li></a>
+            <a href="recetas.html"><li><i class="fa fa-cutlery" aria-hidden="true"></i>Recetas</li></a>
+            <a href="detallesVenta.html"><li><i class="fa fa-ticket" ></i>Detalles de Ventas</li></a>
+            <a  class="activo" href="ventas.html"><li><i class="fa fa-ticket" ></i>Ventas</li></a>
+           
+               
+            <li><i class="fa fa-sign-out"></i>Cerrar sesión</li>
+             
+            </ul>
+    </nav>
+
+    <div class="modal">
+        <div class="modal-content">
+            <!-- Aquí mostrarás los detalles del registro -->
+            <h2>Detalle del Registro</h2>
+            <p>Cliente: Jose Angel Lopez Rivera	</p>
+            <p>Empleado: Jose Manuel Lara Villalobos	</p>
+            <p>Forma de pago: Efectivo</p>
+            <p>IVA a pagar: $128</p>
+            <P>Monto Total: $928</P>
+            <P>Fecha: 04/06/2024</P>
+            <P>Descuento: No</P>
+            <!-- Puedes mostrar más detalles según sea necesario -->
+            <button onclick="window.history.back();" class="close-button">Cerrar</button>
+        </div>
+    </div>
+</body>
+</html>
