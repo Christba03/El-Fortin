@@ -221,6 +221,28 @@ nav a{
     transform: translateY(-50%);
     z-index: 1;  /* Asegura que el icono esté detrás del texto */
 }
+
+.card-header .fa-user{
+    position: absolute;
+    top: 100%;  /* Centra verticalmente el icono */
+    right: 10px;
+    font-size: 80px;  /* Tamaño grande para el efecto de estar "detrás" */
+    color: rgba(0, 0, 0, 0.1);  /* Color con transparencia para un mejor efecto */
+    transform: translateY(-50%);
+    z-index: 1;  /* Asegura que el icono esté detrás del texto */
+}
+
+.card-header .fa-shopping-basket{
+    position: absolute;
+    top: 100%;  /* Centra verticalmente el icono */
+    right: 10px;
+    font-size: 80px;  /* Tamaño grande para el efecto de estar "detrás" */
+    color: rgba(0, 0, 0, 0.1);  /* Color con transparencia para un mejor efecto */
+    transform: translateY(-50%);
+    z-index: 1;  /* Asegura que el icono esté detrás del texto */
+}
+
+
 .employee-card-cordoba{
     background: rebeccapurple;
     border-radius: 10px;
@@ -384,7 +406,8 @@ label {
 input[type="text"],
 input[type="password"],
 input[type="number"], 
-input[type="date"]{
+input[type="date"],
+input[type="email"]{
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 5px;

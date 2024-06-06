@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <script src="js/script.js"></script>
-    <title>Usuarios</title>
+    <title>Clientes</title>
     <link rel="icon" type="img/jpg" href="imagenes/logo.jpeg">
 </head>
 <body>
@@ -29,15 +29,11 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Formulario de Registro de Usuarios</h2>
+            <h2>Formulario de Registro de Clientes</h2>
             <form>
-                <label for="nombre">Nombre de Usuario:</label>
-                <input type="text" id="nombre" name="nombre"  placeholder="Usuario" required>
-                <label for="correo">Correo:</label>
-                <input type="email" id="correo" name="correo" placeholder="example@gmail.com" required>
-                <label for="contrasena">Contraseña:</label>
-                <input type="password" id="contrasena" name="contrasena" placeholder="contraseña" required>
-                <button type="submit" class="btn-login" onclick="location.href='usuarios.html'">Registrar Usuarios</button>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre"  placeholder="Kevin Alexander" required>
+                <button type="submit" class="btn-login" onclick="location.href='clientes.html'">Registrar Cliente</button>
             </form>
         </div>
     </div>
@@ -58,19 +54,19 @@
         </div>
 
         <div class="card-container">
-            <h3 class="main-title">Registros de Usuarios </h3>
+            <h3 class="main-title">Registros de Categorias </h3>
             <div class="card-wapper">
                 <div class="employee-card">
                     <div class="card-header">
                     <div class="employee">
                         <span class="title">
-                            Usuarios
+                            Categorias
                         </span>
                         <span class="card-detail">
-                            Total de usuarios registrados: 12000 Usuarios.
+                            Total de categorias registrados: 4 categorias.
                         </span>
                     </div>
-                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                    </div>
                 </div>
             </div>
@@ -82,7 +78,7 @@
             
             <div class="btn-agregar">
                 <a href="#" class="open-modal">
-                    <button><i class="fa fa-plus"></i> Agregar Usuario</button>
+                    <button><i class="fa fa-plus"></i> Agregar Categoria</button>
                 </a>
             </div>
 
@@ -90,18 +86,14 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Nombre de Usuario</th>
-                            <th>Correo</th>
-                            <th>Contraseña</th>
+                            <th>Nombre</th>
                             <th>Operaciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Registo de ejemplo -->
                         <tr>
-                            <td>Juan123</td>
-                            <td>juan.perez@utcv.edu.mx</td>
-                            <td>juanClave123</td>
+                            <td>Bebida</td>
                             <td>
                                 <div class="operaciones">
                                     <a href=""><button class="ver"><i class="fa fa-eye"></i>Ver</button></a>          
