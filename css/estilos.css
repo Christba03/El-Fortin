@@ -159,7 +159,7 @@ i{
 /*Estliso para el body*/
 
 .banner{
-    background-image: linear-gradient(100deg, #000000, #00000020) ,url(imagenes/concha-chocolate.jpg);
+    background-image: linear-gradient(100deg, #000000, #00000020) ,url(/imagenes/concha-chocolate.jpg);
     height: 40rem;
     background-size: cover;
     background-position: center;
