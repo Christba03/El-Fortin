@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <script src="js/script.js"></script>
-    <title>Empleados</title>
+    <title>Productos</title>
     <link rel="icon" type="img/jpg" href="imagenes/logo.jpeg">
 </head>
 <body>
@@ -29,19 +29,15 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Formulario de Registro de Empleados</h2>
+            <h2>Formulario de Registro de Productos</h2>
             <form>
-                <label for="username">Nombre del Empleado: </label>
+                <label for="username">Nombre del Producto:</label>
                 <input type="text" id="nombre" name="nombre" required>
-                <label for="apellidoPaterno:">Apellido Paterno:</label>
-                <input type="text" id="apellidop" name="apellidop" required>
-                <label for="apellidoPaterno:">Apellido Materno:</label>
-                <input type="text" id="apellidop" name="apellidop" required>
-                <label for="salario:">Salario:</label>
-                <input type="text" id="salario" name="salario" required>
-                <label for="telefono:">Numero de Telefono:</label>
-                <input type="text" id="apellidop" name="apellidop" required>
-                <button type="submit" class="btn-login" onclick="location.href='dashboard.html'">Registrar Empleado</button>
+                <label for="apellidoPaterno:">Descripcion:</label>
+                <input type="text" id="descripcion" name="descripcion" required>
+                <label for="stock:">Stock:</label>
+                <input type="number" id="stock" name="stock" required>
+                <button type="submit" class="btn-login" onclick="location.href='productos.html'">Registrar Producto</button>
             </form>
         </div>
     </div>
@@ -62,47 +58,19 @@
         </div>
 
         <div class="card-container">
-            <h3 class="main-title">Registros de Empelados </h3>
+            <h3 class="main-title">Registros de Productos </h3>
             <div class="card-wapper">
                 <div class="employee-card">
                     <div class="card-header">
                     <div class="employee">
                         <span class="title">
-                            Empleados
+                            Productos
                         </span>
                         <span class="card-detail">
-                            Empleados registrados en Fortin: 23 Empleados.
+                            Total de productos registrados: 200 Productos.
                         </span>
                     </div>
-                    <i class="fa fa-users" aria-hidden="true"></i>
-                   </div>
-                </div>
-
-                <div class="employee-card-cordoba">
-                    <div class="card-header">
-                    <div class="employee">
-                        <span class="title">
-                            Empleados
-                        </span>
-                        <span class="card-detail">
-                            Empleados registrados en Cordoba: 15 Empleados.
-                        </span>
-                    </div>
-                    <i class="fa fa-users" aria-hidden="true"></i>
-                   </div>
-                </div>
-
-                <div class="employee-card-total">
-                    <div class="card-header">
-                    <div class="employee">
-                        <span class="title">
-                            Empleados
-                        </span>
-                        <span class="card-detail">
-                            Total de registro: 35 Empleados.
-                        </span>
-                    </div>
-                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                    </div>
                 </div>
             </div>
@@ -111,9 +79,10 @@
         <div class="tabular-wrappe">
             <h3 class="main-title">Tabla de Registros</h3>
 
+            
             <div class="btn-agregar">
                 <a href="#" class="open-modal">
-                    <button><i class="fa fa-plus"></i> Agregar Empleados</button>
+                    <button><i class="fa fa-plus"></i> Agregar Productos</button>
                 </a>
             </div>
 
@@ -122,21 +91,23 @@
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Apellido Paterno</th>
-                            <th>Apellido Materno</th>
-                            <th>Correo</th>
-                            <th>Contraseña</th>
+                            <th>Precio</th>
+                            <th>Descripción</th>
+                            <th>Categoria</th>
+        <!-- ? -->          <th>Tipo</th>
+                            <th>Stock</th>
                             <th>Operaciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Registo de ejemplo -->
                         <tr>
-                            <td>Juan</td>
-                            <td>Pérez</td>
-                            <td>Gómez</td>
-                            <td>juan.perez@utcv.edu.mx</td>
-                            <td>juan123</td>
+                            <td>Cafe</td>
+                            <td>$20</td>
+                            <td>Cafe con leche</td>
+                            <td>Bebida</td>
+                            <td>Bebida</td>
+                            <td>50</td>
                             <td>
                                 <div class="operaciones">
                                     <a href=""><button class="ver"><i class="fa fa-eye"></i>Ver</button></a>          

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <script src="js/script.js"></script>
-    <title>Empleados</title>
+    <title>Ventas</title>
     <link rel="icon" type="img/jpg" href="imagenes/logo.jpeg">
 </head>
 <body>
@@ -14,7 +14,7 @@
         <ul>   
             <a href="index.html"><li><i class="fa fa-home"></i> Inicio</li></a>
             <a href="dashboard.html"><li><i class="fa fa-users" aria-hidden="true"></i>Empleados</li></a>
-            <a class="activo" href="clientes.html"><li><i class="fa fa-users" aria-hidden="true"></i> Clientes</li></a>
+            <a href="clientes.html"><li><i class="fa fa-users" aria-hidden="true"></i> Clientes</li></a>
             <a href="productos.html"><li><i class="fa fa-shopping-bag" aria-hidden="true"></i>Productos</li></a>
             <a href="pedidos.html"><li><i class="fa fa-sticky-note-o" aria-hidden="true"></i>Pedidos</li></a>
             <a href="recetas.html"><li><i class="fa fa-cutlery" aria-hidden="true"></i>Recetas</li></a>
@@ -29,19 +29,21 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Formulario de Registro de Empleados</h2>
+            <h2>Formulario de Registro de Ventas</h2>
             <form>
-                <label for="username">Nombre del Empleado: </label>
-                <input type="text" id="nombre" name="nombre" required>
-                <label for="apellidoPaterno:">Apellido Paterno:</label>
-                <input type="text" id="apellidop" name="apellidop" required>
-                <label for="apellidoPaterno:">Apellido Materno:</label>
-                <input type="text" id="apellidop" name="apellidop" required>
-                <label for="salario:">Salario:</label>
-                <input type="text" id="salario" name="salario" required>
-                <label for="telefono:">Numero de Telefono:</label>
-                <input type="text" id="apellidop" name="apellidop" required>
-                <button type="submit" class="btn-login" onclick="location.href='dashboard.html'">Registrar Empleado</button>
+                <label for="nombre_cliente">Nombre Cliente:</label>
+                <input type="text" id="nombre_cliente" name="nombre_cliente"  placeholder="Nombre_cliente" required>
+                <label for="nombre_empleado">Nombre Empleado:</label>
+                <input type="text" id="nombre_empleado" name="nombre_empleado"  placeholder="Nombre_empleado" required>
+                <label for="forma_pago">Forma de pago:</label><br>                    
+                <SELECT NAME="forma_pago">
+                  <OPTION>Efectivo
+                  <OPTION>Tarjeta de Débito
+                  <OPTION>Tarjeta de Crédito
+                </SELECT>
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" placeholder="fecha" required>
+                <button type="submit" class="btn-login" onclick="location.href='recetas.html'">Registrar Receta</button>
             </form>
         </div>
     </div>
@@ -62,47 +64,19 @@
         </div>
 
         <div class="card-container">
-            <h3 class="main-title">Registros de Empelados </h3>
+            <h3 class="main-title">Registros de Recetas </h3>
             <div class="card-wapper">
                 <div class="employee-card">
                     <div class="card-header">
                     <div class="employee">
                         <span class="title">
-                            Empleados
+                            Pedidos
                         </span>
                         <span class="card-detail">
-                            Empleados registrados en Fortin: 23 Empleados.
+                            Total de recetas: 100 recetas
                         </span>
                     </div>
-                    <i class="fa fa-users" aria-hidden="true"></i>
-                   </div>
-                </div>
-
-                <div class="employee-card-cordoba">
-                    <div class="card-header">
-                    <div class="employee">
-                        <span class="title">
-                            Empleados
-                        </span>
-                        <span class="card-detail">
-                            Empleados registrados en Cordoba: 15 Empleados.
-                        </span>
-                    </div>
-                    <i class="fa fa-users" aria-hidden="true"></i>
-                   </div>
-                </div>
-
-                <div class="employee-card-total">
-                    <div class="card-header">
-                    <div class="employee">
-                        <span class="title">
-                            Empleados
-                        </span>
-                        <span class="card-detail">
-                            Total de registro: 35 Empleados.
-                        </span>
-                    </div>
-                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <i class="fa fa-cutlery" aria-hidden="true"></i>
                    </div>
                 </div>
             </div>
@@ -111,32 +85,43 @@
         <div class="tabular-wrappe">
             <h3 class="main-title">Tabla de Registros</h3>
 
+            
             <div class="btn-agregar">
                 <a href="#" class="open-modal">
-                    <button><i class="fa fa-plus"></i> Agregar Empleados</button>
+                    <button><i class="fa fa-plus"></i> Agregar Receta</button>
                 </a>
             </div>
 
             <div class="table-container">
                 <table>
                     <thead>
-                        <tr>
+                        <tr>                    
                             <th>Nombre</th>
-                            <th>Apellido Paterno</th>
-                            <th>Apellido Materno</th>
-                            <th>Correo</th>
-                            <th>Contraseña</th>
+                            <th>Tiempo de Preparación</th>
+                            <th>Descripción</th>
                             <th>Operaciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Registo de ejemplo -->
                         <tr>
-                            <td>Juan</td>
-                            <td>Pérez</td>
-                            <td>Gómez</td>
-                            <td>juan.perez@utcv.edu.mx</td>
-                            <td>juan123</td>
+                            <td>baguette de salami</td>
+                            <td>20 minutos</td>
+                            <td>1 pieza de pan de baguette.<br>
+                                100 gr. de salami.<br>
+                                150 gr. de queso manchego, rebanado.<br>
+                                1 cucharada de mayonesa<br>
+                                ½ pieza de tomate.<br>
+                                ¼ pieza de cebolla morada.<br>
+                                3 hojas de lechuga sangría.<br>
+                                ½ pieza de aguacate.<br>
+                                ¼ pieza de pepino.<br>
+                                ¼ taza de arúgula.<br>
+                               1.- Vamos a comenzar lavando y desinfectando las verduras, el tomate, la cebolla morada, lechuga y pepino. Rebanamos el tomate, el pepino y la cebolla. <br>
+                               2.- Rebanamos el pan por la mitad y untamos un poco de mayonesa por ambos lados, colocamos una cama de lechuga y arúgula, después agregamos las rebanadas de queso manchego. <br> 
+                               3.- Luego ponemos las demás verduras en rebanadas, por último, colocamos las rebanadas de salami y cerramos. <br>
+                               4.- Servimos y disfrutamos.</td>
+                    
                             <td>
                                 <div class="operaciones">
                                     <a href=""><button class="ver"><i class="fa fa-eye"></i>Ver</button></a>          

@@ -1,0 +1,419 @@
+/*COLORES ESTABLECIDOS*/
+:root {
+    --primary-color: #c7a17a;
+    --background-color: #f9f5f0;
+    --dark-color: #151515;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    background-color: var(--background-color);
+}
+
+nav{
+    width: 200px;
+    background-color: var(--primary-color);
+    padding-top: 20px;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
+}
+
+nav ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li{
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: bacground-color 0.3s;
+}
+
+nav ul li:hover{
+    background-color: white;
+}
+nav ul li i{
+    margin-right: 20px;
+}
+
+nav a{
+    text-decoration: none;
+    color: var(--dark-color);
+}
+
+.main-content{
+    position: relative;
+    width: 100%;
+    padding: 2rem;
+    margin-left: 200px;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    padding: 10px 2rem;
+    margin-bottom: 1rem;
+}
+
+.header img{
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.title-header{
+    color: var(--dark-color);
+}
+
+.info-user{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.search-box{
+    background-color: var(--background-color);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+}
+
+.search-box input{
+    background: transparent;
+    padding: 10px;
+}
+
+.search-box i{
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all .5s ease-out;
+}
+
+.search-box i:hover{
+    transform: scale(1.1);
+}
+
+/*Contenido de las cartas*/
+.card-container{
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+}
+
+.card-wapper{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.main-title{
+    color: var(--primary-color);
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+.employee-card{
+    background: green;
+    border-radius: 10px;
+    padding: 1.5rem;
+    width: 290px;
+    height: 150px;
+    display: flex;
+    color: #fff;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;  /* Para que el icono se posicione relativo a este contenedor */
+    overflow: hidden;  /* Para asegurarnos que el icono no salga del contenedor */
+    transition: all .5s ease-in-out;
+}
+
+.employee-card:hover{
+    transform: translateY(-5px);
+}
+.card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;  /* Importante para la correcta posición del texto */
+}
+
+.employee{
+    display: flex;
+    flex-direction: column;
+    z-index: 2;  /* Asegura que el texto esté delante del icono */
+}
+
+.title{
+    font-size: 15px;
+    font-weight: 200;
+}
+
+.card-detail{
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+}
+
+.card-header .fa-users {
+    position: absolute;
+    top: 100%;  /* Centra verticalmente el icono */
+    right: 10px;
+    font-size: 80px;  /* Tamaño grande para el efecto de estar "detrás" */
+    color: rgba(0, 0, 0, 0.1);  /* Color con transparencia para un mejor efecto */
+    transform: translateY(-50%);
+    z-index: 1;  /* Asegura que el icono esté detrás del texto */
+}
+
+.card-header .fa-shopping-bag{
+    position: absolute;
+    top: 100%;  /* Centra verticalmente el icono */
+    right: 10px;
+    font-size: 80px;  /* Tamaño grande para el efecto de estar "detrás" */
+    color: rgba(0, 0, 0, 0.1);  /* Color con transparencia para un mejor efecto */
+    transform: translateY(-50%);
+    z-index: 1;  /* Asegura que el icono esté detrás del texto */
+}
+
+.card-header .fa-sticky-note-o{
+    position: absolute;
+    top: 100%;  /* Centra verticalmente el icono */
+    right: 10px;
+    font-size: 80px;  /* Tamaño grande para el efecto de estar "detrás" */
+    color: rgba(0, 0, 0, 0.1);  /* Color con transparencia para un mejor efecto */
+    transform: translateY(-50%);
+    z-index: 1;  /* Asegura que el icono esté detrás del texto */
+}
+
+.card-header .fa-cutlery{
+    position: absolute;
+    top: 100%;  /* Centra verticalmente el icono */
+    right: 10px;
+    font-size: 80px;  /* Tamaño grande para el efecto de estar "detrás" */
+    color: rgba(0, 0, 0, 0.1);  /* Color con transparencia para un mejor efecto */
+    transform: translateY(-50%);
+    z-index: 1;  /* Asegura que el icono esté detrás del texto */
+}
+
+.card-header .fa-ticket{
+    position: absolute;
+    top: 100%;  /* Centra verticalmente el icono */
+    right: 10px;
+    font-size: 80px;  /* Tamaño grande para el efecto de estar "detrás" */
+    color: rgba(0, 0, 0, 0.1);  /* Color con transparencia para un mejor efecto */
+    transform: translateY(-50%);
+    z-index: 1;  /* Asegura que el icono esté detrás del texto */
+}
+.employee-card-cordoba{
+    background: rebeccapurple;
+    border-radius: 10px;
+    padding: 1.5rem;
+    width: 290px;
+    height: 150px;
+    display: flex;
+    color: #fff;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;  /* Para que el icono se posicione relativo a este contenedor */
+    overflow: hidden;  /* Para asegurarnos que el icono no salga del contenedor */
+    transition: all .5s ease-in-out;
+}
+
+.employee-card-cordoba:hover{
+    transform: translateY(-5px);
+}
+
+.employee-card-total{
+    background: orange;
+    border-radius: 10px;
+    padding: 1.5rem;
+    width: 290px;
+    height: 150px;
+    display: flex;
+    color: #fff;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;  /* Para que el icono se posicione relativo a este contenedor */
+    overflow: hidden;  /* Para asegurarnos que el icono no salga del contenedor */
+    transition: all .5s ease-in-out;
+}
+
+.employee-card-total:hover{
+    transform: translateY(-5px);
+}
+
+
+/*Estilo para las tablas*/
+.tabular-wrappe{
+    background: #fff;
+    margin-top: 1rem;
+    border-radius: 10px;
+    padding: 2rem;
+    border: 1px solid var(--primary-color);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.operaciones {
+    display: flex;
+    gap: 10px;
+}
+.operaciones button {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 30px;
+    background-color: #f4f4f4;
+    transition: background-color 0.3s;
+}
+.operaciones button.ver:hover {
+    background-color: yellow;
+}
+
+.operaciones button.editar:hover{
+    background-color: rgb(0, 146, 204);
+}
+
+.operaciones button.eliminar:hover{
+    background-color: red;
+}
+
+.btn-agregar {
+    margin-bottom: 20px;
+}
+.btn-agregar button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    background-color: #109914;
+    border: none;
+    color: white;
+    transition: background-color 0.3s;
+}
+.btn-agregar button:hover {
+    background-color: green;
+}
+
+/*Estilos para la seccion de footer*/
+
+.container_footer{
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding: 3rem;
+}
+
+
+/*VENTANA MODAL XD*/
+/* Estilos para la ventana modal */
+.modal {
+    display: none; /* Por defecto, la modal está oculta */
+    position: fixed; /* Permite que la modal esté fija en la pantalla */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    background-color: rgba(0,0,0,0.5); /* Fondo semitransparente para oscurecer el resto de la página */
+}
+
+/* Estilos para el contenido de la modal */
+.modal-content {
+    background-color: #fefefe;
+    margin: 50px auto; /* Ajusta este valor para mover la ventana modal hacia abajo */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px; /* Anchura máxima de la modal */
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+/* Estilos para el botón de cerrar */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+
+form {
+    display: grid;
+    gap: 1rem;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"], 
+input[type="date"]{
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+select{
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+textarea{
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button[type="submit"] {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--primary-color);
+}

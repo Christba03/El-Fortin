@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <script src="js/script.js"></script>
-    <title>Empleados</title>
+    <title>Pedidos</title>
     <link rel="icon" type="img/jpg" href="imagenes/logo.jpeg">
 </head>
 <body>
@@ -29,19 +29,30 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Formulario de Registro de Empleados</h2>
+            <h2>Formulario de Registro de Pedidos</h2>
             <form>
-                <label for="username">Nombre del Empleado: </label>
+                <label for="username">Nombre del Cliente:</label>
                 <input type="text" id="nombre" name="nombre" required>
-                <label for="apellidoPaterno:">Apellido Paterno:</label>
+                <label for="apellidoPaterno:">Nombre del Empleado:</label>
                 <input type="text" id="apellidop" name="apellidop" required>
-                <label for="apellidoPaterno:">Apellido Materno:</label>
-                <input type="text" id="apellidop" name="apellidop" required>
-                <label for="salario:">Salario:</label>
-                <input type="text" id="salario" name="salario" required>
-                <label for="telefono:">Numero de Telefono:</label>
-                <input type="text" id="apellidop" name="apellidop" required>
-                <button type="submit" class="btn-login" onclick="location.href='dashboard.html'">Registrar Empleado</button>
+                <label for="mesa">Numero de mesa: </label>
+                <SELECT NAME="mesa">
+                    <OPTION>1
+                    <OPTION>2
+                    <OPTION>3
+                    <OPTION>4
+                    <OPTION>5
+                    <OPTION>6
+                    <OPTION>7
+                    <OPTION>8
+                  </SELECT>
+                <label for="iva_pagar">IVA a pagar:</label>
+                <input type="number" id="iva_pagar" name="iva_pagar" placeholder="iva_pagar" required>
+                <label for="monto_total">Monto Total:</label>
+                <input type="number" id="monto_total" name="monto_total" placeholder="monto_total" required>
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" placeholder="fecha" required>
+                <button type="submit" class="btn-login" onclick="location.href='pedidos.html'">Registrar Cliente</button>
             </form>
         </div>
     </div>
@@ -62,47 +73,19 @@
         </div>
 
         <div class="card-container">
-            <h3 class="main-title">Registros de Empelados </h3>
+            <h3 class="main-title">Registros de Pedidos </h3>
             <div class="card-wapper">
                 <div class="employee-card">
                     <div class="card-header">
                     <div class="employee">
                         <span class="title">
-                            Empleados
+                            Pedidos
                         </span>
                         <span class="card-detail">
-                            Empleados registrados en Fortin: 23 Empleados.
+                            Total de pedidos registrados: 288 pedidos
                         </span>
                     </div>
-                    <i class="fa fa-users" aria-hidden="true"></i>
-                   </div>
-                </div>
-
-                <div class="employee-card-cordoba">
-                    <div class="card-header">
-                    <div class="employee">
-                        <span class="title">
-                            Empleados
-                        </span>
-                        <span class="card-detail">
-                            Empleados registrados en Cordoba: 15 Empleados.
-                        </span>
-                    </div>
-                    <i class="fa fa-users" aria-hidden="true"></i>
-                   </div>
-                </div>
-
-                <div class="employee-card-total">
-                    <div class="card-header">
-                    <div class="employee">
-                        <span class="title">
-                            Empleados
-                        </span>
-                        <span class="card-detail">
-                            Total de registro: 35 Empleados.
-                        </span>
-                    </div>
-                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
                    </div>
                 </div>
             </div>
@@ -111,32 +94,39 @@
         <div class="tabular-wrappe">
             <h3 class="main-title">Tabla de Registros</h3>
 
+            
             <div class="btn-agregar">
                 <a href="#" class="open-modal">
-                    <button><i class="fa fa-plus"></i> Agregar Empleados</button>
+                    <button><i class="fa fa-plus"></i> Agregar Pedido</button>
                 </a>
             </div>
 
             <div class="table-container">
                 <table>
                     <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Apellido Paterno</th>
-                            <th>Apellido Materno</th>
-                            <th>Correo</th>
-                            <th>Contraseña</th>
+                        <tr>                    
+                            <th>Cliente</th>
+                            <th>Empleado</th>
+                            <th>Mesa</th>
+                            <th>Forma de pago</th>
+                            <th>IVA a pagar</th>
+                            <th>Monto Total</th>
+        <!-- ? -->          <th>Fecha</th>
+                            <th>Descuento</th>
                             <th>Operaciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Registo de ejemplo -->
                         <tr>
-                            <td>Juan</td>
-                            <td>Pérez</td>
-                            <td>Gómez</td>
-                            <td>juan.perez@utcv.edu.mx</td>
-                            <td>juan123</td>
+                            <td>Jose Angel Lopez Rivera</td>
+                            <td>Jose Manuel Lara Villalobos</td>
+                            <td>2</td>
+                            <td>Efectivo</td>
+                            <td>$128</td>
+                            <td>$928</td>
+                            <td>04/06/2024</td>
+                            <td>No</td>
                             <td>
                                 <div class="operaciones">
                                     <a href=""><button class="ver"><i class="fa fa-eye"></i>Ver</button></a>          
