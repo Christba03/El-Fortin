@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <script src="js/script.js"></script>
-    <title>Productos</title>
+    <title>Detalle Ventas</title>
     <link rel="icon" type="img/jpg" href="imagenes/logo.jpeg">
 </head>
 <body>
@@ -29,15 +29,13 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Formulario de Registro de Productos</h2>
+            <h2>Formulario de Registro de Detalle Ventas</h2>
             <form>
-                <label for="username">Nombre del Producto:</label>
-                <input type="text" id="nombre" name="nombre" required>
-                <label for="apellidoPaterno:">Descripcion:</label>
-                <input type="text" id="descripcion" name="descripcion" required>
-                <label for="stock:">Stock:</label>
-                <input type="number" id="stock" name="stock" required>
-                <button type="submit" class="btn-login" onclick="location.href='productos.html'">Registrar Producto</button>
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad|" name="cantidad"  placeholder="cantidad" required>
+                <label for="costo">Costo:</label>
+                <input type="number" id="costo" name="costo"  placeholder="costo" required>
+                <button type="submit" class="btn-login" onclick="location.href='detalleVentas.html'">Registrar Receta</button>
             </form>
         </div>
     </div>
@@ -58,19 +56,19 @@
         </div>
 
         <div class="card-container">
-            <h3 class="main-title">Registros de Productos </h3>
+            <h3 class="main-title">Registros de Detalles Ventas </h3>
             <div class="card-wapper">
                 <div class="employee-card">
                     <div class="card-header">
                     <div class="employee">
                         <span class="title">
-                            Productos
+                            Detalle Ventas
                         </span>
                         <span class="card-detail">
-                            Total de productos registrados: 200 Productos.
+                            Total de Detalles Ventas: 100 
                         </span>
                     </div>
-                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                    <i class="fa fa fa-ticket" aria-hidden="true"></i>
                    </div>
                 </div>
             </div>
@@ -82,32 +80,25 @@
             
             <div class="btn-agregar">
                 <a href="#" class="open-modal">
-                    <button><i class="fa fa-plus"></i> Agregar Productos</button>
+                    <button><i class="fa fa-plus"></i> Agregar Detalle Venta</button>
                 </a>
             </div>
 
             <div class="table-container">
                 <table>
                     <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Precio</th>
-                            <th>Descripción</th>
-                            <th>Categoria</th>
-        <!-- ? -->          <th>Tipo</th>
-                            <th>Stock</th>
+                        <tr>                    
+                            <th>Cantidad</th>
+                            <th>Costo</th>                 
                             <th>Operaciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Registo de ejemplo -->
                         <tr>
-                            <td>Cafe</td>
-                            <td>$20</td>
-                            <td>Cafe con leche</td>
-                            <td>Bebida</td>
-                            <td>Bebida</td>
-                            <td>50</td>
+                            <td>9</td>
+                            <td>$928</td>
+                        
                             <td>
                                 <div class="operaciones">
                                     <a href=""><button class="ver"><i class="fa fa-eye"></i>Ver</button></a>          
