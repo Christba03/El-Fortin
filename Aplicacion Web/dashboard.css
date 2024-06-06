@@ -47,6 +47,11 @@ nav ul li i{
     margin-right: 20px;
 }
 
+nav ul a.activo{
+    background-color: rgb(116, 116, 116);
+    
+}
+
 nav a{
     text-decoration: none;
     color: var(--dark-color);

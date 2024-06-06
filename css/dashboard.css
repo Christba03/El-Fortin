@@ -182,6 +182,67 @@ nav a{
     z-index: 1;  /* Asegura que el icono esté detrás del texto */
 }
 
+.card-header .fa-shopping-bag{
+    position: absolute;
+    top: 100%;  /* Centra verticalmente el icono */
+    right: 10px;
+    font-size: 80px;  /* Tamaño grande para el efecto de estar "detrás" */
+    color: rgba(0, 0, 0, 0.1);  /* Color con transparencia para un mejor efecto */
+    transform: translateY(-50%);
+    z-index: 1;  /* Asegura que el icono esté detrás del texto */
+}
+
+.card-header .fa-sticky-note-o{
+    position: absolute;
+    top: 100%;  /* Centra verticalmente el icono */
+    right: 10px;
+    font-size: 80px;  /* Tamaño grande para el efecto de estar "detrás" */
+    color: rgba(0, 0, 0, 0.1);  /* Color con transparencia para un mejor efecto */
+    transform: translateY(-50%);
+    z-index: 1;  /* Asegura que el icono esté detrás del texto */
+}
+
+.card-header .fa-cutlery{
+    position: absolute;
+    top: 100%;  /* Centra verticalmente el icono */
+    right: 10px;
+    font-size: 80px;  /* Tamaño grande para el efecto de estar "detrás" */
+    color: rgba(0, 0, 0, 0.1);  /* Color con transparencia para un mejor efecto */
+    transform: translateY(-50%);
+    z-index: 1;  /* Asegura que el icono esté detrás del texto */
+}
+
+.card-header .fa-ticket{
+    position: absolute;
+    top: 100%;  /* Centra verticalmente el icono */
+    right: 10px;
+    font-size: 80px;  /* Tamaño grande para el efecto de estar "detrás" */
+    color: rgba(0, 0, 0, 0.1);  /* Color con transparencia para un mejor efecto */
+    transform: translateY(-50%);
+    z-index: 1;  /* Asegura que el icono esté detrás del texto */
+}
+
+.card-header .fa-user{
+    position: absolute;
+    top: 100%;  /* Centra verticalmente el icono */
+    right: 10px;
+    font-size: 80px;  /* Tamaño grande para el efecto de estar "detrás" */
+    color: rgba(0, 0, 0, 0.1);  /* Color con transparencia para un mejor efecto */
+    transform: translateY(-50%);
+    z-index: 1;  /* Asegura que el icono esté detrás del texto */
+}
+
+.card-header .fa-shopping-basket{
+    position: absolute;
+    top: 100%;  /* Centra verticalmente el icono */
+    right: 10px;
+    font-size: 80px;  /* Tamaño grande para el efecto de estar "detrás" */
+    color: rgba(0, 0, 0, 0.1);  /* Color con transparencia para un mejor efecto */
+    transform: translateY(-50%);
+    z-index: 1;  /* Asegura que el icono esté detrás del texto */
+}
+
+
 .employee-card-cordoba{
     background: rebeccapurple;
     border-radius: 10px;
@@ -309,6 +370,17 @@ th {
     background-color: rgba(0,0,0,0.5); /* Fondo semitransparente para oscurecer el resto de la página */
 }
 
+.modalView{
+    display: none; /* Por defecto, la modal está oculta */
+    position: fixed; /* Permite que la modal esté fija en la pantalla */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    background-color: rgba(0,0,0,0.5); /* Fondo semitransparente para oscurecer el resto de la página */
+}
+
 /* Estilos para el contenido de la modal */
 .modal-content {
     background-color: #fefefe;
@@ -333,6 +405,15 @@ th {
     cursor: pointer;
 }
 
+.closeView {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
 form {
     display: grid;
     gap: 1rem;
@@ -343,7 +424,24 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="number"], 
+input[type="date"],
+input[type="email"]{
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+select{
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+textarea{
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 5px;

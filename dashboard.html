@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <script src="js/script.js"></script>
+    <script src="js/view.js"></script>
     <title>Empleados</title>
     <link rel="icon" type="img/jpg" href="imagenes/logo.jpeg">
 </head>
@@ -43,6 +44,19 @@
                 <input type="text" id="apellidop" name="apellidop" required>
                 <button type="submit" class="btn-login" onclick="location.href='dashboard.html'">Registrar Empleado</button>
             </form>
+        </div>
+    </div>
+
+    
+    <div id="myModalView" class="modalView">
+        <div class="modal-content">
+            <span class="closeView">&times;</span>
+            <h2>Informacion del Registro</h2>
+            <p>Nombre:Juan</p>
+            <p>Apellido Paterno:Pérez</p>
+            <p>Apellido Materno:Gómez</p>
+            <p>Correo:juan.perez@utcv.edu.mx</p>
+            <p>Contraseña:juan123</p>
         </div>
     </div>
 
@@ -139,7 +153,7 @@
                             <td>juan123</td>
                             <td>
                                 <div class="operaciones">
-                                    <a href=""><button class="ver"><i class="fa fa-eye"></i>Ver</button></a>          
+                                    <a href="#" class="open-modalview"><button><i class="fa fa-eye"></i>Ver</button></a>          
                                     <button class="editar"><i class="fa fa-pencil"></i> Editar</button>                           
                                     <button class="eliminar"><i class="fa fa-trash"></i> Eliminar</button>
                                 </div>
