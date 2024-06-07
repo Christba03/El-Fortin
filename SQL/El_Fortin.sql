@@ -1,24 +1,29 @@
 CREATE TABLE USUARIOS (
   usuario_id SERIAL NOT NULL, 
   user_name varchar(15) NOT NULL UNIQUE, 
-  "password" varchar(15) NOT NULL, 
+  "contrasenna" varchar(15) NOT NULL, 
   email   varchar(30) NOT NULL UNIQUE, 
   PRIMARY KEY (usuario_id));
 
+CREATE TABLE PERSONAS (
+  persona_id SERIAL NOT NULL,
+  Nombre varchar(35) NOT NULL,
+  ApPaterno varchar(35) NOT NULL,
+  ApMaterno varchar(35),
+  Correo varchar(45) NOT NULL, 
+  Telefono varchar(10) NOT NULL, 
+  PRIMARY KEY (persona_id));
+
 CREATE TABLE CLIENTES (
-  Cliente_id SERIAL NOT NULL, 
-  nombre varchar(35) NOT NULL, 
-  apellidop  varchar(35) NOT NULL, 
-  apellidom  varchar(35) NOT NULL, 
+  Cliente_id SERIAL NOT NULL,
+  persona_id INT NOT NULL, 
   usuario_id int4 NOT NULL, 
   PRIMARY KEY (Cliente_id),
-  FOREIGN KEY(usuario_id) REFERENCES USUARIOS (usuario_id));
+  FOREIGN KEY(usuario_id) REFERENCES USUARIOS (usuario_id),
+  FOREIGN KEY(persona_id) REFERENCES PERSONAS (persona_id));
 
 CREATE TABLE EMPLEADOS (
   empleado_id SERIAL NOT NULL, 
-  nombre  varchar(35) NOT NULL, 
-  apellidop varchar(35) NOT NULL, 
-  apellidom varchar(35) NOT NULL, 
   salario  int NOT NULL, 
   fecha_pago date NOT NULL, 
   telefono char(10) NOT NULL, 
