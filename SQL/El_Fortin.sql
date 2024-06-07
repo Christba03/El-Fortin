@@ -43,6 +43,38 @@ CREATE TABLE RECETAS (
   PRIMARY KEY (recetas_id),
   FOREIGN KEY(empleado_id) REFERENCES EMPLEADOS (empleado_id));
 
+CREATE TABLE PEDIDOS (
+  pedido_id SERIAL NOT NULL, 
+  mesa int, 
+  estado varchar(10) NOT NULL, 
+  Cliente_id int NOT NULL, 
+  PRIMARY KEY (pedido_id),
+  FOREIGN KEY(Cliente_id) REFERENCES CLIENTES (Cliente_id));
+
+CREATE TABLE DETALLES_PEDIDOS (
+  detalle_pedido_id SERIAL NOT NULL, 
+  cantidad int NOT NULL, 
+  fecha_pedido date NOT NULL, 
+  producto_id int NOT NULL, 
+  pedido_id int NOT NULL, 
+  PRIMARY KEY (detalle_pedido_id),
+  FOREIGN KEY(producto_id) REFERENCES PRODUCTOS (producto_id),
+  FOREIGN KEY(pedido_id) REFERENCES PEDIDOS (pedido_id),
+  );
+
+
+CREATE TABLE FORMAS_PAGOS_VENTAS (
+  forma_pago_id int NOT NULL, 
+  venta_id int NOT NULL, 
+  PRIMARY KEY (forma_pago_id, VENTASventa_id),
+  FOREIGN KEY(forma_pago_id) REFERENCES FORMAS_PAGOS (forma_pago_id),
+  FOREIGN KEY(venta_id) REFERENCES VENTAS (venta_id));
+
+CREATE TABLE FORMAS_PAGOS (
+  forma_pago_id SERIAL NOT NULL, 
+  nombre varchar(20) NOT NULL, 
+  PRIMARY KEY (forma_pago_id));
+
 
 CREATE TABLE VENTAS (
   venta_id SERIAL NOT NULL, 
