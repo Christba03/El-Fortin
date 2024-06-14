@@ -1,7 +1,7 @@
 CREATE TABLE USUARIOS (
   usuario_id SERIAL NOT NULL, 
   user_name varchar(15) NOT NULL UNIQUE, 
-  "contrasenna" varchar(15) NOT NULL, 
+  contrasena varchar(15) NOT NULL, 
   email   varchar(30) NOT NULL UNIQUE, 
   PRIMARY KEY (usuario_id));
 
