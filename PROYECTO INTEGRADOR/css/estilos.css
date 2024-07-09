@@ -13,6 +13,10 @@
     box-sizing: border-box;
 }
 
+#nav-content{
+    background-color: var(--primary-color);
+}
+
 /* Estilos para el encabezado */
 .contenido-inicial {
     background-color: var(--background-color);
@@ -97,46 +101,6 @@ i{
 
 .menu a:hover{
     color: #fff;
-}
-
-.buscar{
-    position: relative;
-    display: flex;
-    align-items: center;
-    border: 2px solid #fff;
-    border-radius: 2rem;
-    background-color: #fff;
-    height: 3rem;
-    overflow: hidden;
-}
-.buscar input{
-    outline: none;
-    font-family: inherit;
-    border: none;
-    width: 20rem;
-    font-size: 1.2rem;
-    padding: 0rem;
-    color: #777;
-    margin: 20px;
-    cursor: pointer;
-}
-.buscar input::-webkit-search-cancel-button{
-    appearance: none;
-}
-
-.btn-buscar{
-    border: none;
-    background-color: var(--primary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 1rem;
-}
-
-.btn-buscar i{
-    font-size: 1.4rem;
-    color: #eee
 }
 
 /*Estliso para el body*/
