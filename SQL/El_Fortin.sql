@@ -35,7 +35,7 @@ CREATE TABLE EMPLEADOS (
 
 CREATE TABLE RECETAS (
   recetas_id SERIAL NOT NULL, 
-  "index"  int NOT NULL, 
+  /*preguntarle al profe "index"  int NOT NULL,*/ 
   nombre varchar(45) NOT NULL, 
   tiempo_preparacion time NOT NULL, 
   Descripcion varchar(255) NOT NULL, 
@@ -121,3 +121,52 @@ CREATE TABLE PEDIDOS (
 	PRIMARY KEY (pedido_id),
 	FOREIGN KEY(producto_id) REFERENCES PRODUCTOS (producto_id),
 	FOREIGN KEY(detalle_venta_id) REFERENCES DETALLES_VENTA (detalle_venta_id));
+
+
+CREATE TABLE BITACORA_RECETAS(
+ 		id			SERIAL,
+		table_name	TEXT NOT NULL,
+		table_id	TEXT NOT NULL,
+		description	TEXT NOT NULL,
+		created_at	TIMESTAMP DEFAULT NOW(),
+    operacion   TEXT NOT NULL,
+		PRIMARY KEY(id)
+);
+
+
+CREATE OR REPLACE FUNCTION registrar_cambios() RETURNS trigger AS $BODY$
+	DECLARE
+		vDescription TEXT;
+		vId INT;
+		vReturn RECORD;
+		vTipoOperacion TEXT;
+	BEGIN
+		vDescription := TG_TABLE_NAME || ' ';
+		 IF (TG_OP = 'INSERT') THEN
+			vId := NEW.recetas_id;
+			vDescription := vDescription || 'added. Id: ' || vId;
+			vTipoOperacion := 'INSERT';
+			vReturn := NEW;
+		 ELSIF (TG_OP = 'UPDATE') THEN
+			vId := NEW.recetas_id;
+			vDescription := vDescription || 'updated. Id: ' || vId;
+			vTipoOperacion := 'UPDATE';
+			vReturn := NEW;
+		 ELSIF (TG_OP = 'DELETE') THEN
+			vId := OLD.recetas_id;
+			vDescription := vDescription || 'deleted. Id: ' || vId;
+			vTipoOperacion := 'DELETE';
+			vReturn := OLD;
+		 END IF;
+
+	  RAISE NOTICE 'TRIGGER called on % - Log: %', TG_TABLE_NAME, vDescription;
+
+  INSERT INTO bitacora_comerciales
+		 (table_name, table_id, description, created_at, tipoOperacion)  
+		 VALUES
+		 (TG_TABLE_NAME, vId, vDescription, NOW(), vTipoOperacion);
+
+	  RETURN vReturn;
+	END $BODY$ LANGUAGE plpgsql;
+
+
