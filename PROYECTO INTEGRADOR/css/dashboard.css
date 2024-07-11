@@ -27,8 +27,8 @@ body{
     position: relative;
     width: 100%;
     padding: 2rem;
-    margin-left: 200px;
 }
+
 
 .header{
     display: flex;
