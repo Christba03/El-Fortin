@@ -17,7 +17,7 @@ CREATE TABLE PERSONAS (
 CREATE TABLE CLIENTES (
   Cliente_id SERIAL NOT NULL,
   persona_id INT NOT NULL, 
-  usuario_id int4 NOT NULL, 
+  usuario_id int NOT NULL, 
   PRIMARY KEY (Cliente_id),
   FOREIGN KEY(usuario_id) REFERENCES USUARIOS (usuario_id),
   FOREIGN KEY(persona_id) REFERENCES PERSONAS (persona_id));
@@ -134,39 +134,93 @@ CREATE TABLE BITACORA_RECETAS(
 );
 
 
-CREATE OR REPLACE FUNCTION registrar_cambios() RETURNS trigger AS $BODY$
+CREATE OR REPLACE FUNCTION registrar_cambios_recetas() RETURNS trigger AS $BODY$
 	DECLARE
 		vDescription TEXT;
 		vId INT;
 		vReturn RECORD;
-		vTipoOperacion TEXT;
+		vOperacion TEXT;
 	BEGIN
 		vDescription := TG_TABLE_NAME || ' ';
 		 IF (TG_OP = 'INSERT') THEN
 			vId := NEW.recetas_id;
 			vDescription := vDescription || 'added. Id: ' || vId;
-			vTipoOperacion := 'INSERT';
+			vOperacion := 'INSERT';
 			vReturn := NEW;
 		 ELSIF (TG_OP = 'UPDATE') THEN
 			vId := NEW.recetas_id;
 			vDescription := vDescription || 'updated. Id: ' || vId;
-			vTipoOperacion := 'UPDATE';
+			vOperacion := 'UPDATE';
 			vReturn := NEW;
 		 ELSIF (TG_OP = 'DELETE') THEN
 			vId := OLD.recetas_id;
 			vDescription := vDescription || 'deleted. Id: ' || vId;
-			vTipoOperacion := 'DELETE';
+			vOperacion := 'DELETE';
 			vReturn := OLD;
 		 END IF;
 
 	  RAISE NOTICE 'TRIGGER called on % - Log: %', TG_TABLE_NAME, vDescription;
 
   INSERT INTO bitacora_comerciales
-		 (table_name, table_id, description, created_at, tipoOperacion)  
+		 (table_name, table_id, description, created_at, Operacion)  
 		 VALUES
-		 (TG_TABLE_NAME, vId, vDescription, NOW(), vTipoOperacion);
+		 (TG_TABLE_NAME, vId, vDescription, NOW(), vOperacion);
 
 	  RETURN vReturn;
 	END $BODY$ LANGUAGE plpgsql;
 
+  CREATE TRIGGER registrar_cambios_recetas AFTER INSERT OR UPDATE OR DELETE
+	ON RECETAS FOR EACH ROW
+	EXECUTE PROCEDURE registrar_cambios_recetas();
+
+
+CREATE TABLE BITACORA_RECETAS(
+ 		id			SERIAL,
+		table_name	TEXT NOT NULL,
+		table_id	TEXT NOT NULL,
+		description	TEXT NOT NULL,
+		created_at	TIMESTAMP DEFAULT NOW(),
+    operacion   TEXT NOT NULL,
+		PRIMARY KEY(id)
+);
+
+
+CREATE OR REPLACE FUNCTION registrar_ventas() RETURNS trigger AS $BODY$
+	DECLARE
+		vDescription TEXT;
+		vId INT;
+		vReturn RECORD;
+		vOperacion TEXT;
+	BEGIN
+		vDescription := TG_TABLE_NAME || ' ';
+		 IF (TG_OP = 'INSERT') THEN
+			vId := NEW.ventas_id;
+			vDescription := vDescription || 'added. Id: ' || vId;
+			vOperacion := 'INSERT';
+			vReturn := NEW;
+		 ELSIF (TG_OP = 'UPDATE') THEN
+			vId := NEW.ventas_id;
+			vDescription := vDescription || 'updated. Id: ' || vId;
+			vOperacion := 'UPDATE';
+			vReturn := NEW;
+		 ELSIF (TG_OP = 'DELETE') THEN
+			vId := OLD.ventas_id;
+			vDescription := vDescription || 'deleted. Id: ' || vId;
+			vOperacion := 'DELETE';
+			vReturn := OLD;
+		 END IF;
+
+	  RAISE NOTICE 'TRIGGER called on % - Log: %', TG_TABLE_NAME, vDescription;
+
+  INSERT INTO bitacora_ventas
+		 (table_name, table_id, description, created_at, Operacion)  
+		 VALUES
+		 (TG_TABLE_NAME, vId, vDescription, NOW(), vOperacion);
+
+	  RETURN vReturn;
+	END $BODY$ LANGUAGE plpgsql;
+
+  CREATE TRIGGER registrar_ventas BEFORE INSERT OR UPDATE OR DELETE
+	ON VENTAS FOR EACH ROW
+	EXECUTE PROCEDURE registrar_ventas();
 
