@@ -236,7 +236,7 @@ i{
     justify-content: center;
     border-radius: 2rem;
     gap: 2rem;
-    background-image: linear-gradient(#00000080, #00000080), url(/recursos/imagenes/concha-rosa.jpg);
+    background-image: linear-gradient(#00000080, #00000080), url(../recursos/concha-rosa.jpg);
     background-size: cover;
     background-position: bottom;
     background-repeat: no-repeat;
@@ -249,7 +249,7 @@ i{
     justify-content: center;
     border-radius: 2rem;
     gap: 2rem;
-    background-image: linear-gradient(#00000080, #00000080), url(/recursos/imagenes/cuernito.jpg);
+    background-image: linear-gradient(#00000080, #00000080), url(../recursos/cuernito.jpg);
     background-size: cover;
     background-position: bottom;
     background-repeat: no-repeat;
@@ -262,7 +262,7 @@ i{
     justify-content: center;
     border-radius: 2rem;
     gap: 2rem;
-    background-image: linear-gradient(#00000080, #00000080), url(/recursos/imagenes/capucchino.jpg);
+    background-image: linear-gradient(#00000080, #00000080), url(../recursos/capucchino.jpg);
     background-size: cover;
     background-position: bottom;
     background-repeat: no-repeat;

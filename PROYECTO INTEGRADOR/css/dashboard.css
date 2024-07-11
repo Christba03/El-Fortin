@@ -21,39 +21,7 @@ body{
     background-color: var(--background-color);
 }
 
-nav{
-    width: 200px;
-    background-color: var(--primary-color);
-    padding-top: 20px;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    position: fixed;
-    overflow-y: auto;
-}
 
-nav ul{
-    list-style-type: none;
-    padding: 0;
-}
-
-nav ul li{
-    padding: 15px 20px;
-    cursor: pointer;
-    transition: bacground-color 0.3s;
-}
-
-nav ul li:hover{
-    background-color: white;
-}
-nav ul li i{
-    margin-right: 20px;
-}
-
-nav a{
-    text-decoration: none;
-    color: var(--dark-color);
-}
 
 .main-content{
     position: relative;
