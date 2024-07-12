@@ -78,7 +78,6 @@ CREATE TABLE FORMAS_PAGOS (
 
 CREATE TABLE VENTAS (
   venta_id SERIAL NOT NULL, 
-  forma_de_pago  varchar(12) NOT NULL, 
   IVA_pagar   float NOT NULL, 
   pago_total  float NOT NULL, 
   fecha_venta  date NOT NULL, 
@@ -251,12 +250,21 @@ FOR EACH ROW
 EXECUTE FUNCTION proteger_datos();
 
 
+BEGIN 
+INSERT INTO VENTAS ( IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id)
+VALUES ( 0.16, 100.00, '2021-06-01', 0, 1, 1);
+COMMIT
 
 
+BEGIN 
+INSERT INTO VENTAS ( IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id) 
+VALUES ( 0.16, 100.00, '2021-06-01', 0, 1, 1);
+COMMIT
 
 
-
-
+BEGIN 
+INSERT INTO PEDIDOS ( cantidad, mesa, estado, Cliente_id)
+VALUES ( 1, 1, 'Pendiente', 1);
 
 
 
