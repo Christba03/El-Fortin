@@ -93,6 +93,7 @@ CREATE TABLE DETALLES_VENTA (
 	venta_id int NOT NULL,
 	subtotal float NOT NULL,
 	descuento_articulo int NOT NULL,
+	p_cantidad INT NOT NULL,
 	PRIMARY KEY (detalle_venta_id),
 	FOREIGN KEY(venta_id) REFERENCES VENTAS (venta_id));
 
@@ -226,7 +227,15 @@ CREATE OR REPLACE FUNCTION registrar_ventas() RETURNS trigger AS $BODY$
   CREATE TRIGGER registrar_ventas BEFORE INSERT OR UPDATE OR DELETE
 	ON VENTAS FOR EACH ROW
 	EXECUTE PROCEDURE registrar_ventas();
-
+--FUNCION DE RESTAR A STOCK--
+CREATE OR REPLACE FUNCTION actualizar_stock_venta(p_producto_id INT, p_cantidad INT) RETURNS VOID AS $$
+BEGIN
+    UPDATE PRODUCTOS
+    SET stock = stock - p_cantidad
+    WHERE producto_id = p_producto_id;
+    
+END;
+$$ LANGUAGE plpgsql;
 
 
 /*FUNCION PARA PROTEGER DATOS*/
