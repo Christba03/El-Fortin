@@ -92,39 +92,6 @@
         </div>
       </div>
 
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Formulario de Registro de Empleados</h2>
-            <form>
-                <label for="username">Nombre del Empleado: </label>
-                <input type="text" id="nombre" name="nombre" required>
-                <label for="apellidoPaterno:">Apellido Paterno:</label>
-                <input type="text" id="apellidop" name="apellidop" required>
-                <label for="apellidoPaterno:">Apellido Materno:</label>
-                <input type="text" id="apellidop" name="apellidop" required>
-                <label for="salario:">Salario:</label>
-                <input type="text" id="salario" name="salario" required>
-                <label for="telefono:">Numero de Telefono:</label>
-                <input type="text" id="apellidop" name="apellidop" required>
-                <button type="submit" class="btn-login" onclick="location.href='dashboard.html'">Registrar Empleado</button>
-            </form>
-        </div>
-    </div>
-
-    
-    <div id="myModalView" class="modalView">
-        <div class="modal-content">
-            <span class="closeView">&times;</span>
-            <h2>Informacion del Registro</h2>
-            <p>Nombre:Juan</p>
-            <p>Apellido Paterno:Pérez</p>
-            <p>Apellido Materno:Gómez</p>
-            <p>Correo:juan.perez@utcv.edu.mx</p>
-            <p>Contraseña:juan123</p>
-        </div>
-    </div>
-
     <div class="main-content">
         <div class="header">
             <div class="title-header">
@@ -139,47 +106,121 @@
             </div>
         </div>
 
-        <div class="tabular-wrappe">
-            <h3 class="main-title">Tabla de Registros</h3>
+         <!-- Main content -->
 
-            <div class="btn-agregar">
-                <a href="#" class="open-modal">
-                    <button><i class="fa fa-plus"></i> Agregar Empleados</button>
-                </a>
-            </div>
+  <div class="tabular-wrappe">
+    <h3 class="main-title">Tabla de Registros</h3>
+    <section class="content">
 
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Apellido Paterno</th>
-                            <th>Apellido Materno</th>
-                            <th>Correo</th>
-                            <th>Contraseña</th>
-                            <th>Operaciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Registo de ejemplo -->
-                        <tr>
-                            <td>Juan</td>
-                            <td>Pérez</td>
-                            <td>Gómez</td>
-                            <td>juan.perez@utcv.edu.mx</td>
-                            <td>juan123</td>
-                            <td>
-                                <div class="operaciones">
-                                    <a href="#" class="open-modalview"><button><i class="fa fa-eye"></i>Ver</button></a>          
-                                    <button class="editar"><i class="fa fa-pencil"></i> Editar</button>                           
-                                    <button class="eliminar"><i class="fa fa-trash"></i> Eliminar</button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+
+          <div class="card-tools">
+            <!-- Button trigger modal -->
+           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalUsuarios">
+           <i class="fa fa-plus"></i> Usuarios
+           </button>
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
         </div>
+        <div class="card-body" id="contenidoTabla">
+          <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
+                        <th>Correo</th>
+                        <th>Contraseña</th>
+                        <th>Operaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Registo de ejemplo -->
+                    <tr>
+                        <td>Juan</td>
+                        <td>Pérez</td>
+                        <td>Gómez</td>
+                        <td>juan.perez@utcv.edu.mx</td>
+                        <td>juan123</td>
+                        <td>
+                            <div class="operaciones">
+                                <a href="#" class="open-modalview"><button><i class="fa fa-eye"></i>Ver</button></a>          
+                                <button class="editar"><i class="fa fa-pencil"></i> Editar</button>                           
+                                <button class="eliminar"><i class="fa fa-trash"></i> Eliminar</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+
+        <!-- Modal -->
+
+
+        <div class="modal fade" id="modalUsuarios" tabindex="-1" aria-labelledby="modalUsuariosTitle" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalUsuariosTitle">Formulario de usuarios</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="formUsuarios">
+                  <input type="hidden" name="accion" value="1">
+                        <div class="form-group">
+                          <label for="nombre">Nombre</label>
+                          <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                        </div>
+                        <div class="form-group">
+                          <label for="paterno">Paterno</label>
+                          <input type="text" class="form-control" id="paterno" name="paterno" placeholder="Apellido paterno">
+                        </div>
+                        
+                          <div class="form-group">
+                            <label for="materno">Materno</label>
+                            <input type="text" class="form-control" id="materno" name="materno" placeholder="Apellido materno">
+                          </div>
+                          
+                          
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">Password</label>
+                            <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Password">
+                          </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+                        <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancelar</button>
+                      </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <script
       src="https://kit.fontawesome.com/fa85015eab.js"
       crossorigin="anonymous"
