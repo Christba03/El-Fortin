@@ -278,3 +278,6 @@ BEGIN
 INSERT INTO PEDIDOS ( mesa, estado, Cliente_id)
 VALUES ( NULL, 'Pendiente', 2);
 
+/*VISTAS*/
+
+CREATE VIEW VISTA_VENTAS AS 
