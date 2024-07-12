@@ -224,3 +224,12 @@ CREATE OR REPLACE FUNCTION registrar_ventas() RETURNS trigger AS $BODY$
 	ON VENTAS FOR EACH ROW
 	EXECUTE PROCEDURE registrar_ventas();
 
+
+
+
+
+
+
+
+
+
