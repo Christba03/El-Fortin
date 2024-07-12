@@ -114,10 +114,9 @@ CREATE TABLE TIPOS (
 
 CREATE TABLE PEDIDOS (
 	pedido_id SERIAL NOT NULL,
-	cantidad int NOT NULL,
 	mesa int,
 	producto_id int NOT NULL,
-	detalle_venta_id int,
+	detalle_venta_id int NOT NULL,
 	PRIMARY KEY (pedido_id),
 	FOREIGN KEY(producto_id) REFERENCES PRODUCTOS (producto_id),
 	FOREIGN KEY(detalle_venta_id) REFERENCES DETALLES_VENTA (detalle_venta_id));
@@ -258,7 +257,7 @@ BEFORE DELETE ON FORMAS_PAGOS
 FOR EACH ROW
 EXECUTE FUNCTION proteger_datos();
 
-
+/*TRANSSACCIONES VENTAS*/
 BEGIN 
 INSERT INTO VENTAS ( IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id)
 VALUES ( 0.16, 100.00, '2021-06-01', 0, 1, 1);
@@ -270,10 +269,12 @@ INSERT INTO VENTAS ( IVA_pagar, pago_total, fecha_venta, descuento_venta, emplea
 VALUES ( 0.16, 100.00, '2021-06-01', 0, 1, 1);
 COMMIT
 
+/*TRANSSACCIONES PEDIDOS*/
+BEGIN 
+INSERT INTO PEDIDOS ( mesa, estado, Cliente_id)
+VALUES ( 1, 'Pendiente', 1);
 
 BEGIN 
-INSERT INTO PEDIDOS ( cantidad, mesa, estado, Cliente_id)
-VALUES ( 1, 1, 'Pendiente', 1);
-
-
+INSERT INTO PEDIDOS ( mesa, estado, Cliente_id)
+VALUES ( NULL, 'Pendiente', 2);
 
