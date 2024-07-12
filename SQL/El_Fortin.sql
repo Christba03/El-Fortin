@@ -78,7 +78,6 @@ CREATE TABLE FORMAS_PAGOS (
 
 CREATE TABLE VENTAS (
   venta_id SERIAL NOT NULL, 
-  forma_de_pago  varchar(12) NOT NULL, 
   IVA_pagar   float NOT NULL, 
   pago_total  float NOT NULL, 
   fecha_venta  date NOT NULL, 
@@ -94,6 +93,7 @@ CREATE TABLE DETALLES_VENTA (
 	venta_id int NOT NULL,
 	subtotal float NOT NULL,
 	descuento_articulo int NOT NULL,
+	p_cantidad INT NOT NULL,
 	PRIMARY KEY (detalle_venta_id),
 	FOREIGN KEY(venta_id) REFERENCES VENTAS (venta_id));
 
@@ -114,15 +114,14 @@ CREATE TABLE TIPOS (
 
 CREATE TABLE PEDIDOS (
 	pedido_id SERIAL NOT NULL,
-	cantidad int NOT NULL,
 	mesa int,
 	producto_id int NOT NULL,
-	detalle_venta_id int,
+	detalle_venta_id int NOT NULL,
 	PRIMARY KEY (pedido_id),
 	FOREIGN KEY(producto_id) REFERENCES PRODUCTOS (producto_id),
 	FOREIGN KEY(detalle_venta_id) REFERENCES DETALLES_VENTA (detalle_venta_id));
 
-
+/*BITACORA PARA REGISTRAR CAMBIOS DE RECETAS*/
 CREATE TABLE BITACORA_RECETAS(
  		id			SERIAL,
 		table_name	TEXT NOT NULL,
@@ -133,6 +132,7 @@ CREATE TABLE BITACORA_RECETAS(
 		PRIMARY KEY(id)
 );
 
+/*FUNCION DE REGISTRO DE CAMBIOS DE RECETAS*/
 
 CREATE OR REPLACE FUNCTION registrar_cambios_recetas() RETURNS trigger AS $BODY$
 	DECLARE
@@ -173,8 +173,8 @@ CREATE OR REPLACE FUNCTION registrar_cambios_recetas() RETURNS trigger AS $BODY$
 	ON RECETAS FOR EACH ROW
 	EXECUTE PROCEDURE registrar_cambios_recetas();
 
-
-CREATE TABLE BITACORA_RECETAS(
+/*BITACORA DE VENTAS*/
+CREATE TABLE BITACORA_VENTAS(
  		id			SERIAL,
 		table_name	TEXT NOT NULL,
 		table_id	TEXT NOT NULL,
@@ -184,6 +184,7 @@ CREATE TABLE BITACORA_RECETAS(
 		PRIMARY KEY(id)
 );
 
+/*FUNCION DE REGISTRO DE VENTAS*/
 
 CREATE OR REPLACE FUNCTION registrar_ventas() RETURNS trigger AS $BODY$
 	DECLARE
@@ -220,16 +221,63 @@ CREATE OR REPLACE FUNCTION registrar_ventas() RETURNS trigger AS $BODY$
 	  RETURN vReturn;
 	END $BODY$ LANGUAGE plpgsql;
 
+/*TRIGGER DE REGISTRO DE VENTAS*/
+  
   CREATE TRIGGER registrar_ventas BEFORE INSERT OR UPDATE OR DELETE
 	ON VENTAS FOR EACH ROW
 	EXECUTE PROCEDURE registrar_ventas();
+--FUNCION DE RESTAR A STOCK--
+CREATE OR REPLACE FUNCTION actualizar_stock_venta(p_producto_id INT, p_cantidad INT) RETURNS VOID AS $$
+BEGIN
+    UPDATE PRODUCTOS
+    SET stock = stock - p_cantidad
+    WHERE producto_id = p_producto_id;
+    
+END;
+$$ LANGUAGE plpgsql;
 
 
+/*FUNCION PARA PROTEGER DATOS*/
+CREATE OR REPLACE FUNCTION proteger_datos()
+RETURNS TRIGGER AS $$
+BEGIN
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+/*TRIGGER PARA PROTEGER DATOS DE LAS BITACORAS*/
+CREATE TRIGGER trigger_proteger_datos_bitacoras
+BEFORE DELETE,UPDATE ON BITACORA_RECETAS, BITACORA_VENTAS
+FOR EACH ROW
+EXECUTE FUNCTION proteger_datos();
+
+/*TRIGGER PARA PROTEGER DATOS DE LAS FORMAS DE PAGO*/
+CREATE TRIGGER trigger_evitar_borrado
+BEFORE DELETE ON FORMAS_PAGOS
+FOR EACH ROW
+EXECUTE FUNCTION proteger_datos();
+
+/*TRANSSACCIONES VENTAS*/
+BEGIN 
+INSERT INTO VENTAS ( IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id)
+VALUES ( 0.16, 100.00, '2021-06-01', 0, 1, 1);
+COMMIT
 
 
+BEGIN 
+INSERT INTO VENTAS ( IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id) 
+VALUES ( 0.16, 100.00, '2021-06-01', 0, 1, 1);
+COMMIT
 
+/*TRANSSACCIONES PEDIDOS*/
+BEGIN 
+INSERT INTO PEDIDOS ( mesa, estado, Cliente_id)
+VALUES ( 1, 'Pendiente', 1);
 
+BEGIN 
+INSERT INTO PEDIDOS ( mesa, estado, Cliente_id)
+VALUES ( NULL, 'Pendiente', 2);
 
+/*VISTAS*/
 
-
-
+CREATE VIEW VISTA_VENTAS AS 
