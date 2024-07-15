@@ -3,49 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="../css/fontawesome.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+   <!--- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
     <title>Recetas</title>
     <link rel="icon" type="img/jpg" href="imagenes/logo.jpeg">
 </head>
 <body>
-    <nav>
-        <ul>   
-            <a href="/index.html"><li><i class="fa fa-home"></i> Inicio</li></a>
-            <a href="dashboard.html"><li><i class="fa fa-users" aria-hidden="true"></i>Empleados</li></a>
-            <a class="activo" href="clientes.html"><li><i class="fa fa-users" aria-hidden="true"></i> Clientes</li></a>
-            <a href="productos.html"><li><i class="fa fa-shopping-bag" aria-hidden="true"></i>Productos</li></a>
-            <a href="pedidos.html"><li><i class="fa fa-sticky-note-o" aria-hidden="true"></i>Pedidos</li></a>
-            <a href="recetas.html"><li><i class="fa fa-cutlery" aria-hidden="true"></i>Recetas</li></a>
-            <a href="detalleVentas.html"><li><i class="fa fa-ticket" ></i>Detalles de Ventas</li></a>
-            <a href="ventas.html"><li><i class="fa fa-ticket" ></i>Ventas</li></a>
-            <a href="usuarios.html"><li><i class="fa fa-user"></i>Usuarios</li></a>
-            <a href="categorias.html"><li><i class="fa fa-shopping-basket" aria-hidden="true"></i> Categorias</li></a>
-            <li><i class="fa fa-sign-out"></i>Cerrar sesión</li>
-            </ul>
-    </nav>
-
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Formulario de Registro de Recetas</h2>
-            <form>
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre|" name="nombre"  placeholder="Nombre" required>
-                <label for="tiempo_preparacion">Tiempo de Preparación:</label>
-                <input type="text" id="tiempo_preparacion" name="tiempo_preparacion"  placeholder="tiempo_preparacion" required>
-                <label for="descripcion">Descripción:</label>
-                <textarea name="descripcion" id="descripcion"></textarea>
-                <button type="submit" class="btn-login" onclick="location.href='recetas.html'">Registrar Receta</button>
-            </form>
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-primary" style="width: 280px; height: 1000px;" id="container-sidebar">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+          <img src="../recursos/logo-removebg-preview.png" alt="" width="50px">
+          <span class="fs-5">Pagina Principal</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto" id="nav-links">
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link text-white">
+              <i class="fa-solid fa-user-tie"></i>
+              Empleados
+            </a>
+          </li>
+          <li>
+            <a href="usuarios.html" class="nav-link text-white">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              Usuarios
+            </a>
+          </li>
+          <li>
+            <a href="clientes.html" class="nav-link text-white">
+              <i class="fa-solid fa-users"></i>
+              Clientes
+            </a>
+          </li>
+          <li>
+            <a href="productos.html" class="nav-link text-white">
+              <i class="fa-brands fa-product-hunt"></i>
+              Productos
+            </a>
+          </li>
+          <li>
+            <a href="pedidos.html" class="nav-link text-white">
+              <i class="fa-solid fa-box"></i>
+              Pedidos
+            </a>
+          </li>
+          <li>
+            <a href="recetas.html" class="nav-link text-white">
+              <i class="fa-solid fa-book"></i>
+              Recetas
+            </a>
+          </li>
+          <li>
+            <a href="ventas.html" class="nav-link text-white">
+              <i class="fa-solid fa-dollar-sign"></i>
+              Ventas
+            </a>
+          </li>
+          <li>
+            <a href="categorias.html" class="nav-link text-white">
+              <i class="fa-solid fa-table"></i>
+              Categorias
+            </a>
+          </li>
+        </ul>
+        <hr>
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../recursos/user-dashboard.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong>Cuenta</strong>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
         </div>
-    </div>
+      </div>
 
     <div class="main-content">
         <div class="header">
             <div class="title-header">
-                <span>Primary</span>
                 <h2>Panel Administrativo</h2>
             </div>
             <div class="info-user">
@@ -57,76 +98,111 @@
             </div>
         </div>
 
-        <div class="card-container">
-            <h3 class="main-title">Registros de Recetas </h3>
-            <div class="card-wapper">
-                <div class="employee-card">
-                    <div class="card-header">
-                    <div class="employee">
-                        <span class="title">
-                            Pedidos
-                        </span>
-                        <span class="card-detail">
-                            Total de recetas: 100 recetas
-                        </span>
-                    </div>
-                    <i class="fa fa-cutlery" aria-hidden="true"></i>
-                   </div>
-                </div>
-            </div>
-        </div>
-
         <div class="tabular-wrappe">
             <h3 class="main-title">Tabla de Registros</h3>
+            <section class="content">
+        
+              <!-- Default box -->
+              <div class="card">
+                <div class="card-header">
+        
+                  <div class="card-tools">
+                    <!-- Button trigger modal -->
+                   <button type="button" class="btn text-bg-primary" data-bs-toggle="modal"  data-bs-target="#modalUsuarios">
+                    <i class="fa-solid fa-user-plus"></i> Nueva Receta
+                   </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body" id="contenidoTabla">
+                  <div class="table-container">
+                    <table class="table">
+                        <thead class="table-primary-color">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Tiempo</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Operaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Registo de ejemplo -->
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>baguette de salami</td>
+                                <td>20 minutos</td>
+                                <td><p>1 pieza de pan de baguette.
+                                    100 gr. de salami.
+                                    150 gr. de queso manchego, rebanado.
+                                    1 cucharada de mayonesa
+                                    ½ pieza de tomate.
+                                    ¼ pieza de cebolla morada.
+                                    3 hojas de lechuga sangría.
+                                    ½ pieza de aguacate.
+                                    ¼ pieza de pepino.
+                                    ¼ taza de arúgula.
+                                   1.- Vamos a comenzar lavando y desinfectando las verduras, el tomate, la cebolla morada, lechuga y pepino. Rebanamos el tomate, el pepino y la cebolla.
+                                   2.- Rebanamos el pan por la mitad y untamos un poco de mayonesa por ambos lados, colocamos una cama de lechuga y arúgula, después agregamos las rebanadas de queso manchego. 
+                                   3.- Luego ponemos las demás verduras en rebanadas, por último, colocamos las rebanadas de salami y cerramos.
+                                   4.- Servimos y disfrutamos.</p></td>
+                                <td>
+                                  <a href="" class="link-primary"><i class="fa-solid fa-pen-to-square fs-5"></i></a>
+                                  <a href="" class="link-danger"><i class="fa-solid fa-trash fs-5"></i></a>
+                                  <a href="" class="link-success"><i class="fa-solid fa-eye fs-5"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+                <!-- /.card-footer-->
+              </div>
+              <!-- /.card -->
+            </section>
+            <!-- /.content -->
+          </div>
 
-            
-            <div class="btn-agregar">
-                <a href="#" class="open-modal">
-                    <button><i class="fa fa-plus"></i> Agregar Receta</button>
-                </a>
+        <!-- Modal -->
+        <div class="modal fade" id="modalUsuarios" tabindex="-1" aria-labelledby="modalUsuariosTitle" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalUsuariosTitle">Agregar Receta</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="formUsuarios">
+                    <input type="hidden" name="accion" value="1">
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="tiempo" class="form-label">Tiempo de preparacion</label>
+                        <input type="text" class="form-control" id="tiempo" name="tiempo" placeholder="Tiempo">
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="preparacion">Preparación</label>
+                        <textarea name="preparacion" id="preparacion" class="form-control" placeholder="Preparacion"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  </form>
+                </div>
+              </div>
             </div>
-
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>                    
-                            <th>Nombre</th>
-                            <th>Tiempo de Preparación</th>
-                            <th>Descripción</th>
-                            <th>Operaciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Registo de ejemplo -->
-                        <tr>
-                            <td>baguette de salami</td>
-                            <td>20 minutos</td>
-                            <td>1 pieza de pan de baguette.<br>
-                                100 gr. de salami.<br>
-                                150 gr. de queso manchego, rebanado.<br>
-                                1 cucharada de mayonesa<br>
-                                ½ pieza de tomate.<br>
-                                ¼ pieza de cebolla morada.<br>
-                                3 hojas de lechuga sangría.<br>
-                                ½ pieza de aguacate.<br>
-                                ¼ pieza de pepino.<br>
-                                ¼ taza de arúgula.<br>
-                               1.- Vamos a comenzar lavando y desinfectando las verduras, el tomate, la cebolla morada, lechuga y pepino. Rebanamos el tomate, el pepino y la cebolla. <br>
-                               2.- Rebanamos el pan por la mitad y untamos un poco de mayonesa por ambos lados, colocamos una cama de lechuga y arúgula, después agregamos las rebanadas de queso manchego. <br> 
-                               3.- Luego ponemos las demás verduras en rebanadas, por último, colocamos las rebanadas de salami y cerramos. <br>
-                               4.- Servimos y disfrutamos.</td>
-                    
-                            <td>
-                                <div class="operaciones">
-                                    <a href=""><button class="ver"><i class="fa fa-eye"></i>Ver</button></a>          
-                                    <button class="editar"><i class="fa fa-pencil"></i> Editar</button>                           
-                                    <button class="eliminar"><i class="fa fa-trash"></i> Eliminar</button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+          </div>
+  
+      <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
+      <script src="/js/script.js"></script>
+      <script src="/js/jquery.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
 </body>
 </html>
