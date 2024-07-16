@@ -97,7 +97,7 @@
   --bs-link-color-rgb: 67, 40, 24;
   --bs-link-decoration: underline;
   --bs-link-hover-color: #432818;
-  --bs-link-hover-color-rgb: 10, 88, 202;
+  --bs-link-hover-color-rgb: 67, 40, 24;
   --bs-code-color: #d63384;
   --bs-highlight-color: #212529;
   --bs-highlight-bg: #fff3cd;
@@ -166,8 +166,8 @@
   --bs-light-border-subtle: #495057;
   --bs-dark-border-subtle: #343a40;
   --bs-heading-color: inherit;
-  --bs-link-color: #6ea8fe;
-  --bs-link-hover-color: #8bb9fe;
+  --bs-link-color: #432818;
+  --bs-link-hover-color: #432818;
   --bs-link-color-rgb: 110, 168, 254;
   --bs-link-hover-color-rgb: 139, 185, 254;
   --bs-code-color: #e685b5;
@@ -3872,6 +3872,12 @@ textarea.form-control-lg {
   cursor: default;
 }
 
+.nav-link.active {
+    background-color: #ffffff; /* Cambia este color por el que desees */
+    color: #000000; /* Cambia este color por el que desees */
+    border-radius: 0.25rem; /* Opcional: Añade un poco de redondeo a las esquinas */
+}
+
 .nav-tabs {
   --bs-nav-tabs-border-width: var(--bs-border-width);
   --bs-nav-tabs-border-color: var(--bs-border-color);
@@ -3904,11 +3910,21 @@ textarea.form-control-lg {
   border-top-right-radius: 0;
 }
 
-.nav-pills {
-  --bs-nav-pills-border-radius: var(--bs-border-radius);
-  --bs-nav-pills-link-active-color: #fff;
-  --bs-nav-pills-link-active-bg: #0d6efd;
+/* Estilos personalizados */
+#container-sidebar .nav-link.active {
+  background-color: #ffffff; /* Cambia este color por el que desees */
+  color: #000000 !important; /* Añadir !important para asegurar que este estilo se aplique */
+  border-radius: 0.25rem; /* Opcional: Añade un poco de redondeo a las esquinas */
 }
+
+/* Anulación de los estilos predeterminados de Bootstrap para .nav-pills */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #000000 !important; /* Cambia este color por el que desees */
+  background-color: #ffffff !important; /* Cambia este color por el que desees */
+  border-radius: 0.25rem; /* Opcional: Añade un poco de redondeo a las esquinas */
+}
+
 .nav-pills .nav-link {
   border-radius: var(--bs-nav-pills-border-radius);
 }
