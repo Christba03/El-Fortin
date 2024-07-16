@@ -1,28 +1,12 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Selecciona el enlace para abrir la ventana modal
-    var openModalLink = document.querySelector(".open-modal");
-    
-    // Selecciona la ventana modal
-    var modal = document.getElementById("myModal");
+// Obtener todos los enlaces de navegación
+const navLinks = document.querySelectorAll('#nav-links .nav-link');
 
-    // Selecciona el elemento de cierre de la ventana modal
-    var span = document.getElementsByClassName("close")[0];
+// Obtener la URL actual y extraer el nombre del archivo
+const currentUrl = window.location.pathname.split('/').pop();
 
-    // Agrega un evento de clic al enlace para abrir la ventana modal
-    openModalLink.addEventListener("click", function(event) {
-        event.preventDefault(); // Evita el comportamiento predeterminado del enlace
-        modal.style.display = "block"; // Muestra la ventana modal
-    });
-
-    // Cuando el usuario hace clic en <span> (x), cierra la ventana modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // Cuando el usuario hace clic en cualquier parte fuera de la ventana modal, ciérrala
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+// Iterar sobre los enlaces y añadir la clase 'active' al enlace que coincide con la URL actual
+navLinks.forEach(link => {
+  if (link.getAttribute('href') === currentUrl) {
+    link.classList.add('active');
+  }
 });

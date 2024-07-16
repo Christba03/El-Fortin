@@ -277,47 +277,6 @@ th {
     background-color: var(--primary-color);
     color: #fff;
 }
-
-.operaciones {
-    display: flex;
-    gap: 10px;
-}
-.operaciones button {
-    padding: 5px 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 30px;
-    background-color: #f4f4f4;
-    transition: background-color 0.3s;
-}
-.operaciones button.ver:hover {
-    background-color: yellow;
-}
-
-.operaciones button.editar:hover{
-    background-color: rgb(0, 146, 204);
-}
-
-.operaciones button.eliminar:hover{
-    background-color: red;
-}
-
-.btn-agregar {
-    margin-bottom: 20px;
-}
-.btn-agregar button {
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 20px;
-    background-color: var(--color-cuatro);
-    border: none;
-    color: white;
-    transition: background-color 0.3s;
-}
-.btn-agregar button:hover {
-    background-color: peru;
-}
-
 /*Estilos para la seccion de footer*/
 
 .container_footer{
