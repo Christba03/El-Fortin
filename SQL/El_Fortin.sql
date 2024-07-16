@@ -1,3 +1,8 @@
+CREATE TABLE CATEGORIA (
+  categoria_id SERIAL NOT NULL, 
+  nombre_categoria varchar(25) NOT NULL, 
+  PRIMARY KEY (categoria_id));
+  
 CREATE TABLE USUARIOS (
   usuario_id SERIAL NOT NULL, 
   user_name varchar(15) NOT NULL UNIQUE, 
@@ -283,4 +288,4 @@ VALUES ( NULL, 'Pendiente', 2);
 CREATE VIEW VISTA_VENTAS AS 
 
 
-INSERT 
+INSERT INTO CATEGORIA (nombre_categoria)
