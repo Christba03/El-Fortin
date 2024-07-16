@@ -80,7 +80,7 @@ CREATE TABLE VENTAS (
   venta_id SERIAL NOT NULL, 
   IVA_pagar   float NOT NULL, 
   pago_total  float NOT NULL, 
-  fecha_venta  date NOT NULL, 
+  fecha_venta  TIMESTAMP NOT NULL, 
   descuento_venta int, 
   empleado_id int NOT NULL, 
   Cliente_id  int NOT NULL, 
@@ -281,3 +281,6 @@ VALUES ( NULL, 'Pendiente', 2);
 /*VISTAS*/
 
 CREATE VIEW VISTA_VENTAS AS 
+
+
+INSERT 
