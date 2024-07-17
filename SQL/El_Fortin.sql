@@ -90,10 +90,10 @@ CREATE TABLE VENTAS (
 
 CREATE TABLE DETALLES_VENTA (
 	detalle_venta_id SERIAL NOT NULL,
-	venta_id int NOT NULL,
 	subtotal float NOT NULL,
 	descuento_articulo int NOT NULL,
 	p_cantidad INT NOT NULL,
+	venta_id int NOT NULL,
 	PRIMARY KEY (detalle_venta_id),
 	FOREIGN KEY(venta_id) REFERENCES VENTAS (venta_id));
 
@@ -277,6 +277,24 @@ VALUES ( 1, 'Pendiente', 1);
 BEGIN 
 INSERT INTO PEDIDOS ( mesa, estado, Cliente_id)
 VALUES ( NULL, 'Pendiente', 2);
+
+/*FUNCION PARA CALCULO DE SUBTOTAL*/
+CREATE OR REPLACE FUNCTION calculo_subtotal(cantidad INT, precio DECIMAL) 
+RETURNS DECIMAL(10,2) AS $BODY$
+DECLARE
+
+subtotal DECIMAL(10,2);
+f_cantidad INT = ;
+f_precio DECIMAL(10,2);
+
+BEGIN
+
+
+
+RETUNR subtotal;
+END;
+$$ LANGUAGE plpgsql;
+
 
 /*VISTAS*/
 
