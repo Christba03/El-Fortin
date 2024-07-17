@@ -14,30 +14,29 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function searchTable(){
-   // Obtener el valor del input de búsqueda
-   let input = document.getElementById("buscar").value.toLowerCase();
-   // Obtener la tabla y sus filas
-   let table = document.getElementById("table");
-   let tr = table.getElementsByTagName("tr");
+function searchTable() {
+  // Obtener el valor del input de búsqueda
+  let input = document.getElementById("buscar").value.toLowerCase();
+  // Obtener todas las filas de la tabla
+  let rows = document.querySelectorAll("#contenidoTabla table tbody tr");
 
-   // Iterar sobre todas las filas de la tabla (excepto la cabecera)
-   for (let i = 1; i < tr.length; i++) {
-       // Ocultar la fila por defecto
-       tr[i].style.display = "none";
-
-       // Obtener todas las celdas de la fila actual
-       let td = tr[i].getElementsByTagName("td");
-
-       // Iterar sobre todas las celdas de la fila actual
-       for (let j = 0; j < td.length; j++) {
-           if (td[j]) {
-               // Si el contenido de la celda coincide con la búsqueda, mostrar la fila
-               if (td[j].innerHTML.toLowerCase().indexOf(input) > -1) {
-                   tr[i].style.display = "";
-                   break;
-               }
-           }
-       }
-   }
+  // Iterar sobre cada fila y mostrar/ocultar según el criterio de búsqueda
+  rows.forEach(row => {
+    let match = false;
+    // Obtener las celdas de la fila actual
+    let cells = row.getElementsByTagName("td");
+    // Iterar sobre las celdas y verificar si alguna coincide con la búsqueda
+    Array.from(cells).forEach(cell => {
+      let cellText = cell.textContent.toLowerCase();
+      if (cellText.includes(input)) {
+        match = true;
+      }
+    });
+    // Mostrar u ocultar la fila según el resultado de la búsqueda
+    if (match) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
+  });
 }
