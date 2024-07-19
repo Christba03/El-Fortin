@@ -1,3 +1,7 @@
+CREATE TABLE CATEGORIAS(
+  IdCategoria SERIAL,
+  Categoria VARCHAR(50) NOT NULL,
+  PRIMARY KEY (IdCategoria));
 
 CREATE TABLE USUARIOS (
   usuario_id SERIAL NOT NULL, 
@@ -11,7 +15,7 @@ CREATE TABLE PERSONAS (
   Nombre varchar(35) NOT NULL,
   ApPaterno varchar(35) NOT NULL,
   ApMaterno varchar(35),
-  Correo varchar(45) NOT NULL, 
+  Correo varchar(45) NOT NULL UNIQUE, 
   Telefono varchar(10) NOT NULL, 
   PRIMARY KEY (persona_id));
 
@@ -25,14 +29,10 @@ CREATE TABLE CLIENTES (
 
 CREATE TABLE EMPLEADOS (
   empleado_id SERIAL NOT NULL, 
-  salario  int NOT NULL, 
-  fecha_pago date NOT NULL, 
   telefono char(10) NOT NULL, 
   usuario_id int NOT NULL, 
   PRIMARY KEY (empleado_id),
   FOREIGN KEY(usuario_id) REFERENCES USUARIOS (usuario_id));
-
-
 
 CREATE TABLE RECETAS (
   recetas_id SERIAL NOT NULL, 
@@ -55,19 +55,19 @@ CREATE TABLE PEDIDOS (
 CREATE TABLE DETALLES_PEDIDOS (
   detalle_pedido_id SERIAL NOT NULL, 
   cantidad int NOT NULL, 
-  fecha_pedido date NOT NULL, 
+  fecha_pedido TIMESTAMP NOT NULL , 
   producto_id int NOT NULL, 
   pedido_id int NOT NULL, 
   PRIMARY KEY (detalle_pedido_id),
   FOREIGN KEY(producto_id) REFERENCES PRODUCTOS (producto_id),
-  FOREIGN KEY(pedido_id) REFERENCES PEDIDOS (pedido_id),
+  FOREIGN KEY(pedido_id) REFERENCES PEDIDOS (pedido_id)
   );
 
 
 CREATE TABLE FORMAS_PAGOS_VENTAS (
   forma_pago_id int NOT NULL, 
   venta_id int NOT NULL, 
-  PRIMARY KEY (forma_pago_id, VENTASventa_id),
+  PRIMARY KEY (forma_pago_id, venta_id),
   FOREIGN KEY(forma_pago_id) REFERENCES FORMAS_PAGOS (forma_pago_id),
   FOREIGN KEY(venta_id) REFERENCES VENTAS (venta_id));
 
@@ -95,8 +95,10 @@ CREATE TABLE DETALLES_VENTA (
 	descuento_articulo int NOT NULL,
 	p_cantidad INT NOT NULL,
 	venta_id int NOT NULL,
+	producto_id INT NOT NULL,
 	PRIMARY KEY (detalle_venta_id),
-	FOREIGN KEY(venta_id) REFERENCES VENTAS (venta_id));
+	FOREIGN KEY(venta_id) REFERENCES VENTAS (venta_id),
+	FOREIGN KEY (producto_id) REFERENCES PRODUCTOS(producto_id));
 
 CREATE TABLE PRODUCTOS (
 	producto_id SERIAL NOT NULL,
@@ -104,8 +106,9 @@ CREATE TABLE PRODUCTOS (
 	precio float NOT NULL,
 	descripcion varchar(125) NOT NULL,
 	stock int NOT NULL,
-	categoria VARCHAR (25) NOT NULL,
-	PRIMARY KEY (producto_id));
+	IdCategoria INT NOT NULL,
+	PRIMARY KEY (producto_id)
+	FOREIGN KEY(IdCategoria) REFERENCES CATEGORIAS (IdCategoria));
 
 CREATE TABLE TIPOS (
 	tipos_id SERIAL NOT NULL,
@@ -123,6 +126,8 @@ CREATE TABLE PEDIDOS (
 	FOREIGN KEY(producto_id) REFERENCES PRODUCTOS (producto_id),
 	FOREIGN KEY(detalle_venta_id) REFERENCES DETALLES_VENTA (detalle_venta_id));
 
+
+
 /*BITACORA PARA REGISTRAR CAMBIOS DE RECETAS*/
 CREATE TABLE BITACORA_RECETAS(
  		id			SERIAL,
@@ -130,7 +135,7 @@ CREATE TABLE BITACORA_RECETAS(
 		table_id	TEXT NOT NULL,
 		description	TEXT NOT NULL,
 		created_at	TIMESTAMP DEFAULT NOW(),
-    operacion   TEXT NOT NULL,
+    	operacion   TEXT NOT NULL,
 		PRIMARY KEY(id)
 );
 
@@ -163,7 +168,7 @@ CREATE OR REPLACE FUNCTION registrar_cambios_recetas() RETURNS trigger AS $BODY$
 
 	  RAISE NOTICE 'TRIGGER called on % - Log: %', TG_TABLE_NAME, vDescription;
 
-  INSERT INTO bitacora_comerciales
+  INSERT INTO bitacora_recetas
 		 (table_name, table_id, description, created_at, Operacion)  
 		 VALUES
 		 (TG_TABLE_NAME, vId, vDescription, NOW(), vOperacion);
@@ -228,15 +233,93 @@ CREATE OR REPLACE FUNCTION registrar_ventas() RETURNS trigger AS $BODY$
   CREATE TRIGGER registrar_ventas BEFORE INSERT OR UPDATE OR DELETE
 	ON VENTAS FOR EACH ROW
 	EXECUTE PROCEDURE registrar_ventas();
+
+
+
 --FUNCION DE RESTAR A STOCK--
-CREATE OR REPLACE FUNCTION actualizar_stock_venta(p_producto_id INT, p_cantidad INT) RETURNS VOID AS $$
+CREATE OR REPLACE FUNCTION actualizar_stock_venta()
+RETURNS TRIGGER AS $cuerpo$
 BEGIN
-    UPDATE PRODUCTOS
-    SET stock = stock - p_cantidad
-    WHERE producto_id = p_producto_id;
-    
+    -- Actualiza el stock del producto basado en la cantidad en detalles_venta
+    UPDATE productos
+    SET stock = stock - NEW.p_cantidad
+    WHERE producto_id = NEW.producto_id;
+
+    RETURN NEW;  -- Retorna la fila para el trigger AFTER
 END;
-$$ LANGUAGE plpgsql;
+$cuerpo$ LANGUAGE plpgsql;
+
+--TRIGGER PARA RESTAR STOCK
+
+CREATE TRIGGER actualizar_stock_venta
+AFTER INSERT OR UPDATE
+ON detalles_venta
+FOR EACH ROW
+EXECUTE FUNCTION actualizar_stock_venta();
+
+
+--CONSULTAS 
+SELECT *FROM PRODUCTOS
+SELECT *FROM VENTAS
+SELECT *FROM DETALLES_VENTA
+
+--TRANSACCION USANDO SECUENCIAS
+--SECUENCIA DE VENTAS	
+	CREATE SEQUENCE ventas_seq
+START WITH 1
+INCREMENT BY 1
+MINVALUE 1
+NO MAXVALUE
+CYCLE;
+
+BEGIN;
+--Insertar una nueva venta
+INSERT INTO VENTAS (Venta_Id, IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id)
+VALUES (nextval('ventas_seq') ,0.16, 150.00, '2021-06-01', 0, 1, 1);
+
+
+--Insertar detalles de la venta
+INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad,producto_id)
+VALUES (currval('ventas_seq'), 250.0, 0, 5, 4),
+		(currval('ventas_seq'), 100.0, 0, 2, 5);
+    
+COMMIT ;
+
+--CONSULTAS 
+SELECT *FROM PRODUCTOS
+SELECT *FROM VENTAS
+SELECT *FROM DETALLES_VENTA
+
+
+--TRANSACCION USANDO RETURNING
+
+DO $cuerpo$
+DECLARE
+v_venta_id INT;
+BEGIN
+--Insertar una nueva venta y obtener el ID generado
+WITH nueva_venta AS (
+    INSERT INTO ventas ( IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id) 
+    VALUES (0.16, 100.00, '2021-06-01', 0, 1, 1)
+    RETURNING venta_id
+)
+--Obtener el ID de la venta recién insertada
+SELECT venta_id INTO v_venta_id FROM nueva_venta;
+
+--Generar un detalle de venta con el return del id de venta
+INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad,producto_id)
+VALUES (v_venta_id, 250.0, 0, 5, 4),
+		(v_venta_id, 100.0, 0, 2, 5);
+
+
+COMMIT;
+END;
+$cuerpo$ LANGUAGE plpgsql;
+
+--CONSULTAS 
+SELECT *FROM PRODUCTOS
+SELECT *FROM VENTAS
+SELECT *FROM DETALLES_VENTA
 
 
 /*FUNCION PARA PROTEGER DATOS*/
@@ -260,11 +343,19 @@ FOR EACH ROW
 EXECUTE FUNCTION proteger_datos();
 
 /*TRANSSACCIONES VENTAS*/
+
 BEGIN 
+
+-- 1. Insertar una nueva venta
 INSERT INTO VENTAS ( IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id)
 VALUES ( 0.16, 100.00, '2021-06-01', 0, 1, 1);
-COMMIT
 
+
+-- 2. Insertar detalles de la venta
+INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad)
+VALUES (5, 250.0, 25, 5);
+
+COMMIT
 
 BEGIN 
 INSERT INTO VENTAS ( IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id) 
@@ -281,23 +372,38 @@ INSERT INTO PEDIDOS ( mesa, estado, Cliente_id)
 VALUES ( NULL, 'Pendiente', 2);
 
 /*FUNCION PARA CALCULO DE SUBTOTAL*/
-CREATE OR REPLACE FUNCTION calculo_subtotal(cantidad INT, precio DECIMAL) 
-RETURNS DECIMAL(10,2) AS $BODY$
-DECLARE
 
-subtotal DECIMAL(10,2);
-f_cantidad INT = ;
-f_precio DECIMAL(10,2);
+CREATE OR REPLACE  FUNCTION  calcular_subtotal(cantidad INT, f_producto_id INT) 
+RETURNS DECIMAL (10,2) AS $cuerpo$
 
+    DECLARE
+	f_precio DECIMAL(10, 2);
+	subtotal DECIMAL(10, 2);
 BEGIN
 
+    -- Obtener el precio del producto desde la tabla productos
+    SELECT precio INTO f_precio
+    FROM productos
+    WHERE f_producto_id = producto_id;
 
+    -- Calcular el subtotal
+	subtotal := cantidad * f_precio;
+	
+	
+		 RAISE NOTICE 'TRIGGER DISPARADO';
+	RETURN subtotal;
 
-RETUNR subtotal;
-END;
-$$ LANGUAGE plpgsql;
+END; $cuerpo$ LANGUAGE plpgsql;
 
-
+ SELECT calcular_subtotal(2,4)
+ 
+ 
+/*TRIGGEER*/
+CREATE TRIGGER subtotal_detalle_venta
+BEFORE INSERT ON detalle_venta
+FOR EACH ROW
+ EXECUTE FUNCTION calcular_subtotal(NEW.p_cantidad, NEW.producto_id)
+ 
 /*VISTAS*/
 
 CREATE VIEW VISTA_VENTAS AS 
@@ -338,7 +444,7 @@ INSERT INTO RECETAS (nombre, tiempo_preparacion, Descripcion, empleado_id) VALUE
 INSERT INTO RECETAS (nombre, tiempo_preparacion, Descripcion, empleado_id) VALUES ('Beef Stroganoff', '00:45:00', 'Creamy Russian beef dish', 3);
 INSERT INTO RECETAS (nombre, tiempo_preparacion, Descripcion, empleado_id) VALUES ('Caesar Salad', '00:20:00', 'Fresh Caesar salad with homemade dressing', 4);
 INSERT INTO RECETAS (nombre, tiempo_preparacion, Descripcion, empleado_id) VALUES ('Chocolate Cake', '01:30:00', 'Rich chocolate dessert', 5);
-
+SELECT *FROM BITACORA_RECETAS
 /*TABLA PEDIDOS*/
 INSERT INTO PEDIDOS (mesa, estado, Cliente_id) VALUES (1, 'Pendiente', 1);
 INSERT INTO PEDIDOS (mesa, estado, Cliente_id) VALUES (2, 'En Proceso', 2);
@@ -359,12 +465,13 @@ INSERT INTO FORMAS_PAGOS_VENTAS (forma_pago_id, venta_id) VALUES (2, 2);
 INSERT INTO FORMAS_PAGOS_VENTAS (forma_pago_id, venta_id) VALUES (3, 3);
 INSERT INTO FORMAS_PAGOS_VENTAS (forma_pago_id, venta_id) VALUES (4, 4);
 INSERT INTO FORMAS_PAGOS_VENTAS (forma_pago_id, venta_id) VALUES (5, 5);
+SELECT *FROM formas_pagos_ventas
 
 /*TABLA FORMAS_PAGOS*/
 INSERT INTO FORMAS_PAGOS (nombre) VALUES ('Tarjeta de Crédito');
 INSERT INTO FORMAS_PAGOS (nombre) VALUES ('Tarjeta de Débito');
 INSERT INTO FORMAS_PAGOS (nombre) VALUES ('Efectivo');
-INSERT INTO FORMAS_PAGOS (nombre) VALUES ('Transferencia Bancaria');
+INSERT INTO FORMAS_PAGOS (nombre) VALUES ('Transferencia ');
 INSERT INTO FORMAS_PAGOS (nombre) VALUES ('PayPal');
 
 /*TABLAS VENTAS*/
