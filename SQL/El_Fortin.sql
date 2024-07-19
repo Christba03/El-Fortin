@@ -95,8 +95,10 @@ CREATE TABLE DETALLES_VENTA (
 	descuento_articulo int NOT NULL,
 	p_cantidad INT NOT NULL,
 	venta_id int NOT NULL,
+	producto_id INT NOT NULL,
 	PRIMARY KEY (detalle_venta_id),
 	FOREIGN KEY(venta_id) REFERENCES VENTAS (venta_id));
+	FOREIGN KEY (producto_id) REFERENCES PRODUCTOS(producto_id);
 
 CREATE TABLE PRODUCTOS (
 	producto_id SERIAL NOT NULL,
@@ -228,15 +230,87 @@ CREATE OR REPLACE FUNCTION registrar_ventas() RETURNS trigger AS $BODY$
   CREATE TRIGGER registrar_ventas BEFORE INSERT OR UPDATE OR DELETE
 	ON VENTAS FOR EACH ROW
 	EXECUTE PROCEDURE registrar_ventas();
+
+
+
 --FUNCION DE RESTAR A STOCK--
-CREATE OR REPLACE FUNCTION actualizar_stock_venta(p_producto_id INT, p_cantidad INT) RETURNS VOID AS $$
+CREATE OR REPLACE FUNCTION actualizar_stock_venta()
+RETURNS TRIGGER AS $cuerpo$
 BEGIN
-    UPDATE PRODUCTOS
-    SET stock = stock - p_cantidad
-    WHERE producto_id = p_producto_id;
-    
+    -- Actualiza el stock del producto basado en la cantidad en detalles_venta
+    UPDATE productos
+    SET stock = stock - NEW.p_cantidad
+    WHERE producto_id = NEW.producto_id;
+
+    RETURN NEW;  -- Retorna la fila para el trigger AFTER
 END;
-$$ LANGUAGE plpgsql;
+$cuerpo$ LANGUAGE plpgsql;
+
+--TRIGGER PARA RESTAR STOCK
+
+CREATE TRIGGER actualizar_stock_venta
+AFTER INSERT OR UPDATE
+ON detalles_venta
+FOR EACH ROW
+EXECUTE FUNCTION actualizar_stock_venta();
+
+--TRANSACCION USANDO SECUENCIAS
+--SECUENCIA DE VENTAS	
+	CREATE SEQUENCE ventas_seq
+START WITH 1
+INCREMENT BY 1
+MINVALUE 1
+NO MAXVALUE
+CYCLE;
+
+BEGIN;
+--Insertar una nueva venta
+INSERT INTO VENTAS (Venta_Id, IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id)
+VALUES (nextval('ventas_seq') ,0.16, 100.00, '2021-06-01', 0, 1, 1);
+
+
+--Insertar detalles de la venta
+INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad,producto_id)
+VALUES (currval('ventas_seq'), 250.0, 0, 5, 4),
+		(currval('ventas_seq'), 100.0, 0, 2, 5);
+    
+COMMIT ;
+
+--CONSULTAS 
+SELECT *FROM PRODUCTOS
+SELECT *FROM VENTAS
+SELECT *FROM DETALLES_VENTA
+
+
+--TRANSACCION USANDO RETURNING
+
+DO $cuerpo$
+DECLARE
+v_venta_id INT;
+BEGIN
+--Insertar una nueva venta y obtener el ID generado
+WITH nueva_venta AS (
+    INSERT INTO ventas ( IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id) 
+    VALUES (0.16, 100.00, '2021-06-01', 0, 1, 1)
+    RETURNING venta_id
+)
+--Obtener el ID de la venta recién insertada
+SELECT venta_id INTO v_venta_id FROM nueva_venta;
+
+--Generar un detalle de venta con el return del id de venta
+INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad,producto_id)
+VALUES (v_venta_id, 250.0, 0, 5, 4),
+		(v_venta_id, 100.0, 0, 2, 5);
+
+
+COMMIT;
+END;
+$cuerpo$ LANGUAGE plpgsql;
+
+--CONSULTAS 
+SELECT *FROM PRODUCTOS
+SELECT *FROM VENTAS
+SELECT *FROM DETALLES_VENTA
 
 
 /*FUNCION PARA PROTEGER DATOS*/
@@ -260,9 +334,18 @@ FOR EACH ROW
 EXECUTE FUNCTION proteger_datos();
 
 /*TRANSSACCIONES VENTAS*/
+
 BEGIN 
+
+-- 1. Insertar una nueva venta
 INSERT INTO VENTAS ( IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id)
 VALUES ( 0.16, 100.00, '2021-06-01', 0, 1, 1);
+
+
+-- 2. Insertar detalles de la venta
+INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad)
+VALUES (5, 250.0, 25, 5);
+
 COMMIT
 
 
@@ -280,24 +363,41 @@ BEGIN
 INSERT INTO PEDIDOS ( mesa, estado, Cliente_id)
 VALUES ( NULL, 'Pendiente', 2);
 
+
+
 /*FUNCION PARA CALCULO DE SUBTOTAL*/
-CREATE OR REPLACE FUNCTION calculo_subtotal(cantidad INT, precio DECIMAL) 
-RETURNS DECIMAL(10,2) AS $BODY$
-DECLARE
 
-subtotal DECIMAL(10,2);
-f_cantidad INT = ;
-f_precio DECIMAL(10,2);
+CREATE OR REPLACE  FUNCTION  calcular_subtotal(cantidad INT, f_producto_id INT) 
+RETURNS DECIMAL (10,2) AS $cuerpo$
 
+    DECLARE
+	f_precio DECIMAL(10, 2);
+	subtotal DECIMAL(10, 2);
 BEGIN
 
+    -- Obtener el precio del producto desde la tabla productos
+    SELECT precio INTO f_precio
+    FROM productos
+    WHERE f_producto_id = producto_id;
 
+    -- Calcular el subtotal
+	subtotal := cantidad * f_precio;
+	
+	
+		 RAISE NOTICE 'TRIGGER DISPARADO';
+	RETURN subtotal;
 
-RETUNR subtotal;
-END;
-$$ LANGUAGE plpgsql;
+END; $cuerpo$ LANGUAGE plpgsql;
 
-
+ SELECT calcular_subtotal(2,4)
+ 
+ 
+/*TRIGGEER*/
+CREATE TRIGGER subtotal_detalle_venta
+BEFORE INSERT ON detalle_venta
+FOR EACH ROW
+ EXECUTE FUNCTION calcular_subtotal(NEW.p_cantidad, NEW.producto_id)
+ 
 /*VISTAS*/
 
 CREATE VIEW VISTA_VENTAS AS 

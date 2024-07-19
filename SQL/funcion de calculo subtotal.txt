@@ -1,0 +1,28 @@
+
+CREATE OR REPLACE  FUNCTION  calcular_rellenar_subtotal() RETURNS TRIGGER AS $subtotal_detalle_venta$
+
+    DECLARE
+	f_precio DECIMAL(10, 2);
+	subtotal DECIMAL(10, 2);
+	vRETURN RECORD;
+BEGIN
+
+    -- Obtener el precio del producto desde la tabla productos
+    SELECT precio INTO f_precio
+    FROM productos
+    WHERE producto_id = NEW.producto_id;
+
+    -- Calcular el subtotal
+	NEW.subtotal := NEW.p_cantidad * f_precio;
+	vRETURN := NEW;
+	
+		 RAISE NOTICE 'TRIGGER DISPARADO';
+	RETURN vRETURN;
+
+END; $subtotal_detalle_venta$ LANGUAGE plpgsql;
+
+/*TRIGGEER*/
+CREATE TRIGGER subtotal_detalle_venta
+BEFORE INSERT ON detalles_venta
+FOR EACH ROW
+EXECUTE FUNCTION calcular_rellenar_subtotal();
