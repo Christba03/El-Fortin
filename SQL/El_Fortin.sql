@@ -81,7 +81,7 @@ CREATE TABLE VENTAS (
   venta_id SERIAL NOT NULL, 
   IVA_pagar   float NOT NULL, 
   pago_total  float NOT NULL, 
-  fecha_venta  TIMESTAMP NOT NULL, 
+  fecha_venta  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   descuento_venta int, 
   empleado_id int NOT NULL, 
   Cliente_id  int NOT NULL, 
