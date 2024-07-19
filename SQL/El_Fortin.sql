@@ -15,7 +15,7 @@ CREATE TABLE PERSONAS (
   Nombre varchar(35) NOT NULL,
   ApPaterno varchar(35) NOT NULL,
   ApMaterno varchar(35),
-  Correo varchar(45) NOT NULL, 
+  Correo varchar(45) NOT NULL UNIQUE, 
   Telefono varchar(10) NOT NULL, 
   PRIMARY KEY (persona_id));
 
@@ -29,8 +29,6 @@ CREATE TABLE CLIENTES (
 
 CREATE TABLE EMPLEADOS (
   empleado_id SERIAL NOT NULL, 
-  salario  int NOT NULL, 
-  fecha_pago date NOT NULL, 
   telefono char(10) NOT NULL, 
   usuario_id int NOT NULL, 
   PRIMARY KEY (empleado_id),
@@ -57,7 +55,7 @@ CREATE TABLE PEDIDOS (
 CREATE TABLE DETALLES_PEDIDOS (
   detalle_pedido_id SERIAL NOT NULL, 
   cantidad int NOT NULL, 
-  fecha_pedido date NOT NULL, 
+  fecha_pedido TIMESTAMP NOT NULL , 
   producto_id int NOT NULL, 
   pedido_id int NOT NULL, 
   PRIMARY KEY (detalle_pedido_id),
