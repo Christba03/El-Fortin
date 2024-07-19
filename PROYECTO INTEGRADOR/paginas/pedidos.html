@@ -83,12 +83,6 @@
             <div class="title-header">
                 <h2>Panel Administrativo</h2>
             </div>
-            <div class="info-user">
-                <div class="search-box">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                    <input type="search" placeholder="Search">
-                </div>
-            </div>
         </div>
 
         <div class="tabular-wrappe">
@@ -107,6 +101,12 @@
                       <i class="fas fa-minus"></i>
                     </button>
                   </div>
+                  <div class="card-search">
+                    <div class="search-box">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        <input type="search" placeholder="Buscar" id="buscar" oninput="searchTable()">
+                    </div>
+                    </div>
                 </div>
                 <div class="card-body" id="contenidoTabla">
                   <div class="table-container">

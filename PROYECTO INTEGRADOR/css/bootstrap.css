@@ -1,9 +1,5 @@
 @charset "UTF-8";
-/*!
- * Bootstrap  v5.3.3 (https://getbootstrap.com/)
- * Copyright 2011-2024 The Bootstrap Authors
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+
 :root,
 [data-bs-theme=light] {
   --bs-blue: #0d6efd;
@@ -166,8 +162,8 @@
   --bs-light-border-subtle: #495057;
   --bs-dark-border-subtle: #343a40;
   --bs-heading-color: inherit;
-  --bs-link-color: #432818;
-  --bs-link-hover-color: #432818;
+  --bs-link-color: #6ea8fe;
+  --bs-link-hover-color: #8bb9fe;
   --bs-link-color-rgb: 110, 168, 254;
   --bs-link-hover-color-rgb: 139, 185, 254;
   --bs-code-color: #e685b5;
@@ -2047,20 +2043,6 @@ progress {
   border-color: var(--bs-table-border-color);
 }
 
-.table-primary-color{
-  --bs-table-color: #fff;
-  --bs-table-bg: #bb9457;
-  --bs-table-border-color: #ad7c48;
-  --bs-table-striped-bg: #2c3034;
-  --bs-table-striped-color: #fff;
-  --bs-table-active-bg: #373b3e;
-  --bs-table-active-color: #fff;
-  --bs-table-hover-bg: #323539;
-  --bs-table-hover-color: #fff;
-  color: var(--bs-table-color);
-  border-color: var(--bs-table-border-color);
-}
-
 .table-responsive {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -3864,18 +3846,12 @@ textarea.form-control-lg {
 }
 .nav-link:focus-visible {
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(67, 40, 24, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 .nav-link.disabled, .nav-link:disabled {
   color: var(--bs-nav-link-disabled-color);
   pointer-events: none;
   cursor: default;
-}
-
-.nav-link.active {
-    background-color: #ffffff; /* Cambia este color por el que desees */
-    color: #000000; /* Cambia este color por el que desees */
-    border-radius: 0.25rem; /* Opcional: Añade un poco de redondeo a las esquinas */
 }
 
 .nav-tabs {
@@ -3910,21 +3886,11 @@ textarea.form-control-lg {
   border-top-right-radius: 0;
 }
 
-/* Estilos personalizados */
-#container-sidebar .nav-link.active {
-  background-color: #ffffff; /* Cambia este color por el que desees */
-  color: #000000 !important; /* Añadir !important para asegurar que este estilo se aplique */
-  border-radius: 0.25rem; /* Opcional: Añade un poco de redondeo a las esquinas */
+.nav-pills {
+  --bs-nav-pills-border-radius: var(--bs-border-radius);
+  --bs-nav-pills-link-active-color: #fff;
+  --bs-nav-pills-link-active-bg: #0d6efd;
 }
-
-/* Anulación de los estilos predeterminados de Bootstrap para .nav-pills */
-.nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
-  color: #000000 !important; /* Cambia este color por el que desees */
-  background-color: #ffffff !important; /* Cambia este color por el que desees */
-  border-radius: 0.25rem; /* Opcional: Añade un poco de redondeo a las esquinas */
-}
-
 .nav-pills .nav-link {
   border-radius: var(--bs-nav-pills-border-radius);
 }
@@ -6058,15 +6024,8 @@ textarea.form-control-lg {
 
 .carousel-inner {
   position: relative;
-  width: 800px; 
-  height: 400px; 
+  width: 100%;
   overflow: hidden;
-  object-fit: cover;  
-}
-.carousel-inner2 img {
-  width: 800px; /* Set the desired width */
-  height: 400px; /* Set the desired height */
-  object-fit: cover; /* This will ensure the image covers the specified dimensions without distorting */
 }
 .carousel-inner::after {
   display: block;
@@ -8574,11 +8533,6 @@ textarea.form-control-lg {
 .text-dark {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-dark-rgb), var(--bs-text-opacity)) !important;
-}
-
-.text-fortin{
-  --bs-text-opacity: 1;
-  color: rgb(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
 }
 
 .text-black {
