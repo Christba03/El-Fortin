@@ -60,14 +60,14 @@ CREATE TABLE DETALLES_PEDIDOS (
   pedido_id int NOT NULL, 
   PRIMARY KEY (detalle_pedido_id),
   FOREIGN KEY(producto_id) REFERENCES PRODUCTOS (producto_id),
-  FOREIGN KEY(pedido_id) REFERENCES PEDIDOS (pedido_id),
+  FOREIGN KEY(pedido_id) REFERENCES PEDIDOS (pedido_id)
   );
 
 
 CREATE TABLE FORMAS_PAGOS_VENTAS (
   forma_pago_id int NOT NULL, 
   venta_id int NOT NULL, 
-  PRIMARY KEY (forma_pago_id, VENTASventa_id),
+  PRIMARY KEY (forma_pago_id, venta_id),
   FOREIGN KEY(forma_pago_id) REFERENCES FORMAS_PAGOS (forma_pago_id),
   FOREIGN KEY(venta_id) REFERENCES VENTAS (venta_id));
 
@@ -97,8 +97,8 @@ CREATE TABLE DETALLES_VENTA (
 	venta_id int NOT NULL,
 	producto_id INT NOT NULL,
 	PRIMARY KEY (detalle_venta_id),
-	FOREIGN KEY(venta_id) REFERENCES VENTAS (venta_id));
-	FOREIGN KEY (producto_id) REFERENCES PRODUCTOS(producto_id);
+	FOREIGN KEY(venta_id) REFERENCES VENTAS (venta_id),
+	FOREIGN KEY (producto_id) REFERENCES PRODUCTOS(producto_id));
 
 CREATE TABLE PRODUCTOS (
 	producto_id SERIAL NOT NULL,
@@ -132,7 +132,7 @@ CREATE TABLE BITACORA_RECETAS(
 		table_id	TEXT NOT NULL,
 		description	TEXT NOT NULL,
 		created_at	TIMESTAMP DEFAULT NOW(),
-    operacion   TEXT NOT NULL,
+    	operacion   TEXT NOT NULL,
 		PRIMARY KEY(id)
 );
 
@@ -165,7 +165,7 @@ CREATE OR REPLACE FUNCTION registrar_cambios_recetas() RETURNS trigger AS $BODY$
 
 	  RAISE NOTICE 'TRIGGER called on % - Log: %', TG_TABLE_NAME, vDescription;
 
-  INSERT INTO bitacora_comerciales
+  INSERT INTO bitacora_recetas
 		 (table_name, table_id, description, created_at, Operacion)  
 		 VALUES
 		 (TG_TABLE_NAME, vId, vDescription, NOW(), vOperacion);
@@ -254,6 +254,12 @@ ON detalles_venta
 FOR EACH ROW
 EXECUTE FUNCTION actualizar_stock_venta();
 
+
+--CONSULTAS 
+SELECT *FROM PRODUCTOS
+SELECT *FROM VENTAS
+SELECT *FROM DETALLES_VENTA
+
 --TRANSACCION USANDO SECUENCIAS
 --SECUENCIA DE VENTAS	
 	CREATE SEQUENCE ventas_seq
@@ -266,7 +272,7 @@ CYCLE;
 BEGIN;
 --Insertar una nueva venta
 INSERT INTO VENTAS (Venta_Id, IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id)
-VALUES (nextval('ventas_seq') ,0.16, 100.00, '2021-06-01', 0, 1, 1);
+VALUES (nextval('ventas_seq') ,0.16, 150.00, '2021-06-01', 0, 1, 1);
 
 
 --Insertar detalles de la venta
@@ -438,7 +444,7 @@ INSERT INTO RECETAS (nombre, tiempo_preparacion, Descripcion, empleado_id) VALUE
 INSERT INTO RECETAS (nombre, tiempo_preparacion, Descripcion, empleado_id) VALUES ('Beef Stroganoff', '00:45:00', 'Creamy Russian beef dish', 3);
 INSERT INTO RECETAS (nombre, tiempo_preparacion, Descripcion, empleado_id) VALUES ('Caesar Salad', '00:20:00', 'Fresh Caesar salad with homemade dressing', 4);
 INSERT INTO RECETAS (nombre, tiempo_preparacion, Descripcion, empleado_id) VALUES ('Chocolate Cake', '01:30:00', 'Rich chocolate dessert', 5);
-
+SELECT *FROM BITACORA_RECETAS
 /*TABLA PEDIDOS*/
 INSERT INTO PEDIDOS (mesa, estado, Cliente_id) VALUES (1, 'Pendiente', 1);
 INSERT INTO PEDIDOS (mesa, estado, Cliente_id) VALUES (2, 'En Proceso', 2);
@@ -459,12 +465,13 @@ INSERT INTO FORMAS_PAGOS_VENTAS (forma_pago_id, venta_id) VALUES (2, 2);
 INSERT INTO FORMAS_PAGOS_VENTAS (forma_pago_id, venta_id) VALUES (3, 3);
 INSERT INTO FORMAS_PAGOS_VENTAS (forma_pago_id, venta_id) VALUES (4, 4);
 INSERT INTO FORMAS_PAGOS_VENTAS (forma_pago_id, venta_id) VALUES (5, 5);
+SELECT *FROM formas_pagos_ventas
 
 /*TABLA FORMAS_PAGOS*/
 INSERT INTO FORMAS_PAGOS (nombre) VALUES ('Tarjeta de Crédito');
 INSERT INTO FORMAS_PAGOS (nombre) VALUES ('Tarjeta de Débito');
 INSERT INTO FORMAS_PAGOS (nombre) VALUES ('Efectivo');
-INSERT INTO FORMAS_PAGOS (nombre) VALUES ('Transferencia Bancaria');
+INSERT INTO FORMAS_PAGOS (nombre) VALUES ('Transferencia ');
 INSERT INTO FORMAS_PAGOS (nombre) VALUES ('PayPal');
 
 /*TABLAS VENTAS*/
