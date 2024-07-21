@@ -97,7 +97,7 @@
 
           <div class="card-tools">
             <!-- Button trigger modal -->
-                <button type="button" class="btn text-bg-primary" data-bs-toggle="modal"  data-bs-target="#modalUsuarios">
+                <button type="button" id="add.user-btn" class="btn text-bg-primary" data-bs-toggle="modal"  data-bs-target="#modalUsuarios">
                   <i class="fa-solid fa-user-plus"></i> Agregar Empleado
                  </button>
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -114,7 +114,7 @@
         <div class="card-body" id="contenidoTabla">
           <div class="table-container">
             <table class="table">
-                <thead class="table-primary-color">
+                <thead class="table-primary">
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nombre</th>
@@ -125,34 +125,8 @@
                         <th scope="col">Operaciones</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Registo de ejemplo -->
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Juan</td>
-                        <td>Pérez</td>
-                        <td>Gómez</td>
-                        <td>juan.perez@utcv.edu.mx</td>
-                        <td>juan123</td>
-                        <td>
-                          <a href="" class="link-primary"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
-                          <a href="" class="link-danger"><i class="fa-solid fa-trash fs-5 me-3"></i></a>
-                          <a href="" class="link-success"><i class="fa-solid fa-eye fs-5"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Pedro</td>
-                      <td>Pérez</td>
-                      <td>Sanchez</td>
-                      <td>sanchez@utcv.edu.mx</td>
-                      <td>sanchez</td>
-                      <td>
-                        <a href="" class="link-primary"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
-                        <a href="" class="link-danger"><i class="fa-solid fa-trash fs-5 me-3"></i></a>
-                        <a href="" class="link-success"><i class="fa-solid fa-eye fs-5"></i></a>
-                      </td>
-                  </tr>
+                <tbody id="employe-table-body">
+                    
                 </tbody>
             </table>
         </div>
@@ -174,30 +148,31 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form id="formUsuarios">
+                <form id="formEmpleados">
                   <input type="hidden" name="accion" value="1">
                   <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                    <label for="nombreEmpleado" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombreEmpleado" name="nombreEmpleado" placeholder="Nombre">
                   </div>
                   <div class="mb-3">
-                    <label for="paterno" class="form-label">Paterno</label>
-                    <input type="text" class="form-control" id="paterno" name="paterno" placeholder="Apellido paterno">
+                    <label for="apPaterno" class="form-label">Paterno</label>
+                    <input type="text" class="form-control" id="apPaterno" name="apPaterno" placeholder="Apellido paterno">
                   </div>
                   <div class="mb-3">
-                    <label for="materno" class="form-label">Materno</label>
-                    <input type="text" class="form-control" id="materno" name="materno" placeholder="Apellido materno">
+                    <label for="apMaterno" class="form-label">Materno</label>
+                    <input type="text" class="form-control" id="apMaterno" name="apMaterno" placeholder="Apellido materno">
                   </div>
                   <div class="row">
                     <div class="mb-3 col-md-6">
-                      <label for="email" class="form-label">Correo</label>
-                      <input type="email" class="form-control" id="email" name="email" placeholder="Correo">
+                      <label for="correo" class="form-label">Correo</label>
+                      <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo">
                     </div>
                     <div class="mb-3 col-md-6">
                       <label for="contrasena" class="form-label">Contraseña</label>
                       <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña">
                     </div>
                   </div>
+                  <input type="hidden" id="empleado-id">
                   <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </form>
@@ -206,11 +181,12 @@
           </div>
         </div>
 
-    <script src="../js/script.js"></script>
     <script src="../js/jquery.js"></script>
-    <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
-    <script src="../js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/sweetalert2.all.min.js"></script>
+    <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
     <script src="../js/adminlte.min.js"></script>
   </body>
 </body>

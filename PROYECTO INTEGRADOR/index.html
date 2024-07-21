@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/fontawesome.css">
     <link rel="stylesheet" href="css/estilos.css" />
-    <link rel="stylesheet" href="css/bootstrap.css">
     <title>El Fortin Panaderia</title>
     <link rel="icon" type="img/jpg" href="recursos/logo-removebg-preview.png" />
   </head>
@@ -79,22 +78,14 @@
     <!-- #header -->
 
     <!-- Modal -->
-    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+    <div class="modal fade" id="userModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
         <div class="modal-content" style="background-color: #f9f5f0">
           <div class="modal-header bg-primary">
-
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <h5 class="btnlogin">Iniciar Sesión</h5>
-            <button
-              type="button"
-              class="close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
             <form id="user-form">
               <div class="form-group">
                 <label for="user-name">Correo</label>
@@ -397,10 +388,8 @@
 
     <script src="js/jquery.js"></script>
     <script src="js/popper.min.js"></script>
+    <!--Este es el boostrap de la pagina de adan.-->
     <script src="js/bootstrap.bundle.min.js"></script>
-
-    <script src="js/bootstrap.js"></script>
-
     <script src="js/script.js"></script>
     <script src="js/adminlte.min.js"></script>
   </body>
