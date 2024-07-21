@@ -1,3 +1,7 @@
+CREATE TABLE CATEGORIAS(
+  IdCategoria SERIAL,
+  Categoria VARCHAR(50) NOT NULL,
+  PRIMARY KEY (IdCategoria));
 
 CREATE TABLE USUARIOS (
   usuario_id SERIAL NOT NULL, 
@@ -11,7 +15,7 @@ CREATE TABLE PERSONAS (
   Nombre varchar(35) NOT NULL,
   ApPaterno varchar(35) NOT NULL,
   ApMaterno varchar(35),
-  Correo varchar(45) NOT NULL, 
+  Correo varchar(45) NOT NULL UNIQUE, 
   Telefono varchar(10) NOT NULL, 
   PRIMARY KEY (persona_id));
 
@@ -25,14 +29,10 @@ CREATE TABLE CLIENTES (
 
 CREATE TABLE EMPLEADOS (
   empleado_id SERIAL NOT NULL, 
-  salario  int NOT NULL, 
-  fecha_pago date NOT NULL, 
   telefono char(10) NOT NULL, 
   usuario_id int NOT NULL, 
   PRIMARY KEY (empleado_id),
   FOREIGN KEY(usuario_id) REFERENCES USUARIOS (usuario_id));
-
-
 
 CREATE TABLE RECETAS (
   recetas_id SERIAL NOT NULL, 
@@ -55,7 +55,7 @@ CREATE TABLE PEDIDOS (
 CREATE TABLE DETALLES_PEDIDOS (
   detalle_pedido_id SERIAL NOT NULL, 
   cantidad int NOT NULL, 
-  fecha_pedido date NOT NULL, 
+  fecha_pedido TIMESTAMP NOT NULL , 
   producto_id int NOT NULL, 
   pedido_id int NOT NULL, 
   PRIMARY KEY (detalle_pedido_id),
@@ -81,7 +81,7 @@ CREATE TABLE VENTAS (
   venta_id SERIAL NOT NULL, 
   IVA_pagar   float NOT NULL, 
   pago_total  float NOT NULL, 
-  fecha_venta  TIMESTAMP NOT NULL, 
+  fecha_venta  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   descuento_venta int, 
   empleado_id int NOT NULL, 
   Cliente_id  int NOT NULL, 
@@ -106,8 +106,9 @@ CREATE TABLE PRODUCTOS (
 	precio float NOT NULL,
 	descripcion varchar(125) NOT NULL,
 	stock int NOT NULL,
-	categoria VARCHAR (25) NOT NULL,
-	PRIMARY KEY (producto_id));
+	IdCategoria INT NOT NULL,
+	PRIMARY KEY (producto_id)
+	FOREIGN KEY(IdCategoria) REFERENCES CATEGORIAS (IdCategoria));
 
 CREATE TABLE TIPOS (
 	tipos_id SERIAL NOT NULL,
@@ -124,6 +125,8 @@ CREATE TABLE PEDIDOS (
 	PRIMARY KEY (pedido_id),
 	FOREIGN KEY(producto_id) REFERENCES PRODUCTOS (producto_id),
 	FOREIGN KEY(detalle_venta_id) REFERENCES DETALLES_VENTA (detalle_venta_id));
+
+
 
 /*BITACORA PARA REGISTRAR CAMBIOS DE RECETAS*/
 CREATE TABLE BITACORA_RECETAS(
@@ -354,7 +357,6 @@ VALUES (5, 250.0, 25, 5);
 
 COMMIT
 
-
 BEGIN 
 INSERT INTO VENTAS ( IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id) 
 VALUES ( 0.16, 100.00, '2021-06-01', 0, 1, 1);
@@ -368,8 +370,6 @@ VALUES ( 1, 'Pendiente', 1);
 BEGIN 
 INSERT INTO PEDIDOS ( mesa, estado, Cliente_id)
 VALUES ( NULL, 'Pendiente', 2);
-
-
 
 /*FUNCION PARA CALCULO DE SUBTOTAL*/
 
