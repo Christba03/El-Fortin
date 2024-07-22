@@ -78,9 +78,8 @@ $(document).ready(function(){
                         <td>${empleado.correo}</td>
                         <td>${empleado.contrasena}</td>
                         <td>
-                           <a href="" class="link-primary"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
-                           <a href="" class="link-danger"><i class="fa-solid fa-trash fs-5 me-3"></i></a>
-                           <a href="" class="link-success"><i class="fa-solid fa-eye fs-5"></i></a>
+                           <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
+                           <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-trash fs-6"></i></button>
                         </td>
                     </tr>
                 `);
@@ -95,6 +94,7 @@ $(document).ready(function(){
   }
 
 
+  //funcion para agregar los usuarios
   $("#formEmpleados").submit(function (event){
     event.preventDefault();
     let userId = $("#empleado-id").val();
@@ -126,7 +126,7 @@ $(document).ready(function(){
     }
     loadEmployes();
     alert();
-    $("#modalUsuarios").modal("hide");
+    $("#modalEmpleados").modal("hide");
   });
 
   function searchObject(id) {
@@ -139,6 +139,73 @@ $(document).ready(function(){
     }
     return objeto;
   }
+
+
+   // Editar usuario
+   $(document).on("click", ".edit-user-btn", function () {
+    let userId = $(this).data("id");
+    let objeto = searchObject(userId);
+
+    let employe = objeto;
+    $("#empleado-id").val(employe.id);
+    $("#nombreEmpleado").val(employe.nombre);
+    $("#apPaterno").val(employe.apellidoPaterno);
+    $("#apMaterno").val(employe.apellidoPaterno);
+    $("#correo").val(employe.correo);
+    $("#contrasena").val(employe.contrasena);
+    $("#modalEmpleadosLabel").text("Editar Empleado");
+    $("#modalEmpleados").modal("show");
+  });
+
+
+  // Eliminar usuario
+    // Eliminar usuario
+    $(document).on("click", ".delete-user-btn", function () {
+      let empleadoId = $(this).data("id");
+      let indice = -1;
+      for (let i = 0; i < arreglo.length; i++) {
+        if (empleadoId == arreglo[i].id) {
+          indice = i;
+          break;
+        }
+      }
+  
+      if (indice !== -1) {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#09A62E",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            arreglo.splice(indice, 1);
+            loadEmployes();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success"
+            });
+          }else if(result.dismiss === Swal.DismissReason.cancel){
+            Swal.fire({
+              title: "Cancelled",
+              text: "Your imaginary file is safe :)",
+              icon: "error"
+            })
+          }
+        });
+      }
+    });
+
+    // Resetear modal al cerrarlo
+    $("#modalEmpleados").on("hidden.bs.modal", function () {
+      $("#formEmpleados")[0].reset();
+      $("#empleado-id").val("");
+      $("#modalEmpleadosLabel").text("Agregar Empleado");
+    });
+  
 
    // Inicializar la tabla de usuarios
 
