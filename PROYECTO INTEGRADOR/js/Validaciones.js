@@ -1,3 +1,14 @@
+
+
+
+
+
+
+
+
+
+
+
 /*--Validacion de fecha de nacimiento--*/
 function validateBirthDate(birthDateString) {
     const birthDate = new Date(birthDateString);
