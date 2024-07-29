@@ -87,22 +87,11 @@
           <div class="modal-body">
             <h5 class="btnlogin">Iniciar Sesión</h5>
             <form id="user-form" class="needs-validation" novalidate>
+              <input type="hidden" name="accion" value="1">
               <div class="form-group">
-                <label for="user-name">Correo</label>
+                <label for="user-email">Correo</label>
                 <input
                   type="email"
-                  class="form-control"
-                  id="user-name"
-                  required
-                />
-                <div class="invalid-feedback">
-                  Please provide a valid city.
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="user-email">Contraseña</label>
-                <input
-                  type="password"
                   class="form-control"
                   id="user-email"
                   required
@@ -111,14 +100,20 @@
                   Please provide a valid city.
                 </div>
               </div>
-              <input type="hidden" id="user-id" />
-              <button
-                type="submit"
-                class="btn"
-                onclick=""
-              >
-                Guardar
-              </button>
+              <div class="form-group">
+                <label for="user-password">Contraseña</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="user-password"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Please provide a valid city.
+                </div>
+              </div>
+              <input type="hidden" id="user-id"/>
+              <button type="submit" class="btn">Guardar</button>
             </form>
           </div>
         </div>
@@ -395,6 +390,7 @@
     <script src="js/jquery.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/validacionLogin.js"></script>
+    <script src="js/sweetalert2.all.min.js"></script>
     <!--Este es el boostrap de la pagina de adan.-->
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>

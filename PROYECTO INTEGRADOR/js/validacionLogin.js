@@ -23,3 +23,63 @@
     form.reset();
     form.classList.remove('was-validated');
   });
+
+
+  $(document).ready(function(){
+  //debemos validar lo que enviemos con un arreglo de usuarios registrados XD
+  let usuariosRegistrados = [
+    {
+      id: 1,
+      correo: "angel@gmail.com",
+      contrasena: "angel1234",
+    },
+    {
+      id: 2,
+      correo: "joseangel@gmail.com",
+      contrasena: "pepe",
+    },
+  ];
+
+
+  function correcto(){
+    Swal.fire({
+      icon: "success",
+      title: "Credenciales correctas",
+    });
+  }
+
+  function error(){
+    Swal.fire({
+      icon: "error",
+      title: "Credenciales incorrectas.",
+    });
+  }
+
+
+  $("#user-form").submit(function (event) {
+    event.preventDefault();
+    let correo = $("#user-email").val();
+    let contrasena = $("#user-password").val();
+
+    // Verificar si los campos están vacíos
+        if (correo === "" || contrasena === "") {
+        return; // No hacer nada si los campos están vacíos
+      }
+
+      let credencialesCorrectas = false;
+
+    for(let i = 0; i<usuariosRegistrados.length; i++){
+       if(correo == usuariosRegistrados[i].correo && contrasena == usuariosRegistrados[i].contrasena){
+           credencialesCorrectas = true;
+           break;
+       }
+    }
+
+    if(credencialesCorrectas){
+      correcto();
+      $("#userModal").modal("hide");
+    }else{
+      error();
+    }
+  });
+});
