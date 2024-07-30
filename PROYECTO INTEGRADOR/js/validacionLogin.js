@@ -40,14 +40,6 @@
     },
   ];
 
-
-  function correcto(){
-    Swal.fire({
-      icon: "success",
-      title: "Credenciales correctas",
-    });
-  }
-
   function error(){
     Swal.fire({
       icon: "error",
@@ -76,8 +68,19 @@
     }
 
     if(credencialesCorrectas){
-      correcto();
       $("#userModal").modal("hide");
+
+       // Mostrar SweetAlert y redirigir después de que el usuario haga clic en "OK"
+    Swal.fire({
+    title: '¡Correcto!',
+    text: 'Iniciando sesión',
+    icon: 'success',
+    timer: 1300, // Tiempo en milisegundos antes de redirigir
+    showConfirmButton: false
+    }).then((result) => {
+    // Redirigir a otra página
+    location.href = "paginas/empleados.html";
+    });
     }else{
       error();
     }
