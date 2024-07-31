@@ -77,125 +77,26 @@
       </header>
 
       <section class="container-products">
-        <div class="conteiner-products">
-            <!--Producto 1-->
-            <div class="card-product">
-              <div class="container-img">
-                <img src="../recursos/malteada-fresa.jpg" alt="Malteada de Fresa" />
-                <span class="descuento"> -13%</span>
-                <div class="button-group">
-                  <span>
-                    <i class="fa-regular fa-eye"></i>
-                  </span>
-                  <span>
-                    <i class="fa-regular fa-heart"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="content-card-product">
-                <div class="rango-starts">
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-regular fa-star"></i>
-                </div>
-                <h3>Malteada de Fresa</h3>
-                <span class="add-cart">
-                  <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                </span>
-                <p class="precio">$23 <span>$22</span></p>
-              </div>
-            </div>
-            <!--Producto 2-->
-            <div class="card-product">
-              <div class="container-img">
-                <img src="../recursos/malteada-fresa.jpg" alt="Malteada de Fresa" />
-                <span class="descuento"> -13%</span>
-                <div class="button-group">
-                  <span>
-                    <i class="fa-regular fa-eye"></i>
-                  </span>
-                  <span>
-                    <i class="fa-regular fa-heart"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="content-card-product">
-                <div class="rango-starts">
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-regular fa-star"></i>
-                </div>
-                <h3>Malteada de Chocolate</h3>
-                <span class="add-cart">
-                  <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                </span>
-                <p class="precio">$23 <span>$22</span></p>
-              </div>
-            </div>
-            <!--Producto 3-->
-            <div class="card-product">
-              <div class="container-img">
-                <img src="../recursos/malteada-fresa.jpg" alt="Malteada de Fresa" />
-                <span class="descuento"> -13%</span>
-                <div class="button-group">
-                  <span>
-                    <i class="fa-regular fa-eye"></i>
-                  </span>
-                  <span>
-                    <i class="fa-regular fa-heart"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="content-card-product">
-                <div class="rango-starts">
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-regular fa-star"></i>
-                </div>
-                <h3>Malteada de Vinilla</h3>
-                <span class="add-cart">
-                  <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                </span>
-                <p class="precio">$23 <span>$22</span></p>
-              </div>
-            </div>
-            <!--Producto 4-->
-            <div class="card-product">
-                <div class="container-img">
-                  <img src="../recursos/malteada-fresa.jpg" alt="Malteada de Fresa" />
-                  <span class="descuento"> -13%</span>
-                  <div class="button-group">
-                    <span>
-                      <i class="fa-regular fa-eye"></i>
-                    </span>
-                    <span>
-                      <i class="fa-regular fa-heart"></i>
-                    </span>
-                  </div>
-                </div>
-                <div class="content-card-product">
-                  <div class="rango-starts">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                  </div>
-                  <h3>Malteada de Fresa</h3>
-                  <span class="add-cart">
-                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                  </span>
-                  <p class="precio">$23 <span>$22</span></p>
-                </div>
-              </div>
-          </div>
+        <div class="conteiner-products" id="products-container">
+          
+        </div>
       </section>
+
+
+      <div class="modal fade" id="modalBebida" tabindex="-1" aria-labelledby="modalBebidaTitle" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalBebidaTitle"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <img id="modalBebidaImage" src="" alt="Imagen de la bebida" class="img-fluid mb-3">
+              <p id="modalBebidaDescription"></p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <footer class="text-white pt-5 pb-4" id="container-footer">
         <div class="container text-center text-md-left">
@@ -258,13 +159,13 @@
       </footer>
 
     <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
-    <script src="js/jquery.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/validacionLogin.js"></script>
-    <script src="js/sweetalert2.all.min.js"></script>
-    <!--Este es el boostrap de la pagina de adan.-->
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/adminlte.min.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/validacionLogin.js"></script>
+    <script src="../js/sweetalert2.all.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/restaurante.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/adminlte.min.js"></script>
 </body>
 </html>
