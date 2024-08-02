@@ -25,13 +25,7 @@
           </div>
 
           <div class="usuario-contenedor">
-            <button
-              type="button"
-              class="btnSesion"
-              id="add.user-btn"
-              data-bs-toggle="modal"
-              data-bs-target="#userModal"
-            >
+            <button type="button" class="btnSesion" id="add.user-btn" data-bs-toggle="modal" data-bs-target="#userModal">
               <i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar Sesion
             </button>
             <!-- <a href="#" class="open-modal">Iniciar Sesion</a> -->
@@ -39,36 +33,24 @@
         </div>
       </div>
 
-      <nav class="navbar navbar-expand-lg navbar-light" id="nav-content">
+      <nav class="navbar navbar-expand-lg" id="nav-content">
         <div class="container-fluid">
-          <a class="navbar-brand" href="paginas/promociones.html">Promociones</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarTogglerDemo02"
-            aria-controls="navbarTogglerDemo02"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link" href="index.html">Inicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="#servicios">Servicios</a>
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link disabled"
-                  href="#"
-                  tabindex="-1"
-                  aria-disabled="true"
-                  >Disabled</a
-                >
+                <a class="nav-link" href="#nosotros">Acerca de Nosotros</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contactanos">Contactanos</a>
               </li>
             </ul>
           </div>
@@ -97,7 +79,7 @@
                   required
                 />
                 <div class="invalid-feedback">
-                  Please provide a valid city.
+                  Ingrese un correo valido.
                 </div>
               </div>
               <div class="form-group">
@@ -109,11 +91,11 @@
                   required
                 />
                 <div class="invalid-feedback">
-                  Please provide a valid city.
+                  Ingrese una contraseña valida.
                 </div>
               </div>
               <input type="hidden" id="user-id"/>
-              <button type="submit" class="btn">Guardar</button>
+              <button type="submit" class="btn">Inciar Sesion</button>
             </form>
           </div>
         </div>
@@ -180,31 +162,8 @@
     </div>
 
     <main class="main-content">
-      <section class="facturas-contenido">
-        <div class="card-feature">
-          <i class="fa fa-plane" aria-hidden="true"></i>
-          <div class="feature-content">
-            <span>Envio gratituo</span>
-            <p>En pedido superiro a $150</p>
-          </div>
-        </div>
-        <div class="card-feature">
-          <i class="fa fa-wallet"></i>
-          <div class="feature-content">
-            <span>Contrarembolso</span>
-            <p>100% de garantia de devolucion de dinero</p>
-          </div>
-        </div>
-        <div class="card-feature">
-          <i class="fa fa-gift" aria-hidden="true"></i>
-          <div class="feature-content">
-            <span>Tarjeta de regalo especial</span>
-            <p>Ofrece bonos especiales con regalo</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="contenido-categorias">
+      <section class="contenido-categorias" id="servicios">
+        <br>
         <h1 class="heading-1">Servicios</h1>
         <div class="container-categorias">
           <div class="card-category-concha-rosada">
@@ -222,14 +181,48 @@
         </div>
       </section>
 
-      <section class="container-products">
+      <section class="container-products" id="nosotros">
+        <br>
         <h1 class="heading-1">Acerca de Nosotros</h1>
-
-        <div class="conteiner-options">
-          <span class="activa">Destacados</span>
-          <span>Mas recientes</span>
-          <span>Mejores Vendidos</span>
-        </div>
+        <div class="about-us">
+          <div class="text">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur voluptatem, alias nesciunt qui quae quod cum exercitationem id sequi nulla nostrum, est autem doloribus tempore neque quidem soluta aperiam reprehenderit?
+              </p>
+          </div>
+          <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="recursos/cuernito.jpg" class="d-block w-100" alt="Food Photo 1">
+              </div>
+              <div class="carousel-item">
+                <img src="recursos/capucchino.jpg" class="d-block w-100" alt="Food Photo 2">
+              </div>
+              <div class="carousel-item">
+                <img src="recursos/coffe1.jpg" class="d-block w-100" alt="Food Photo 3">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        <!-- <div class="image-container">
+              <div class="image image1">
+                  <img src="recursos/cuernito.jpg" alt="Food Photo">
+              </div>
+          </div>
+        -->
+      </div>
       </section>
     </main>
 
@@ -259,7 +252,7 @@
                 <p>
                   <img
                     class="m-b-50"
-                    src="../recursos/WhatsApp_Image_2024-05-26_at_4.23.22_PM-removebg-preview.png"
+                    src="recursos/user-dashboard.png"
                     alt="El Fortin Panaderia"
                     style="float: left; width: 150px; margin-right: 20px"
                   />

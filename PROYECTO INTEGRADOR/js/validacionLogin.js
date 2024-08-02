@@ -26,7 +26,6 @@
 
 
 
-
   $(document).ready(function(){
   //debemos validar lo que enviemos con un arreglo de usuarios registrados XD
   let usuariosRegistrados = [

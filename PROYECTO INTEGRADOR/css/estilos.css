@@ -13,9 +13,44 @@
     box-sizing: border-box;
 }
 
-#nav-content{
+/*La navegacion*/
+#nav-content {
     background-color: var(--primary-color);
-}
+    height: auto;
+    width: 100%;
+  }
+  
+  .navbar-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .navbar-nav .nav-item {
+    flex: 1; /* Hace que cada li ocupe el mismo espacio */
+    text-align: center; /* Centra el contenido de cada columna */
+  }
+  
+  .navbar-nav .nav-item .nav-link {
+    color: #fff; /* Color del texto */
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 15px 0; /* Añade padding para mayor área de clic */
+  }
+  
+  .navbar-nav .nav-item .nav-link:hover {
+    color: #000; /* Color del texto al hacer hover */
+    background-color: #fff; /* Fondo del enlace al hacer hover */
+    border-radius: 5px;
+  }
+  
+  .navbar-nav .nav-link.disabled {
+    color: #ccc; /* Color del texto para enlaces deshabilitados */
+  }
+
+  .navbar-nav .nav-item a{
+      font-size: 20px;
+      font-family: cursive;
+  }
 
 /* Estilos para el encabezado */
 .contenido-inicial {
@@ -217,9 +252,11 @@ i{
 
 .contenido-categorias{
     display: flex;
+    margin: 20px;
     flex-direction: column;
     gap: 2rem;
     margin-bottom: 3rem;
+    
 }
 
 .container-categorias{
@@ -273,6 +310,34 @@ i{
     font-weight: 500;
     font-size: 2.5rem;
 }
+
+.about-us .carousel {
+    max-width: 100%;
+    width: 100%;
+    height: 350px; /* Ajusta la altura según sea necesario */
+    overflow: hidden; /* Asegura que el contenido no se desborde */
+    position: relative;
+  }
+  
+  .about-us .carousel-inner {
+    height: 100%;
+  }
+  
+  .about-us .carousel-item {
+    height: 100%; /* Asegura que el elemento del carrusel ocupe toda la altura del contenedor */
+  }
+  
+  .about-us .carousel-item img {
+    max-width: 100%; /* Asegura que las imágenes no se desborden */
+    height: 100%; /* Ajusta la altura de las imágenes al contenedor */
+    object-fit: cover; /* Ajusta la imagen para cubrir el área del contenedor sin deformarse */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease-in-out; /* Transición suave */
+  }
+
+
+
 
 .container-categorias p::after{
     content: '';
@@ -487,6 +552,69 @@ i{
     margin-left: .5rem;
 }
 
+/********************* Acerca de Nosotros ***************/
+.about-us {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .about-us .text {
+    flex: 1;
+    margin-right: 20px;
+    border-color: var(--primary-color);
+    border-style: solid;
+    border-radius: 30px;
+    padding: 20px;
+  }
+
+  .about-us .text p {
+    margin: 10px 0;
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  .about-us .a-CTA {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .about-us .a-CTA:hover {
+    background-color: #0056b3;
+  }
+
+  .about-us .carousel-fade {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+
+  .about-us .image-container .carousel {
+    max-width: 100%; /* Ajusta el ancho máximo del carrusel */
+    width: 100%;
+    height: 400px; /* Ajusta la altura según sea necesario */
+    overflow: hidden; /* Asegura que el contenido no se desborde */
+    position: relative;
+  }
+  
+  .about-us .carousel-inner img {
+    max-width: 100%; /* Ajusta el ancho máximo de las imágenes dentro del carrusel */
+    height: 100%; /* Ajusta la altura de las imágenes al contenedor */
+    object-fit: cover; /* Ajusta la imagen para cubrir el área del contenedor sin deformarse */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease-in-out; /* Transición suave */
+  }
 
 /*Estilos para la seccion de footer*/
 
