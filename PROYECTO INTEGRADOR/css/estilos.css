@@ -616,6 +616,63 @@ i{
     transition: all 0.5s ease-in-out; /* Transición suave */
   }
 
+  .about-us .cardForm{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /*********** Para la seccion de contactanos *********************/
+
+  .contact-us {
+    display: flex;
+    align-items: flex-start; /* Alinea al inicio para que el texto esté arriba */
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .contact-us .text {
+    flex: 1;
+    margin-right: 35px;
+  }
+  
+  .contact-us .text h1, .contact-us .text p {
+    margin: 0; /* Elimina el margen para ajustar mejor */
+  }
+  
+  .contact-us .text p {
+    margin-top: 10px;
+    font-size: 18px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  .cardForm {
+    flex: 1;
+  }
+  
+  .card-title {
+    text-align: center;
+    font-size: 30px;
+  }
+  
+  .content-image {
+    height: 100%;
+  }
+  
+  .content-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .card {
+    width: 100%;
+    max-width: 900px; /* Ajusta el ancho máximo de la tarjeta */
+  }
+
+
 /*Estilos para la seccion de footer*/
 
 #container-footer{
