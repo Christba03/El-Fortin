@@ -1,3 +1,6 @@
+
+CREATE EXTENSION pgcrypto;
+
 CREATE TABLE CATEGORIAS(
   IdCategoria SERIAL,
   Categoria VARCHAR(50) NOT NULL,
@@ -6,33 +9,38 @@ CREATE TABLE CATEGORIAS(
 CREATE TABLE USUARIOS (
   usuario_id SERIAL NOT NULL, 
   user_name varchar(15) NOT NULL UNIQUE, 
-  contrasena varchar(15) NOT NULL, 
-  email   varchar(30) NOT NULL UNIQUE, 
-  PRIMARY KEY (usuario_id));
+  contrasena TEXT NOT NULL, 
+  persona_id INT NOT NULL,
+  PRIMARY KEY (usuario_id),
+  FOREIGN KEY(persona_id) REFERENCES PERSONAS (persona_id)
+);
 
 CREATE TABLE PERSONAS (
   persona_id SERIAL NOT NULL,
   Nombre varchar(35) NOT NULL,
   ApPaterno varchar(35) NOT NULL,
   ApMaterno varchar(35),
-  Correo varchar(45) NOT NULL UNIQUE, 
-  Telefono varchar(10) NOT NULL, 
-  PRIMARY KEY (persona_id));
+  Correo varchar(45) NOT NULL UNIQUE,
+  CONSTRAINT correo_formato_correcto CHECK (Correo ~ '^[^@]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'), 
+  Telefono varchar(10) NOT NULL, 	
+  PRIMARY KEY (persona_id)
+);
 
 CREATE TABLE CLIENTES (
   Cliente_id SERIAL NOT NULL,
   persona_id INT NOT NULL, 
-  usuario_id int NOT NULL, 
   PRIMARY KEY (Cliente_id),
-  FOREIGN KEY(usuario_id) REFERENCES USUARIOS (usuario_id),
-  FOREIGN KEY(persona_id) REFERENCES PERSONAS (persona_id));
+  FOREIGN KEY(persona_id) REFERENCES PERSONAS (persona_id)
+);
 
 CREATE TABLE EMPLEADOS (
   empleado_id SERIAL NOT NULL, 
   telefono char(10) NOT NULL, 
   usuario_id int NOT NULL, 
+  persona_id INT NOT NULL,
   PRIMARY KEY (empleado_id),
-  FOREIGN KEY(usuario_id) REFERENCES USUARIOS (usuario_id));
+  FOREIGN KEY(persona_id) REFERENCES PERSONAS (persona_id)
+);
 
 CREATE TABLE RECETAS (
   recetas_id SERIAL NOT NULL, 
@@ -398,12 +406,29 @@ SELECT *FROM DETALLES_VENTA
 	 SELECT calcular_subtotal(2,4)
 
 
-/*TRIGGEER*/
+/*TRIGGEER para calculo de subtotal*/
 	CREATE TRIGGER subtotal_detalle_venta
 	BEFORE INSERT ON detalle_venta
 	FOR EACH ROW
 	 EXECUTE FUNCTION calcular_subtotal(NEW.p_cantidad, NEW.producto_id)
 
+/*FUNCION PARA ENCRIPTAR CONTRASEÑAS*/
+	CREATE OR REPLACE FUNCTION encriptar_contrasenas()
+	RETURNS TRIGGER AS $CUERPO$
+	BEGIN
+			NEW.contrasena := PGP_SYM_ENCRYPT(NEW.contrasena,'KEY_CRYPT', 'aes' )
+		
+		RETURN NEW;
+	END;
+	$CUERPO$ LANGUAGE plpgsql;
+
+/*TRIGGER PARA ENCRIPTAR CONTRASEÑAS*/
+	CREATE TRIGGER encriptar_contrasenas
+	BEFORE INSERT OR UPDATE ON USUARIOS
+	FOR EACH ROW
+	EXECUTE FUNCTION encriptar_contrasenas()
+
+SELECT *FROM USUARIOS
 /*INDICES*/
 
 	/*Este indice permite la busqueda rapida de un producto mediante el nombre*/
@@ -451,6 +476,11 @@ SELECT *FROM DETALLES_VENTA
 	GROUP BY fecha_venta
 	ORDER BY fecha_venta DESC;
 	SELECT *FROM VENTAS
+	
+
+
+
+
 /*----------------------------------------INSERT INTO---------------------------------------------*//
 
 /*TABLA USUARIOS*/
@@ -462,9 +492,9 @@ SELECT *FROM DETALLES_VENTA
 
 /*TABLA PERSONAS*/
 	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('John', 'Doe', 'Smith', 'john.doe@example.com', '1234567890');
-	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('Anna', 'Smith', 'Johnson', 'anna.smith@example.com', '0987654321');
+	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('Anna', 'Smith', 'Johnson', 'anna.smith@@example.com', '0987654321');
 	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('Michael', 'Jackson', 'Brown', 'michael.jackson@example.com', '1122334455');
-	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('Linda', 'King', 'White', 'linda.king@example.com', '2233445566');
+	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('Linda', 'King', 'White', 'linda.king@exa*mple.com', '2233445566');
 	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('Kobe', 'Bryant', 'Black', 'kobe.bryant@example.com', '3344556677');
 
 /*TABLA CLIENTES*/
@@ -551,7 +581,6 @@ SELECT *FROM DETALLES_VENTA
 	INSERT INTO BITACORA_RECETAS (table_name, table_id, description, operacion) VALUES ('RECETAS', '3', 'Descripción de cambio 3', 'DELETE');
 	INSERT INTO BITACORA_RECETAS (table_name, table_id, description, operacion) VALUES ('RECETAS', '4', 'Descripción de cambio 4', 'INSERT');
 	INSERT INTO BITACORA_RECETAS (table_name, table_id, description, operacion) VALUES ('RECETAS', '5', 'Descripción de cambio 5', 'UPDATE');
-
 
 
 
