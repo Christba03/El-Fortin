@@ -64,6 +64,50 @@
         </nav>
       </header>
 
+    <!-- Modal -->
+    <div class="modal fade" id="userModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #f9f5f0">
+          <div class="modal-header bg-primary">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h5 class="btnlogin">Iniciar Sesión</h5>
+            <form id="user-form" class="needs-validation" novalidate>
+              <input type="hidden" name="accion" value="1">
+              <div class="form-group">
+                <label for="user-email">Correo</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="user-email"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Ingrese un correo valido.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="user-password">Contraseña</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="user-password"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Ingrese una contraseña valida.
+                </div>
+              </div>
+              <input type="hidden" id="user-id"/>
+              <button type="submit" class="btn">Inciar Sesion</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
       <section class="container-products">
         <div class="conteiner-products" id="products-container">
           
