@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/fontawesome.css">
+    <link rel="stylesheet" href="../../css/estilos.css"/>
+    <title>Restaurante</title>
+</head>
+<body>
+    <header id="header">
+        <div class="contenido-inicial">
+          <div class="contenedor-inicial">
+            <div class="soporte-cliente">
+              <i class="fa fa-headphones" aria-hidden="true"></i>
+              <div class="contenido-soporte-cliente">
+                <span class="titulo">Soporte al CLIENTE</span>
+                <span class="telefono">271-123-3678</span>
+              </div>
+            </div>
+  
+            <div class="contenedor-logo">
+              <h1 class="logo">Restaurante</h1>
+            </div>
+  
+            <div class="usuario-contenedor">
+              <button
+                type="button"
+                class="btnSesion"
+                id="add.user-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#userModal"
+              >
+                <i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar Sesion
+              </button>
+              <!-- <a href="#" class="open-modal">Iniciar Sesion</a> -->
+            </div>
+          </div>
+        </div>
+  
+        <nav class="navbar navbar-expand-lg" id="nav-content">
+          <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="../../index.html">Inicio</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="panaderia.html">Panaderia</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="restaurante.html">Restaurante</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="bebidas.html">Bebidas</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <section class="container-products">
+        <div class="conteiner-products" id="products-container">
+          
+        </div>
+      </section>
+
+
+      <div class="modal fade" id="modalBebida" tabindex="-1" aria-labelledby="modalBebidaTitle" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalBebidaTitle"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <img id="modalBebidaImage" src="" alt="Imagen de la bebida" class="img-fluid mb-3">
+              <p id="modalBebidaDescription"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="text-white pt-5 pb-4" id="container-footer">
+        <div class="container text-center text-md-left">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <h3 class="mb-4 font-weight-bold">Contacto</h3>
+              <div class="textwidget">
+                <p class="contactos">
+                  <i class="fa fa-phone" aria-hidden="true" id="hasicon"></i>
+                  +52 271-713-1390
+                </p>
+                <p class="contactos">
+                  <i class="fa-solid fa-location-dot" id="hasicon"></i>
+                  Av. 5 No.102 B, Centro, 94470 Fortín de las Flores, Ver.
+                </p>
+                <p class="contactos">
+                  <i class="fa fa-globe" aria-hidden="true" id="hasicon"></i>
+                  https://www.el-fortin-panaderia.com.mx
+                </p>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="widget m-b-40 clearfix widget_text text-11">
+                <div class="textwidget">
+                  <p>
+                    <img
+                      class="m-b-50"
+                      src="../../recursos/fortin.jpeg"
+                      alt="El Fortin Panaderia"
+                      style="float: left; width: 150px; margin-right: 20px"
+                    />
+                  </p>
+                </div>
+                <h3 class="mb-4 font-weight-bold">Siguenos en:</h3>
+                <div class="facebook">
+                  <a href="https://es-la.facebook.com/"
+                    ><i class="fa fa-facebook" aria-hidden="true" id="social"></i
+                  ></a>
+                </div>
+                <div class="twitter">
+                  <a href=""
+                    ><i class="fa-brands fa-x-twitter" id="social"></i
+                  ></a>
+                </div>
+                <div class="instagram">
+                  <a href=""
+                    ><i class="fa fa-instagram" aria-hidden="true" id="social"></i
+                  ></a>
+                </div>
+                <div class="whatsapp">
+                  <a href=""
+                    ><i class="fa fa-whatsapp" aria-hidden="true" id="social"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="site-info">&copy; 2024 Todos los derechos reservados.</p>
+        </div>
+      </footer>
+
+    <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
+    <script src="../../js/jquery.js"></script>
+    <script src="../../js/popper.min.js"></script>
+    <script src="../../js/validacionLogin.js"></script>
+    <script src="../../js/sweetalert2.all.min.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/api.restaurante.js"></script>
+    <script src="../../js/script.js"></script>
+    <script src="../../js/adminlte.min.js"></script>
+</body>
+</html>
