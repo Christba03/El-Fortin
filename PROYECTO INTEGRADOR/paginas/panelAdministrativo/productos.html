@@ -27,7 +27,7 @@
           <li>
             <a href="usuarios.html" class="nav-link text-white">
               <i class="fa fa-user" aria-hidden="true"></i>
-              Usuarios
+              Productos
             </a>
           </li>
           <li>
@@ -94,7 +94,7 @@
         
                   <div class="card-tools">
                     <!-- Button trigger modal -->
-                   <button type="button" class="btn text-bg-primary" data-bs-toggle="modal"  data-bs-target="#modalUsuarios">
+                   <button type="button" class="btn text-bg-primary" data-bs-toggle="modal"  data-bs-target="#modalProductos">
                     <i class="fa-solid fa-user-plus"></i> Nuevo Producto
                    </button>
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -122,34 +122,8 @@
                                 <th scope="col">Operaciones</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!-- Registo de ejemplo -->
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Juan</td>
-                                <td>Pérez</td>
-                                <td>Gómez</td>
-                                <td>juan.perez@utcv.edu.mx</td>
-                                <td>juan123</td>
-                                <td>
-                                  <a href="" class="link-primary"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
-                                  <a href="" class="link-danger"><i class="fa-solid fa-trash fs-5 me-3"></i></a>
-                                  <a href="" class="link-success"><i class="fa-solid fa-eye fs-5"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>Pedro</td>
-                              <td>Pérez</td>
-                              <td>Sanchez</td>
-                              <td>sanchez@utcv.edu.mx</td>
-                              <td>sanchez</td>
-                              <td>
-                                <a href="" class="link-primary"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
-                                <a href="" class="link-danger"><i class="fa-solid fa-trash fs-5 me-3"></i></a>
-                                <a href="" class="link-success"><i class="fa-solid fa-eye fs-5"></i></a>
-                              </td>
-                          </tr>
+                        <tbody id="product-table-body">
+
                         </tbody>
                     </table>
                 </div>
@@ -162,15 +136,15 @@
           </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="modalUsuarios" tabindex="-1" aria-labelledby="modalUsuariosTitle" aria-hidden="true">
+        <div class="modal fade" id="modalProductos" tabindex="-1" aria-labelledby="modalProductosTitle" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="modalUsuariosTitle">Formulario de Productos</h5>
+                  <h5 class="modal-title" id="modalProductosTitle">Formulario de Productos</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form id="formUsuarios">
+                  <form id="formProductos">
                     <input type="hidden" name="accion" value="1">
                     <div class="mb-3">
                       <label for="nombre" class="form-label">Nombre del Producto</label>
@@ -212,5 +186,6 @@
         <script src="../../js/bootstrap.bundle.min.js"></script>
         <script src="../../js/popper.min.js"></script>
         <script src="../../js/adminlte.min.js"></script>
+        <script src="../../js/apis/api.productos.js"></script>
 </body>
 </html>
