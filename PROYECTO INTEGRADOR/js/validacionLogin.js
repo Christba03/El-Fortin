@@ -80,7 +80,7 @@
     showConfirmButton: false
     }).then((result) => {
     // Redirigir a otra página
-    location.href = "paginas/empleados.html";
+    location.href = "paginas/panelAdministrativo/empleados.html";
     });
     }else{
       error();

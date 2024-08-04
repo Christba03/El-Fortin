@@ -416,7 +416,7 @@ SELECT *FROM DETALLES_VENTA
 	CREATE OR REPLACE FUNCTION encriptar_contrasenas()
 	RETURNS TRIGGER AS $CUERPO$
 	BEGIN
-			NEW.contrasena := PGP_SYM_ENCRYPT(NEW.contrasena,'KEY_CRYPT', 'aes' )
+			NEW.contrasena := PGP_SYM_ENCRYPT(NEW.contrasena, 'AES_KEY');
 		
 		RETURN NEW;
 	END;
@@ -426,7 +426,7 @@ SELECT *FROM DETALLES_VENTA
 	CREATE TRIGGER encriptar_contrasenas
 	BEFORE INSERT OR UPDATE ON USUARIOS
 	FOR EACH ROW
-	EXECUTE FUNCTION encriptar_contrasenas()
+	EXECUTE FUNCTION encriptar_contrasenas();
 
 SELECT *FROM USUARIOS
 /*INDICES*/
@@ -484,18 +484,20 @@ SELECT *FROM USUARIOS
 /*----------------------------------------INSERT INTO---------------------------------------------*//
 
 /*TABLA USUARIOS*/
-	INSERT INTO USUARIOS (user_name, contrasena, email) VALUES ('jdoe', 'password123', 'jdoe@example.com');
-	INSERT INTO USUARIOS (user_name, contrasena, email) VALUES ('asmith', 'securepass', 'asmith@example.com');
-	INSERT INTO USUARIOS (user_name, contrasena, email) VALUES ('mjackson', 'moonwalk1', 'mjackson@example.com');
-	INSERT INTO USUARIOS (user_name, contrasena, email) VALUES ('lking', 'lion123', 'lking@example.com');
-	INSERT INTO USUARIOS (user_name, contrasena, email) VALUES ('kbryant', 'mamba24', 'kbryant@example.com');
+	INSERT INTO USUARIOS (user_name, contrasena, persona_id) VALUES ('jdoe', 'password123', 2);
+	INSERT INTO USUARIOS (user_name, contrasena, persona_id) VALUES ('asmith', 'securepass', 6);
+	INSERT INTO USUARIOS (user_name, contrasena, persona_id) VALUES ('mjackson', 'moonwalk1', 3);
+	INSERT INTO USUARIOS (user_name, contrasena, persona_id) VALUES ('lking', 'lion123', 4);
+	INSERT INTO USUARIOS (user_name, contrasena, persona_id) VALUES ('kbryant', 'mamba24', 5);
 
 /*TABLA PERSONAS*/
 	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('John', 'Doe', 'Smith', 'john.doe@example.com', '1234567890');
-	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('Anna', 'Smith', 'Johnson', 'anna.smith@@example.com', '0987654321');
+	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('Anna', 'Smith', 'Johnson', 'anna.smith@example.com', '0987654321');
 	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('Michael', 'Jackson', 'Brown', 'michael.jackson@example.com', '1122334455');
-	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('Linda', 'King', 'White', 'linda.king@exa*mple.com', '2233445566');
+	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('Linda', 'King', 'White', 'linda.king@example.com', '2233445566');
 	INSERT INTO PERSONAS (Nombre, ApPaterno, ApMaterno, Correo, Telefono) VALUES ('Kobe', 'Bryant', 'Black', 'kobe.bryant@example.com', '3344556677');
+SELECT *FROM PERSONAS
+
 
 /*TABLA CLIENTES*/
 	INSERT INTO CLIENTES (persona_id, usuario_id) VALUES (1, 1);
