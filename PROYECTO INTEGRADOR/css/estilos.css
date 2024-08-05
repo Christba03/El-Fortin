@@ -338,6 +338,11 @@ i{
 
 
 
+#promos{
+    width: 800px;
+    height: 700px;
+}
+
 
 .container-categorias p::after{
     content: '';
