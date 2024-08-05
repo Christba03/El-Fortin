@@ -159,26 +159,26 @@ document.addEventListener('DOMContentLoaded', () => {
     
         if (indice !== -1) {
           Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            title: "Estas seguro?",
+            text: "No podras revertir el cambio!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#09A62E",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Si, bórralo!"
           }).then((result) => {
             if (result.isConfirmed) {
               arreglo.splice(indice, 1);
               loadEmployes();
               Swal.fire({
                 title: "Borrado!",
-                text: "Your file has been deleted.",
+                text: "Tu registro fue eliminado.",
                 icon: "success"
               });
             }else if(result.dismiss === Swal.DismissReason.cancel){
               Swal.fire({
-                title: "Cancelled",
-                text: "Your imaginary file is safe :)",
+                title: "Cancelado",
+                text: "Tu registro fue salvado :)",
                 icon: "error"
               })
             }
