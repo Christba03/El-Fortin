@@ -163,10 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
       $("#nombreCliente").val(employe.cliente);
       $("#nombreEmpleado").val(employe.empleado);
       $("#mesa").val(employe.mesa);
-      $("#iva").val(employe.iva);
-      $("#fecha").val(employe.fecha);
       $("#total").val(employe.total);
-      $("#formaPago").val(employe.formaPago);      
+      $("#formaPago").val(employe.formaPago);
+      $("#iva").val(employe.iva);        
       $("#modalUsuariosLabel").text("Editar Pedido");
       $("#modalUsuarios").modal("show");
     });
@@ -214,10 +213,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   
       // Resetear modal al cerrarlo
-      $("#modalEmpleados").on("hidden.bs.modal", function () {
-        $("#formEmpleados")[0].reset();
-        $("#empleado-id").val("");
-        $("#modalEmpleadosLabel").text("Agregar Empleado");
+      $("#modalUsuarios").on("hidden.bs.modal", function () {
+        $("#formUsuarios")[0].reset();
+        $("#usuario-id").val("");
+        $("#modalUsuariosLabel").text("Agregar Pedido");
       });
     
   
