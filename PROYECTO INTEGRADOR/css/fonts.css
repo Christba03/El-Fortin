@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'BeautyReflections';
+    src: url('../recursos/fonts/BeautyReflections-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Apply the custom font to a specific element, e.g., the title */
+h1.titleFont {
+    font-family: 'BeautyReflections', sans-serif;
+    font-size: 6em;
+}
