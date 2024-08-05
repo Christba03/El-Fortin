@@ -109,8 +109,42 @@
                   Ingrese una contraseña valida.
                 </div>
               </div>
-              <input type="hidden" id="user-id" />
-              <button type="submit" class="btn">Inciar Sesion</button>
+              <input type="hidden" id="user-id"/>
+              <button type="submit" class="btn">Iniciar Sesion</button>
+              <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#userRegistro">Registrarse</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal de Registro -->
+    <div class="modal fade" id="userRegistro" tabindex="-1" aria-labelledby="modalUsuariosTitle" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalUsuariosTitle">Formulario de Registro</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="formUsuarios">
+              <input type="hidden" name="accion" value="1">
+              <div class="mb-3">
+                <label for="nombreUsuario" class="form-label">Nombre de Usuario</label>
+                <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Nombre">
+              </div>
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label for="correo" class="form-label">Correo</label>
+                  <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo">
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label for="contrasena" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña">
+                </div>
+              </div>
+              <input type="hidden" id="usuario-id">
+              <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </form>
           </div>
         </div>
