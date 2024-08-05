@@ -47,39 +47,27 @@ document.addEventListener('DOMContentLoaded', () => {
     let arreglo = [
       {
         id: 1,
-        nombre: "Jose",
-        apellidoPaterno: "Perez",
-        apellidoMaterno: "Gomez",
-        correo: "jose@gmail.com",
-        contrasena: "jose122",
-      },
-      {
-        id: 2,
-        nombre: "Angel",
-        apellidoPaterno: "Rivera",
-        apellidoMaterno: "Sanchez",
-        correo: "rivera@gmail.com",
-        contrasena: "rivera23",
+        nombre: "Empanada",
+        tiempo: "15 minutos",
+        descripcion: "(1 pieza de pan de baguette 100 gr. de salami. 150 gr. de queso manchego, rebanado. 1 cucharada de mayonesa ½ pieza de tomate. ¼ pieza de cebolla morada. 3 hojas de lechuga sangría. ½ pieza de aguacate. ¼ pieza de pepino. ¼ taza de arúgula. 1.- Vamos a comenzar lavando y desinfectando las verduras, el tomate, la cebolla morada, lechuga y pepino. Rebanamos el tomate, el pepino y la cebolla. 2.- Rebanamos el pan por la mitad y untamos un poco de mayonesa por ambos lados, colocamos una cama de lechuga y arúgula, después agregamos las rebanadas de queso manchego.  3.- Luego ponemos las demás verduras en rebanadas, por último, colocamos las rebanadas de salami y cerramos. 4.- Servimos y disfrutamos."
       },
     ];
   
     //se creara una funcion para cargar los usuarios que esten en la tabla.
     function loadEmployes() {
-      let clientes = arreglo;
-      let clienteTableBody = $("#employe-table-body");
-      clienteTableBody.empty();
-      clientes.forEach((cliente) => {
-        clienteTableBody.append(`
+      let recetas = arreglo;
+      let recetaTableBody = $("#employe-table-body");
+      recetaTableBody.empty();
+      recetas.forEach((receta) => {
+        recetaTableBody.append(`
                       <tr>
-                          <td>${cliente.id}</td>
-                          <td>${cliente.nombre}</td>
-                          <td>${cliente.apellidoPaterno}</td>
-                          <td>${cliente.apellidoMaterno}</td>
-                          <td>${cliente.correo}</td>
-                          <td>${cliente.contrasena}</td>
+                          <td>${receta.id}</td>
+                          <td>${receta.nombre}</td>
+                          <td>${receta.tiempo}</td>
+                          <td>${receta.descripcion}</td>
                           <td>
-                             <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${cliente.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
-                             <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${cliente.id}"><i class="fa-solid fa-trash fs-6"></i></button>
+                             <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${receta.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
+                             <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${receta.id}"><i class="fa-solid fa-trash fs-6"></i></button>
                           </td>
                       </tr>
                   `);
@@ -95,38 +83,31 @@ document.addEventListener('DOMContentLoaded', () => {
   
   
     //funcion para agregar los usuarios
-    $("#formClientes").submit(function (event){
+    $("#formRecetas").submit(function (event){
       event.preventDefault();
-      let userId = $("#cliente-id").val();
-      let clienteName = $("#nombre").val();
-      let apellidoPaterno = $("#paterno").val();
-      let apellidoMaterno = $("#materno").val();
-      let correo = $("#email").val();
-      let contrasena = $("#contrasena").val();
+      let userId = $("#receta-id").val();
+      let nombre = $("#nombre").val();
+      let tiempo = $("#tiempo").val();
+      let descripcion = $("#descripcion").val();
       let method = userId ? "PUT" : "POST";
   
       if(method == "POST"){
         let newId = arreglo[arreglo.length - 1].id + 1;
         arreglo.push({
           id: newId,
-          nombre: clienteName,
-          apellidoPaterno: apellidoPaterno,
-          apellidoMaterno: apellidoMaterno,
-          correo: correo,
-          contrasena: contrasena,
+          nombre: nombre,
+          tiempo: tiempo,
+          descripcion: descripcion,
         });
       }else {
         let objeto = searchObject(userId);
-  
-        objeto.nombre = clienteName;
-        objeto.apellidoPaterno= apellidoPaterno;
-        objeto.apellidoMaterno= apellidoMaterno;
-        objeto.correo = correo;
-        objeto.contrasena= contrasena;
+        objeto.nombre = nombre;
+        objeto.tiempo = tiempo;
+        objeto.descripcion = descripcion;
       }
       loadEmployes();
       alert();
-      $("#modalClientes").modal("hide");
+      $("#modalRecetas").modal("hide");
     });
   
     function searchObject(id) {
@@ -147,24 +128,22 @@ document.addEventListener('DOMContentLoaded', () => {
       let objeto = searchObject(userId);
   
       let employe = objeto;
-      $("#cliente-id").val(employe.id);
+      $("#receta-id").val(employe.id);
       $("#nombre").val(employe.nombre);
-      $("#paterno").val(employe.apellidoPaterno);
-      $("#materno").val(employe.apellidoPaterno);
-      $("#email").val(employe.correo);
-      $("#contrasena").val(employe.contrasena);
-      $("#modalClientesLabel").text("Editar Cliente");
-      $("#modalClientes").modal("show");
+      $("#tiempo").val(employe.tiempo);
+      $("#descripcion").val(employe.descripcion);
+      $("#modalRecetasLabel").text("Editar Receta");
+      $("#modalRecetas").modal("show");
     });
   
   
     // Eliminar usuario
       // Eliminar usuario
       $(document).on("click", ".delete-user-btn", function () {
-        let clienteId = $(this).data("id");
+        let recetaId = $(this).data("id");
         let indice = -1;
         for (let i = 0; i < arreglo.length; i++) {
-          if (clienteId == arreglo[i].id) {
+          if (recetaId == arreglo[i].id) {
             indice = i;
             break;
           }
@@ -200,10 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   
       // Resetear modal al cerrarlo
-      $("#modalClientes").on("hidden.bs.modal", function () {
-        $("#formClientes")[0].reset();
-        $("#cliente-id").val("");
-        $("#modalClientesLabel").text("Agregar Cliente");
+      $("#modalRecetas").on("hidden.bs.modal", function () {
+        $("#formRecetas")[0].reset();
+        $("#receta-id").val("");
+        $("#modalRecetasLabel").text("Agregar Receta");
       });
     
   
