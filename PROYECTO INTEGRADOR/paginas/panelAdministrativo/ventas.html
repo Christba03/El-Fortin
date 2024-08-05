@@ -117,7 +117,7 @@
         
                   <div class="card-tools">
                     <!-- Button trigger modal -->
-                   <button type="button" class="btn text-bg-primary" data-bs-toggle="modal"  data-bs-target="#modalUsuarios">
+                   <button type="button" class="btn text-bg-primary" data-bs-toggle="modal"  data-bs-target="#modalVentas">
                     <i class="fa-solid fa-user-plus"></i> Nueva Venta
                    </button>
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -144,7 +144,7 @@
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="employe-table-body">
                             <!-- Registo de ejemplo -->
                             <tr>
                                 <th scope="row">1</th>
@@ -170,38 +170,35 @@
           </div>
 
            <!-- Modal -->
-        <div class="modal fade" id="modalUsuarios" tabindex="-1" aria-labelledby="modalUsuariosTitle" aria-hidden="true">
+        <div class="modal fade" id="modalVentas" tabindex="-1" aria-labelledby="modalVentasLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="modalUsuariosTitle">Agregar Venta</h5>
+                  <h5 class="modal-title" id="modalVentasLabel">Agregar Venta</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form id="formUsuarios">
+                  <form id="formVentas">
                     <input type="hidden" name="accion" value="1">
                     <div class="mb-3">
-                      <label for="nombre" class="form-label">Nombre del Cliente</label>
-                      <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                      <label for="cliente" class="form-label">Nombre del Cliente</label>
+                      <input type="text" class="form-control" id="cliente" name="cliente" placeholder="Nombre Cliente">
                     </div>
                     <div class="mb-3">
-                      <label for="paterno" class="form-label">Nombre del Empleado</label>
-                      <input type="text" class="form-control" id="paterno" name="paterno" placeholder="Apellido paterno">
+                      <label for="empleado" class="form-label">Nombre del Empleado</label>
+                      <input type="text" class="form-control" id="empleado" name="empleado" placeholder="Nombre Empleado">
                     </div>
                     <div class="mb-3">
-                      <label for="materno" class="form-label">Materno</label>
-                      <input type="text" class="form-control" id="materno" name="materno" placeholder="Apellido materno">
+                      <label for="formaPago" class="form-label">Forma de Pago</label>
+                      <input type="text" class="form-control" id="formaPago" name="formaPago" placeholder="Forma de Pago">
                     </div>
                     <div class="row">
                       <div class="mb-3 col-md-6">
-                        <label for="email" class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Correo">
-                      </div>
-                      <div class="mb-3 col-md-6">
-                        <label for="contrasena" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña">
+                        <label for="fecha" class="form-label">Fecha de Venta</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha" placeholder="Contraseña">
                       </div>
                     </div>
+                    <input type="hidden" id="venta-id">
                     <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                   </form>
@@ -218,5 +215,6 @@
       <script src="../../js/sweetalert2.all.min.js"></script>
       <script src="../../js/popper.min.js"></script>
       <script src="../../js/adminlte.min.js"></script>
+      <script src="../../js/apis/api.ventas.js"></script>
 </body>
 </html>

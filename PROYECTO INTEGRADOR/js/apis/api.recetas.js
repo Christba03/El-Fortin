@@ -47,15 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let arreglo = [
       {
         id: 1,
-        nombre: "baguette de salami",
-        tiempo: "20 minutos",
-        descripcion: "1 pieza de pan de baguette. 100 gr. de salami. 150 gr. de queso manchego, rebanado. 1 cucharada de mayonesa ½ pieza de tomate. ¼ pieza de cebolla morada. 3 hojas de lechuga sangría. ½ pieza de aguacate. ¼ pieza de pepino. ¼ taza de arúgula. 1.- Vamos a comenzar lavando y desinfectando las verduras, el tomate, la cebolla morada, lechuga y pepino. Rebanamos el tomate, el pepino y la cebolla. 2.- Rebanamos el pan por la mitad y untamos un poco de mayonesa por ambos lados, colocamos una cama de lechuga y arúgula, después agregamos las rebanadas de queso manchego. 3.- Luego ponemos las demás verduras en rebanadas, por último, colocamos las rebanadas de salami y cerramos. 4.- Servimos y disfrutamos.",
-      },
-      {
-        id: 2,
-        nombre: "Baguette Tradicional",
-        tiempo: "60 minutos",
-        descripcion: "1. Amasar todos los ingredientes hasta conseguir una masa fina y extensible. Temperatura final de amasado 23-25ºC. 2. Dividir piezas de 270 g. 3. Reposo en bola de 10-15 min. 4. Fermentar 2 horas a 26-28ºC (75% humedad).5. Cocer con vapor durante 25 minutos a 200ºC",
+        nombre: "Empanada",
+        tiempo: "15 minutos",
+        descripcion: "(1 pieza de pan de baguette 100 gr. de salami. 150 gr. de queso manchego, rebanado. 1 cucharada de mayonesa ½ pieza de tomate. ¼ pieza de cebolla morada. 3 hojas de lechuga sangría. ½ pieza de aguacate. ¼ pieza de pepino. ¼ taza de arúgula. 1.- Vamos a comenzar lavando y desinfectando las verduras, el tomate, la cebolla morada, lechuga y pepino. Rebanamos el tomate, el pepino y la cebolla. 2.- Rebanamos el pan por la mitad y untamos un poco de mayonesa por ambos lados, colocamos una cama de lechuga y arúgula, después agregamos las rebanadas de queso manchego.  3.- Luego ponemos las demás verduras en rebanadas, por último, colocamos las rebanadas de salami y cerramos. 4.- Servimos y disfrutamos."
       },
     ];
   
@@ -89,38 +83,31 @@ document.addEventListener('DOMContentLoaded', () => {
   
   
     //funcion para agregar los usuarios
-    $("#formClientes").submit(function (event){
+    $("#formRecetas").submit(function (event){
       event.preventDefault();
-      let userId = $("#cliente-id").val();
-      let clienteName = $("#nombre").val();
-      let apellidoPaterno = $("#paterno").val();
-      let apellidoMaterno = $("#materno").val();
-      let correo = $("#email").val();
-      let contrasena = $("#contrasena").val();
+      let userId = $("#receta-id").val();
+      let nombre = $("#nombre").val();
+      let tiempo = $("#tiempo").val();
+      let descripcion = $("#descripcion").val();
       let method = userId ? "PUT" : "POST";
   
       if(method == "POST"){
-        let newId = arreglo[arreglo.length - 1].id ;
+        let newId = arreglo[arreglo.length - 1].id + 1;
         arreglo.push({
           id: newId,
-          nombre: clienteName,
-          apellidoPaterno: apellidoPaterno,
-          apellidoMaterno: apellidoMaterno,
-          correo: correo,
-          contrasena: contrasena,
+          nombre: nombre,
+          tiempo: tiempo,
+          descripcion: descripcion,
         });
       }else {
         let objeto = searchObject(userId);
-  
-        objeto.nombre = clienteName;
-        objeto.apellidoPaterno= apellidoPaterno;
-        objeto.apellidoMaterno= apellidoMaterno;
-        objeto.correo = correo;
-        objeto.contrasena= contrasena;
+        objeto.nombre = nombre;
+        objeto.tiempo = tiempo;
+        objeto.descripcion = descripcion;
       }
       loadEmployes();
       alert();
-      $("#modalClientes").modal("hide");
+      $("#modalRecetas").modal("hide");
     });
   
     function searchObject(id) {
@@ -141,24 +128,22 @@ document.addEventListener('DOMContentLoaded', () => {
       let objeto = searchObject(userId);
   
       let employe = objeto;
-      $("#cliente-id").val(employe.id);
+      $("#receta-id").val(employe.id);
       $("#nombre").val(employe.nombre);
-      $("#paterno").val(employe.apellidoPaterno);
-      $("#materno").val(employe.apellidoPaterno);
-      $("#email").val(employe.correo);
-      $("#contrasena").val(employe.contrasena);
-      $("#modalClientesLabel").text("Editar Cliente");
-      $("#modalClientes").modal("show");
+      $("#tiempo").val(employe.tiempo);
+      $("#descripcion").val(employe.descripcion);
+      $("#modalRecetasLabel").text("Editar Receta");
+      $("#modalRecetas").modal("show");
     });
   
   
     // Eliminar usuario
       // Eliminar usuario
       $(document).on("click", ".delete-user-btn", function () {
-        let clienteId = $(this).data("id");
+        let recetaId = $(this).data("id");
         let indice = -1;
         for (let i = 0; i < arreglo.length; i++) {
-          if (clienteId == arreglo[i].id) {
+          if (recetaId == arreglo[i].id) {
             indice = i;
             break;
           }
@@ -166,26 +151,26 @@ document.addEventListener('DOMContentLoaded', () => {
     
         if (indice !== -1) {
           Swal.fire({
-            title: "Estas seguro?",
-            text: "No podras revertir este cambio!",
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#09A62E",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Si, bórralo!"
+            confirmButtonText: "Yes, delete it!"
           }).then((result) => {
             if (result.isConfirmed) {
               arreglo.splice(indice, 1);
               loadEmployes();
               Swal.fire({
                 title: "Borrado!",
-                text: "Tu registro fue borrado.",
+                text: "Your file has been deleted.",
                 icon: "success"
               });
             }else if(result.dismiss === Swal.DismissReason.cancel){
               Swal.fire({
-                title: "Cancelado",
-                text:  "Tu registro se salvó :)",
+                title: "Cancelled",
+                text: "Your imaginary file is safe :)",
                 icon: "error"
               })
             }
@@ -194,10 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   
       // Resetear modal al cerrarlo
-      $("#modalClientes").on("hidden.bs.modal", function () {
-        $("#formClientes")[0].reset();
-        $("#cliente-id").val("");
-        $("#modalClientesLabel").text("Agregar Cliente");
+      $("#modalRecetas").on("hidden.bs.modal", function () {
+        $("#formRecetas")[0].reset();
+        $("#receta-id").val("");
+        $("#modalRecetasLabel").text("Agregar Receta");
       });
     
   
