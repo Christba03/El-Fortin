@@ -126,7 +126,7 @@
             <img src="../../recursos/panaderia/bolillo.jpg" alt="${drink.strDrink}" />
           </div>
           <div class="content-card-product">
-            <h3>${drink.strDrink}</h3>
+            <h3>Bolillo</h3>
             <div class="button-container">
               <button class="add-cart" aria-label="Add to cart">
                 <i class="fa-solid fa-clipboard"></i>
@@ -139,7 +139,7 @@
                 <i class="fa-solid fa-circle-info"></i>
               </button>
             </div>
-            <p class="precio">$23 <span>$22</span></p>
+            <p class="precio">$32 <span>$28</span></p>
             <input type="hidden" value="${drink.idDrink}" class="drink-id" />
           </div>
         </div>
@@ -149,7 +149,7 @@
             <img src="../../recursos/panaderia/dona.jpg" alt="${drink.strDrink}" />
           </div>
           <div class="content-card-product">
-            <h3>${drink.strDrink}</h3>
+            <h3>Donas</h3>
             <div class="button-container">
               <button class="add-cart" aria-label="Add to cart">
                 <i class="fa-solid fa-clipboard"></i>
@@ -157,13 +157,28 @@
               <button
                 class="add-cart"
                 aria-label="Add to cart"
-                onclick="viewDetails(${drink.idDrink})"
+                onclick="#modalComida1"
               >
                 <i class="fa-solid fa-circle-info"></i>
               </button>
             </div>
-            <p class="precio">$23 <span>$22</span></p>
+            <p class="precio">$46 <span>$38</span></p>
             <input type="hidden" value="${drink.idDrink}" class="drink-id" />
+          </div>
+        </div>
+        <!--  Modal comida 2-->
+        <div class="modal fade" id="modalComida1" tabindex="-1" aria-labelledby="modalComidaTitle" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalComidaTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <img id="modalComidaImage" src="" alt="Imagen de la bebida" class="img-fluid mb-3">
+                <p id="modalComidaDescription"></p>
+              </div>
+            </div>
           </div>
         </div>
         <!-- Comida 3 -->
@@ -172,7 +187,7 @@
             <img src="../../recursos/panaderia/pan_rustico.jpg" alt="${drink.strDrink}" />
           </div>
           <div class="content-card-product">
-            <h3>${drink.strDrink}</h3>
+            <h3>Pan Rustico</h3>
             <div class="button-container">
               <button class="add-cart" aria-label="Add to cart">
                 <i class="fa-solid fa-clipboard"></i>
@@ -192,32 +207,19 @@
       </div>
     </section>
 
-    <div class="modal fade" id="modalBebida" tabindex="-1" aria-labelledby="modalBebidaTitle" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalBebidaTitle"></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <img id="modalBebidaImage" src="" alt="Imagen de la bebida" class="img-fluid mb-3">
-            <p id="modalBebidaDescription"></p>
-          </div>
-        </div>
-      </div>
-    </div>
+
 
     <div
       class="modal fade"
-      id="modalBebida"
+      id="modalComida"
       tabindex="-1"
-      aria-labelledby="modalBebidaTitle"
+      aria-labelledby="modalComidaTitle"
       aria-hidden="true"
     >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalBebidaTitle"></h5>
+            <h5 class="modal-title" id="modalComidaTitle"></h5>
             <button
               type="button"
               class="btn-close"
@@ -227,12 +229,12 @@
           </div>
           <div class="modal-body">
             <img
-              id="modalBebidaImage"
+              id="modalComidaImage"
               src=""
               alt="Imagen de la bebida"
               class="img-fluid mb-3"
             />
-            <p id="modalBebidaDescription"></p>
+            <p id="modalComidaDescription"></p>
           </div>
         </div>
       </div>
