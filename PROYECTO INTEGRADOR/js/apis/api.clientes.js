@@ -48,12 +48,16 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         id: 1,
         nombre: "Jose",
+        apellidoPaterno: "Perez",
+        apellidoMaterno: "Gomez",
         correo: "jose@gmail.com",
         contrasena: "jose122",
       },
       {
         id: 2,
         nombre: "Angel",
+        apellidoPaterno: "Rivera",
+        apellidoMaterno: "Sanchez",
         correo: "rivera@gmail.com",
         contrasena: "rivera23",
       },
@@ -61,19 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
   
     //se creara una funcion para cargar los usuarios que esten en la tabla.
     function loadEmployes() {
-      let empleados = arreglo;
-      let empleadoTableBody = $("#employe-table-body");
-      empleadoTableBody.empty();
-      empleados.forEach((empleado) => {
-        empleadoTableBody.append(`
+      let clientes = arreglo;
+      let clienteTableBody = $("#employe-table-body");
+      clienteTableBody.empty();
+      clientes.forEach((cliente) => {
+        clienteTableBody.append(`
                       <tr>
-                          <td>${empleado.id}</td>
-                          <td>${empleado.nombre}</td>
-                          <td>${empleado.correo}</td>
-                          <td>${empleado.contrasena}</td>
+                          <td>${cliente.id}</td>
+                          <td>${cliente.nombre}</td>
+                          <td>${cliente.apellidoPaterno}</td>
+                          <td>${cliente.apellidoMaterno}</td>
+                          <td>${cliente.correo}</td>
+                          <td>${cliente.contrasena}</td>
                           <td>
-                             <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
-                             <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-trash fs-6"></i></button>
+                             <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${cliente.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
+                             <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${cliente.id}"><i class="fa-solid fa-trash fs-6"></i></button>
                           </td>
                       </tr>
                   `);
@@ -89,32 +95,38 @@ document.addEventListener('DOMContentLoaded', () => {
   
   
     //funcion para agregar los usuarios
-    $("#formUsuarios").submit(function (event){
+    $("#formClientes").submit(function (event){
       event.preventDefault();
-      let userId = $("#usuario-id").val();
-      let empleadoName = $("#nombreUsuario").val();
-      let correo = $("#correo").val();
+      let userId = $("#cliente-id").val();
+      let clienteName = $("#nombre").val();
+      let apellidoPaterno = $("#paterno").val();
+      let apellidoMaterno = $("#materno").val();
+      let correo = $("#email").val();
       let contrasena = $("#contrasena").val();
       let method = userId ? "PUT" : "POST";
   
       if(method == "POST"){
-        let newId = arreglo[arreglo.length - 1].id + 1;
+        let newId = arreglo[arreglo.length - 1].id ;
         arreglo.push({
           id: newId,
-          nombre: empleadoName,
+          nombre: clienteName,
+          apellidoPaterno: apellidoPaterno,
+          apellidoMaterno: apellidoMaterno,
           correo: correo,
           contrasena: contrasena,
         });
       }else {
         let objeto = searchObject(userId);
   
-        objeto.nombre = empleadoName;
+        objeto.nombre = clienteName;
+        objeto.apellidoPaterno= apellidoPaterno;
+        objeto.apellidoMaterno= apellidoMaterno;
         objeto.correo = correo;
         objeto.contrasena= contrasena;
       }
       loadEmployes();
       alert();
-      $("#modalUsuarios").modal("hide");
+      $("#modalClientes").modal("hide");
     });
   
     function searchObject(id) {
@@ -135,22 +147,24 @@ document.addEventListener('DOMContentLoaded', () => {
       let objeto = searchObject(userId);
   
       let employe = objeto;
-      $("#usuario-id").val(employe.id);
-      $("#nombreUsuario").val(employe.nombre);
-      $("#correo").val(employe.correo);
+      $("#cliente-id").val(employe.id);
+      $("#nombre").val(employe.nombre);
+      $("#paterno").val(employe.apellidoPaterno);
+      $("#materno").val(employe.apellidoPaterno);
+      $("#email").val(employe.correo);
       $("#contrasena").val(employe.contrasena);
-      $("#modalUsuariosTitle").text("Editar Usuario");
-      $("#modalUsuarios").modal("show");
+      $("#modalClientesLabel").text("Editar Cliente");
+      $("#modalClientes").modal("show");
     });
   
   
     // Eliminar usuario
       // Eliminar usuario
       $(document).on("click", ".delete-user-btn", function () {
-        let empleadoId = $(this).data("id");
+        let clienteId = $(this).data("id");
         let indice = -1;
         for (let i = 0; i < arreglo.length; i++) {
-          if (empleadoId == arreglo[i].id) {
+          if (clienteId == arreglo[i].id) {
             indice = i;
             break;
           }
@@ -186,10 +200,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   
       // Resetear modal al cerrarlo
-      $("#modalUsuarios").on("hidden.bs.modal", function () {
-        $("#formUsuarios")[0].reset();
-        $("#usuario-id").val("");
-        $("#modalUsuariosLabel").text("Agregar Usuario");
+      $("#modalClientes").on("hidden.bs.modal", function () {
+        $("#formClientes")[0].reset();
+        $("#cliente-id").val("");
+        $("#modalClientesLabel").text("Agregar Cliente");
       });
     
   
