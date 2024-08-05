@@ -184,7 +184,7 @@ $(document).ready(function(){
             arreglo.splice(indice, 1);
             loadEmployes();
             Swal.fire({
-              title: "Deleted!",
+              title: "Borrado!",
               text: "Your file has been deleted.",
               icon: "success"
             });
