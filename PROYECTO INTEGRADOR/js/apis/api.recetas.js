@@ -47,33 +47,33 @@ document.addEventListener('DOMContentLoaded', () => {
     let arreglo = [
       {
         id: 1,
-        nombre: "Jose",
-        correo: "jose@gmail.com",
-        contrasena: "jose122",
+        nombre: "baguette de salami",
+        tiempo: "20 minutos",
+        descripcion: "1 pieza de pan de baguette. 100 gr. de salami. 150 gr. de queso manchego, rebanado. 1 cucharada de mayonesa ½ pieza de tomate. ¼ pieza de cebolla morada. 3 hojas de lechuga sangría. ½ pieza de aguacate. ¼ pieza de pepino. ¼ taza de arúgula. 1.- Vamos a comenzar lavando y desinfectando las verduras, el tomate, la cebolla morada, lechuga y pepino. Rebanamos el tomate, el pepino y la cebolla. 2.- Rebanamos el pan por la mitad y untamos un poco de mayonesa por ambos lados, colocamos una cama de lechuga y arúgula, después agregamos las rebanadas de queso manchego. 3.- Luego ponemos las demás verduras en rebanadas, por último, colocamos las rebanadas de salami y cerramos. 4.- Servimos y disfrutamos.",
       },
       {
         id: 2,
-        nombre: "Angel",
-        correo: "rivera@gmail.com",
-        contrasena: "rivera23",
+        nombre: "Baguette Tradicional",
+        tiempo: "60 minutos",
+        descripcion: "1. Amasar todos los ingredientes hasta conseguir una masa fina y extensible. Temperatura final de amasado 23-25ºC. 2. Dividir piezas de 270 g. 3. Reposo en bola de 10-15 min. 4. Fermentar 2 horas a 26-28ºC (75% humedad).5. Cocer con vapor durante 25 minutos a 200ºC",
       },
     ];
   
     //se creara una funcion para cargar los usuarios que esten en la tabla.
     function loadEmployes() {
-      let empleados = arreglo;
-      let empleadoTableBody = $("#employe-table-body");
-      empleadoTableBody.empty();
-      empleados.forEach((empleado) => {
-        empleadoTableBody.append(`
+      let recetas = arreglo;
+      let recetaTableBody = $("#employe-table-body");
+      recetaTableBody.empty();
+      recetas.forEach((receta) => {
+        recetaTableBody.append(`
                       <tr>
-                          <td>${empleado.id}</td>
-                          <td>${empleado.nombre}</td>
-                          <td>${empleado.correo}</td>
-                          <td>${empleado.contrasena}</td>
+                          <td>${receta.id}</td>
+                          <td>${receta.nombre}</td>
+                          <td>${receta.tiempo}</td>
+                          <td>${receta.descripcion}</td>
                           <td>
-                             <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
-                             <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-trash fs-6"></i></button>
+                             <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${receta.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
+                             <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${receta.id}"><i class="fa-solid fa-trash fs-6"></i></button>
                           </td>
                       </tr>
                   `);
@@ -89,32 +89,38 @@ document.addEventListener('DOMContentLoaded', () => {
   
   
     //funcion para agregar los usuarios
-    $("#formUsuarios").submit(function (event){
+    $("#formClientes").submit(function (event){
       event.preventDefault();
-      let userId = $("#usuario-id").val();
-      let empleadoName = $("#nombreUsuario").val();
-      let correo = $("#correo").val();
+      let userId = $("#cliente-id").val();
+      let clienteName = $("#nombre").val();
+      let apellidoPaterno = $("#paterno").val();
+      let apellidoMaterno = $("#materno").val();
+      let correo = $("#email").val();
       let contrasena = $("#contrasena").val();
       let method = userId ? "PUT" : "POST";
   
       if(method == "POST"){
-        let newId = arreglo[arreglo.length - 1].id + 1;
+        let newId = arreglo[arreglo.length - 1].id ;
         arreglo.push({
           id: newId,
-          nombre: empleadoName,
+          nombre: clienteName,
+          apellidoPaterno: apellidoPaterno,
+          apellidoMaterno: apellidoMaterno,
           correo: correo,
           contrasena: contrasena,
         });
       }else {
         let objeto = searchObject(userId);
   
-        objeto.nombre = empleadoName;
+        objeto.nombre = clienteName;
+        objeto.apellidoPaterno= apellidoPaterno;
+        objeto.apellidoMaterno= apellidoMaterno;
         objeto.correo = correo;
         objeto.contrasena= contrasena;
       }
       loadEmployes();
       alert();
-      $("#modalUsuarios").modal("hide");
+      $("#modalClientes").modal("hide");
     });
   
     function searchObject(id) {
@@ -135,22 +141,24 @@ document.addEventListener('DOMContentLoaded', () => {
       let objeto = searchObject(userId);
   
       let employe = objeto;
-      $("#usuario-id").val(employe.id);
-      $("#nombreUsuario").val(employe.nombre);
-      $("#correo").val(employe.correo);
+      $("#cliente-id").val(employe.id);
+      $("#nombre").val(employe.nombre);
+      $("#paterno").val(employe.apellidoPaterno);
+      $("#materno").val(employe.apellidoPaterno);
+      $("#email").val(employe.correo);
       $("#contrasena").val(employe.contrasena);
-      $("#modalUsuariosTitle").text("Editar Usuario");
-      $("#modalUsuarios").modal("show");
+      $("#modalClientesLabel").text("Editar Cliente");
+      $("#modalClientes").modal("show");
     });
   
   
     // Eliminar usuario
       // Eliminar usuario
       $(document).on("click", ".delete-user-btn", function () {
-        let empleadoId = $(this).data("id");
+        let clienteId = $(this).data("id");
         let indice = -1;
         for (let i = 0; i < arreglo.length; i++) {
-          if (empleadoId == arreglo[i].id) {
+          if (clienteId == arreglo[i].id) {
             indice = i;
             break;
           }
@@ -186,10 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   
       // Resetear modal al cerrarlo
-      $("#modalUsuarios").on("hidden.bs.modal", function () {
-        $("#formUsuarios")[0].reset();
-        $("#usuario-id").val("");
-        $("#modalUsuariosLabel").text("Agregar Usuario");
+      $("#modalClientes").on("hidden.bs.modal", function () {
+        $("#formClientes")[0].reset();
+        $("#cliente-id").val("");
+        $("#modalClientesLabel").text("Agregar Cliente");
       });
     
   

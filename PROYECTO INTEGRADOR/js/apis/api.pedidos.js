@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         id: 1,
         cliente: "Jose Angel Lopez Rivera",
         empleado: "Jose Manuel Lara Villalobos",
+        mesa: "1",
         formaPago: "Efectivo",
         iva: "$128",
         total: "$929",
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         id: 2,
         cliente: "Jose Manuel Lara Villalobos",
         empleado: "Jose Angel Lopez Rivera",
+        mesa: "2",
         formaPago: "Tarjeta de Débito",
         iva: "$138",
         total: "$1929",
@@ -66,16 +68,17 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
   
     //se creara una funcion para cargar los usuarios que esten en la tabla.
-    function cargarPedidos() {
+    function loadEmployes() {
       let pedidos = arreglo;
-      let pedidoTableBody = $("#pedido-table-body");
+      let pedidoTableBody = $("#employe-table-body");
       pedidoTableBody.empty();
       pedidos.forEach((pedido) => {
         pedidoTableBody.append(`
                       <tr>
                           <td>${pedido.id}</td>
                           <td>${pedido.cliente}</td>
-                          <td>${pedido.empleado}</td>
+                          <td>${pedido.empleado}</td>                          
+                          <td>${pedido.mesa}</td>
                           <td>${pedido.formaPago}</td>
                           <td>${pedido.iva}</td>
                           <td>${pedido.total}</td>                          
@@ -98,16 +101,17 @@ document.addEventListener('DOMContentLoaded', () => {
   
   
     //funcion para agregar los pedidos
-    $("#formPedidos").submit(function (event){
+    $("#formUsuarios").submit(function (event){
       event.preventDefault();
-      let pedidoId = $("#pedido-id").val();
+      let userId = $("#pedido-id").val();
       let cliente = $("#nombreCliente").val().split(" ");
       let empleado = $("#nombreEmpleado").val().split(" ");
+      let mesa = $("#mesa").val();
       let formaPago = $("#formaPago").val();
       let iva = $("#iva").val();
       let total = $("#total").val();      
       let fecha = $("#fecha").val();
-      let method = pedidoId ? "PUT" : "POST";
+      let method = userId ? "PUT" : "POST";
   
       if(method == "POST"){
         let newId = arreglo[arreglo.length - 1].id + 1;
@@ -115,21 +119,24 @@ document.addEventListener('DOMContentLoaded', () => {
           id: newId,
           cliente: cliente,
           empleado: empleado,
+          mesa : mesa,
           formaPago:formaPago,
           iva: iva,
           total: total,
             fecha: fecha,                       
         });
       }else {
-        let objeto = searchObject(pedidoId);
+        let objeto = searchObject(userId);
   
-        objeto.nombre = empleadoName;
-        objeto.apellidoPaterno= apellidoPaterno;
-        objeto.apellidoMaterno= apellidoMaterno;
-        objeto.correo = correo;
-        objeto.contrasena= contrasena;
+        objeto.cliente = cliente;
+        objeto.empleado= empleado;
+        objeto.mesa= mesa;
+        objeto.formaPago= formaPago;
+        objeto. iva = iva;
+        objeto.total= total;
+        objeto.fecha = fecha;
       }
-      ar();
+      loadEmployes();
       alert();
       $("#modalEmpleados").modal("hide");
     });
@@ -148,18 +155,20 @@ document.addEventListener('DOMContentLoaded', () => {
   
      // Editar usuario
      $(document).on("click", ".edit-user-btn", function () {
-      let pedidoId = $(this).data("id");
-      let objeto = searchObject(pedidoId);
+      let userId = $(this).data("id");
+      let objeto = searchObject(userId);
   
       let employe = objeto;
-      $("#empleado-id").val(employe.id);
-      $("#nombreEmpleado").val(employe.nombre);
-      $("#apPaterno").val(employe.apellidoPaterno);
-      $("#apMaterno").val(employe.apellidoPaterno);
-      $("#correo").val(employe.correo);
-      $("#contrasena").val(employe.contrasena);
-      $("#modalEmpleadosLabel").text("Editar Empleado");
-      $("#modalEmpleados").modal("show");
+      $("#pedido-id").val(employe.id);
+      $("#nombreCliente").val(employe.cliente);
+      $("#nombreEmpleado").val(employe.empleado);
+      $("#mesa").val(employe.mesa);
+      $("#iva").val(employe.iva);
+      $("#fecha").val(employe.fecha);
+      $("#total").val(employe.total);
+      $("#formaPago").val(employe.formaPago);      
+      $("#modalUsuariosLabel").text("Editar Pedido");
+      $("#modalUsuarios").modal("show");
     });
   
   
@@ -187,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }).then((result) => {
             if (result.isConfirmed) {
               arreglo.splice(indice, 1);
-              cargarPedidos();
+              loadEmployes();
               Swal.fire({
                 title: "Borrado!",
                 text: "Tu registro fue eliminado.",
@@ -214,5 +223,5 @@ document.addEventListener('DOMContentLoaded', () => {
   
      // Inicializar la tabla de usuarios
   
-     cargarPedidos();
+     loadEmployes();
   });
