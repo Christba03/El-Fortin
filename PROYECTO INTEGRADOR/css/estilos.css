@@ -343,6 +343,18 @@ i{
     height: 700px;
 }
 
+#logoF{
+    float: left; 
+    width: 150px; 
+    margin-right: 20px;
+    border-radius: 100px;
+}
+
+.logoFortin{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
 
 .container-categorias p::after{
     content: '';
