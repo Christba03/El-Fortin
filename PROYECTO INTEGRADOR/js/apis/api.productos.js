@@ -58,11 +58,11 @@ $(document).ready(function() {
         event.preventDefault(); // Evita que el formulario se envíe de la manera tradicional.
 
         let productId = $('#product-id').val(); // ID del usuario (si se está editando).
-        let productName = $('##product').val(); // Nombre del usuario.
+        let productName = $('#product').val(); // Nombre del usuario.
         let productPrice = $('#price').val(); // Email del usuario.
         let productBar_code = $('#bar_code').val();
         let productStock = $('#stock').val();
-        let productDescription = $('d#escription').val();
+        let productDescription = $('#description').val();
 
         // Se determina si se trata de agregar (POST) o editar (PUT) un usuario.
         let method = productId ? 'PUT' : 'POST';
