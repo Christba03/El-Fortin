@@ -37,21 +37,32 @@ $(document).ready(function() {
             
         });
     }
-    function alert(){
-        Swal.fire({
-          icon: "success",
-          title: "Guardado",
-        });
-      }
+    function showAlert(message, type) {
+        // alert container es una sección de html en la cual se pintará un mensaje
+        $('#alert-container').html(`
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>(
+        `);
+        setTimeout(()=>{
+            $('#alert-container').html('');
+        })
+    }
 
 
     // Evento que se dispara al enviar el formulario para agregar o editar un usuario.
-    $('#product-form').submit(function(event) {
+    $('#formProductos').submit(function(event) {
         event.preventDefault(); // Evita que el formulario se envíe de la manera tradicional.
 
         let productId = $('#product-id').val(); // ID del usuario (si se está editando).
-        let productName = $('#product-name').val().split(' '); // Nombre del usuario.
-        let productEmail = $('#product-email').val(); // Email del usuario.
+        let productName = $('##product').val(); // Nombre del usuario.
+        let productPrice = $('#price').val(); // Email del usuario.
+        let productBar_code = $('#bar_code').val();
+        let productStock = $('#stock').val();
+        let productDescription = $('d#escription').val();
 
         // Se determina si se trata de agregar (POST) o editar (PUT) un usuario.
         let method = productId ? 'PUT' : 'POST';
@@ -63,15 +74,17 @@ $(document).ready(function() {
             method: method, // Método HTTP (POST o PUT).
             contentType: 'application/json', // Tipo de contenido de los datos enviados.
             data: JSON.stringify({
-                first_name: productName[0], // Primer nombre.
-                last_name: productName[1] || '', // Segundo nombre (si lo hay).
-                email: productEmail // Email.
+                product: productName, // Primer nombre.
+                price: productPrice, // Segundo nombre (si lo hay).
+                stock: productStock, // Email.
+                bar_code: productBar_code,
+                description: productDescription
             }),
             success: function() {
                 // Si la operación es exitosa, se recargan los usuarios y se muestra una alerta de éxito.
                 loadProducts();
                 showAlert('Producto guardado exitosamente', 'success');
-                $('#productModal').modal('hide'); // Se cierra el modal.
+                $('#modalProductos').modal('hide'); // Se cierra el modal.
             },
             error: function() {
                 // Si hay un error, se muestra una alerta de error.
@@ -81,7 +94,7 @@ $(document).ready(function() {
     });
 
     // Evento que se dispara al hacer clic en el botón de editar un usuario.
-    $("#formProductos").on('click', '.edit-product-btn', function() {
+    $(document).on('click', '.edit-product-btn', function() {
         let productId = $(this).data('id'); // Se obtiene el ID del usuario a editar.
 
         // Se realiza la llamada AJAX para obtener los datos del usuario.
@@ -98,16 +111,12 @@ $(document).ready(function() {
                 $("#bar_code").val(product.bar_code);
                 $("#stock").val(product.stock);
                 $("#description").val(product.description);
-                $("#modalEmpleadosLabel").text("Editar Empleado");
-                $("#modalEmpleados").modal("show");                $('#product-name').val(`${product.first_name} ${product.last_name}`);
-                $('#product-email').val(product.email);
-                $('#productModalLabel').text('Editar Usuario'); // Se cambia el título del modal.
-                $('#productModal').modal('show'); // Se muestra el modal.
+                $('#modalProductosTitle').text('Editar Producto'); // Se cambia el título del modal.
+                $('#modalProductos').modal('show'); // Se muestra el modal.
             }
         });
-        loadEmployes();
-        alert();
-        $("#modalEmpleados").modal("hide");
+        loadProducts();
+        $("#modalProductos").modal("hide");
     });
 
     // Evento que se dispara al hacer clic en el botón de eliminar un usuario.
@@ -131,10 +140,10 @@ $(document).ready(function() {
     });
 
     // Evento que se dispara al cerrar el modal.
-    $('#productModal').on('hidden.bs.modal', function() {
-        $('#product-form')[0].reset(); // Se resetea el formulario.
+    $('#modalProductos').on('hidden.bs.modal', function() {
+        $('#formProductos')[0].reset(); // Se resetea el formulario.
         $('#product-id').val(''); // Se vacía el campo de ID.
-        $('#productModalLabel').text('Agregar Usuario'); // Se cambia el título del modal.
+        $('#modalProductosLabel').text('Agregar Usuario'); // Se cambia el título del modal.
     });
 
     // Se inicializan los usuarios al cargar la página.
