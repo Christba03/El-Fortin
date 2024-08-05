@@ -139,6 +139,7 @@ $(document).ready(function() {
         });
     });
 
+
     // Evento que se dispara al cerrar el modal.
     $('#modalProductos').on('hidden.bs.modal', function() {
         $('#formProductos')[0].reset(); // Se resetea el formulario.
