@@ -146,15 +146,17 @@
                     <input type="hidden" name="accion" value="1">
                     <div class="mb-3">
                       <label for="nombreCliente" class="form-label">Nombre del Cliente</label>
-                      <input type="text" class="form-control" id="nombreCliente" name="nombreCliente" placeholder="Nombre del Cliente">
-                    </div>
-                    <div class="mb-3">
-                        <label for="nombreEmpleado" class="form-label">Nombre del Empleado</label>
-                        <input type="text" class="form-control" id="nombreEmpleado" name="nombreEmpleado" placeholder="Nombre del Empleado">
-                    </div>
+                      <input type="text" class="form-control" id="nombreCliente" name="letras1" placeholder="Nombre del Cliente">
+                      <span id="letras1" style="color: red;"></span> <!-- ID coincide con name del input -->
+                  </div>
+                  <div class="mb-3">
+                      <label for="nombreEmpleado" class="form-label">Nombre del Empleado</label>
+                      <input type="text" class="form-control" id="nombreEmpleado" name="letras2" placeholder="Nombre del Empleado">
+                      <span id="letras2" style="color: red;"></span> <!-- ID coincide con name del input -->
+                  </div>
                     <div class="mb-3">
                       <label for="formaPago" class="form-label">Forma de pago</label>
-                        <select name="formaPago" id="formaPago" class="form-select">
+                        <select name="formaPago" id="formaPago" class="form-select" required>
                             <option value="Efectivo">Efectivo</option>
                             <option value="Tarjeta de Credito">Tarjeta de Credito</option>
                             <option value="Tarjeta de Debito">Tarjeta de Debito</option>
@@ -172,21 +174,20 @@
                       </div>
                       <div class="mb-3 col-md-6">
                         <label for="iva" class="form-label">Iva a pagar</label>
-                        <input type="number" class="form-control" id="iva" name="iva" placeholder="IVA">
+                        <input type="number" class="form-control" id="iva" name="iva" placeholder="IVA" required>
                       </div>
                       <div class="mb-3 col-md-6">
                         <label for="fecha">Fecha de Pedido</label>
-                        <input type="date" class="form-control" id="fecha" name="fecha1" placeholder="10/10/2023">
+                        <input type="date" class="form-control" id="fecha" name="fecha1" placeholder="10/10/2023" required>
                         <span id="dateError" name="Error-fecha1" style="color: red;"></span>
                       </div>
                       <div class="mb-3 col-md-6">
                         <label for="total">Total</label>
-                        <input type="number" class="form-control" id="total" name="total" placeholder="$">
+                        <input type="number" class="form-control" id="total" name="total" placeholder="$" required>
                         <span id="totalError" style="color: red;"></span>
                       </div>
                     </div>
                     <input type="hidden" id="pedido-id">
-
                     <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                   </form>
@@ -196,6 +197,7 @@
           </div>
            
         <script src="../../js/Validaciones/fecha.js"></script>
+        <script src="../../js/Validaciones/letras.js"></script>
         <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
         <script src="../../js/script.js"></script>
         <script src="../../js/jquery.js"></script>

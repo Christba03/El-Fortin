@@ -104,8 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
     $("#formUsuarios").submit(function (event){
       event.preventDefault();
       let userId = $("#pedido-id").val();
-      let cliente = $("#nombreCliente").val().split(" ");
-      let empleado = $("#nombreEmpleado").val().split(" ");
+      let cliente = $("#nombreCliente").val();
+      let empleado = $("#nombreEmpleado").val();
       let mesa = $("#mesa").val();
       let formaPago = $("#formaPago").val();
       let iva = $("#iva").val();
@@ -119,20 +119,20 @@ document.addEventListener('DOMContentLoaded', () => {
           id: newId,
           cliente: cliente,
           empleado: empleado,
-          mesa : mesa,
+          mesa: mesa,
           formaPago:formaPago,
           iva: iva,
           total: total,
-            fecha: fecha,                       
+          fecha: fecha                       
         });
       }else {
         let objeto = searchObject(userId);
-  
+
         objeto.cliente = cliente;
         objeto.empleado= empleado;
         objeto.mesa= mesa;
         objeto.formaPago= formaPago;
-        objeto. iva = iva;
+        objeto.iva = iva;
         objeto.total= total;
         objeto.fecha = fecha;
       }
