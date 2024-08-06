@@ -1,37 +1,3 @@
-
-/*--Validacion de fecha de nacimiento--*/
-function validateBirthDate(birthDateString) {
-    const birthDate = new Date(birthDateString);
-    const today = new Date();
-
-    if (isNaN(birthDate.getTime())) {
-        return "Fecha no válida.";
-    }
-
-    if (birthDate > today) {
-        return "La fecha de nacimiento no puede estar en el futuro.";
-    }
-
-    const age = today.getFullYear() - birthDate.getFullYear();
-    const monthDifference = today.getMonth() - birthDate.getMonth();
-    const dayDifference = today.getDate() - birthDate.getDate();
-
-    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
-        age--;
-    }
-
-    if (age < 110) {
-        return age;
-    }
-
-    return "Fecha no valida";
-}
-
-// Ejemplo de uso
-const birthDateString = "2005-07-15"; // formato YYYY-MM-DD
-console.log(validateBirthDate(birthDateString));
-
-
 /*--Validacion de alfanumerico--*/
 function validarLetras(e,field){
     const key = e.keyCode ? e.keyCode : e.which;
@@ -151,21 +117,3 @@ function handleCopy(event) {
             
             return isValid ? sanitized : null;
         }
-
-  // Función para establecer la fecha máxima permitida
-  function setMaxDate(inputId, maxYearsAgo) {
-    // Obtiene la fecha actual
-    var today = new Date();
-
-    // Calcula la fecha hace maxYearsAgo años
-    var maxDate = new Date(today.getFullYear() - maxYearsAgo, today.getMonth(), today.getDate());
-
-    // Formatea la fecha en el formato 'YYYY-MM-DD' para el atributo 'max'
-    var maxDateString = maxDate.toISOString().split('T')[0];
-
-    // Establece el atributo 'max' del input date
-    document.getElementById(inputId).setAttribute('max', maxDateString);
-  }
-
-  // Llamada a la función para establecer el máximo de 50 años atrás
-  setMaxDate('birthdate', 50);
