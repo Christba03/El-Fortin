@@ -35,7 +35,6 @@ CREATE TABLE CLIENTES (
 
 CREATE TABLE EMPLEADOS (
   empleado_id SERIAL NOT NULL, 
-  telefono char(10) NOT NULL, 
   usuario_id int NOT NULL, 
   persona_id INT NOT NULL,
   PRIMARY KEY (empleado_id),
