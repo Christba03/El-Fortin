@@ -176,11 +176,13 @@
                       </div>
                       <div class="mb-3 col-md-6">
                         <label for="fecha">Fecha de Pedido</label>
-                        <input type="date" class="form-control" id="fecha" name="fecha" placeholder="10/10/2023">
+                        <input type="date" class="form-control" id="fecha" name="fecha1" placeholder="10/10/2023">
+                        <span id="dateError" name="Error-fecha1" style="color: red;"></span>
                       </div>
                       <div class="mb-3 col-md-6">
                         <label for="total">Total</label>
                         <input type="number" class="form-control" id="total" name="total" placeholder="$">
+                        <span id="totalError" style="color: red;"></span>
                       </div>
                     </div>
                     <input type="hidden" id="pedido-id">
@@ -193,6 +195,7 @@
             </div>
           </div>
            
+        <script src="../../js/Validaciones/fecha.js"></script>
         <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
         <script src="../../js/script.js"></script>
         <script src="../../js/jquery.js"></script>

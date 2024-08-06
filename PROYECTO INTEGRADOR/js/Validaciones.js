@@ -151,3 +151,21 @@ function handleCopy(event) {
             
             return isValid ? sanitized : null;
         }
+
+  // Función para establecer la fecha máxima permitida
+  function setMaxDate(inputId, maxYearsAgo) {
+    // Obtiene la fecha actual
+    var today = new Date();
+
+    // Calcula la fecha hace maxYearsAgo años
+    var maxDate = new Date(today.getFullYear() - maxYearsAgo, today.getMonth(), today.getDate());
+
+    // Formatea la fecha en el formato 'YYYY-MM-DD' para el atributo 'max'
+    var maxDateString = maxDate.toISOString().split('T')[0];
+
+    // Establece el atributo 'max' del input date
+    document.getElementById(inputId).setAttribute('max', maxDateString);
+  }
+
+  // Llamada a la función para establecer el máximo de 50 años atrás
+  setMaxDate('birthdate', 50);
