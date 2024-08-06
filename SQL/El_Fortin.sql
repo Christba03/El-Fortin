@@ -128,11 +128,10 @@ CREATE TABLE TIPOS (
 CREATE TABLE PEDIDOS (
 	pedido_id SERIAL NOT NULL,
 	mesa int,
-	producto_id int NOT NULL,
-	detalle_venta_id int NOT NULL,
+	estado varchar(15) NOT NULL,
+	detalle_pedido_id int NOT NULL,
 	PRIMARY KEY (pedido_id),
-	FOREIGN KEY(producto_id) REFERENCES PRODUCTOS (producto_id),
-	FOREIGN KEY(detalle_venta_id) REFERENCES DETALLES_VENTA (detalle_venta_id));
+	FOREIGN KEY(detalle_pedido_id) REFERENCES DETALLES_PEDIDOS (detalle_pedido_id));
 
 
 

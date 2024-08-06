@@ -49,8 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
         id: 1,
         cliente: "Angel Geovany Alvarez Ordinola",
         empleado: "Jose Manuel Lara Villalobos",
-        formaPago: "Debito",
-        fecha: "20/04/2020",
+        estado: "Pendiente",
+        mesa: "03",
+        detalle: "1"
       },
 
     ];
@@ -65,9 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
                       <tr>
                           <td>${venta.id}</td>
                           <td>${venta.cliente}</td>
-                          <td>${venta.empleado}</td>
-                          <td>${venta.formaPago}</td>
-                          <td>${venta.fecha}</td>
+                          <td>${venta.estado}</td>
+                          <td>${venta.mesa}</td>
+                          <td>${venta.detalle}</td>
+
                           <td>
                              <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${venta.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
                              <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${venta.id}"><i class="fa-solid fa-trash fs-6"></i></button>
@@ -90,9 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
       let userId = $("#venta-id").val();
       let cliente = $("#cliente").val();
-      let empleado = $("#empleado").val();
-      let formaPago = $("#formaPago").val();
-      let fecha = $("#fecha").val();
+      let estado = $("#estado").val();
+      let mesa = $("#mesa").val();
+      let detalle = $("#detalle").val();
       let method = userId ? "PUT" : "POST";
   
       if(method == "POST"){
@@ -100,17 +102,17 @@ document.addEventListener('DOMContentLoaded', () => {
         arreglo.push({
           id: newId,
           cliente: cliente,
-          empleado: empleado,
-          formaPago: formaPago,
-          fecha: fecha,
+          estado: estado,
+          mesa: mesa,
+          detalle: detalle
         });
       }else {
         let objeto = searchObject(userId);
   
         objeto.cliente = cliente;
-        objeto.empleado= empleado;
-        objeto.formaPago= formaPago;
-        objeto.fecha = fecha;
+        objeto.estado= estado;
+        objeto.mesa = mesa;
+        objeto.detalle = detalle;
       }
       loadEmployes();
       alert();
@@ -137,9 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
       let employe = objeto;
       $("#venta-id").val(employe.id);
       $("#cliente").val(employe.cliente);
-      $("#empleado").val(employe.empleado);
-      $("#formaPago").val(employe.formaPago);
-      $("#fecha").val(employe.fecha);
+      $("#estado").val(employe.estado);
+      $("#mesa").val(employe.mesa);
+      $("#detalle").val(employe.detalle);
       $("#modalVentasLabel").text("Editar Venta");
       $("#modalVentas").modal("show");
     });

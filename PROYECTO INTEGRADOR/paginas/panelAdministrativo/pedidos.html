@@ -138,10 +138,11 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Nombre del Cliente</th>
-                                <th scope="col">Nombre del Empleado</th>
                                 <th scope="col">Forma de pago</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Acciones</th>
+                                <th scope="col">Mesa</th>
+                                <th scope="col">Detalle de Pedido</th>
+                                <th scope="col">Operaciones</th>
+
                             </tr>
                         </thead>
                         <tbody id="employe-table-body">
@@ -185,17 +186,17 @@
                       <input type="text" class="form-control" id="cliente" name="cliente" placeholder="Nombre Cliente">
                     </div>
                     <div class="mb-3">
-                      <label for="empleado" class="form-label">Nombre del Empleado</label>
-                      <input type="text" class="form-control" id="empleado" name="empleado" placeholder="Nombre Empleado">
-                    </div>
-                    <div class="mb-3">
-                      <label for="formaPago" class="form-label">Forma de Pago</label>
-                      <input type="text" class="form-control" id="formaPago" name="formaPago" placeholder="Forma de Pago">
+                      <label for="estado" class="form-label">Estado</label>
+                      <input type="text" class="form-control" id="estado" name="estado" placeholder="Estado">
                     </div>
                     <div class="row">
                       <div class="mb-3 col-md-6">
-                        <label for="fecha" class="form-label">Fecha de Venta</label>
-                        <input type="date" class="form-control" id="fecha" name="fecha" placeholder="Contraseña">
+                        <label for="mesa" class="form-label">Mesa</label>
+                        <input type="number" class="form-control" id="mesa" name="mesa" placeholder="Mesa" >
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="detalle" class="form-label">Detalle de pedido</label>
+                        <input type="number" class="form-control" id="detalle" name="detalle" placeholder="Detalle pedido" >
                       </div>
                     </div>
                     <input type="hidden" id="venta-id">
