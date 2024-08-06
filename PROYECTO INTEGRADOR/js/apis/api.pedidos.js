@@ -47,45 +47,30 @@ document.addEventListener('DOMContentLoaded', () => {
     let arreglo = [
       {
         id: 1,
-        cliente: "Jose Angel Lopez Rivera",
+        cliente: "Angel Geovany Alvarez Ordinola",
         empleado: "Jose Manuel Lara Villalobos",
-        mesa: "1",
-        formaPago: "Efectivo",
-        iva: "$128",
-        total: "$929",
-        fecha: "05/10/2025"
+        formaPago: "Debito",
+        fecha: "20/04/2020",
       },
-      {
-        id: 2,
-        cliente: "Jose Manuel Lara Villalobos",
-        empleado: "Jose Angel Lopez Rivera",
-        mesa: "2",
-        formaPago: "Tarjeta de Débito",
-        iva: "$138",
-        total: "$1929",
-        fecha: "06/10/2025"
-      },
+
     ];
   
     //se creara una funcion para cargar los usuarios que esten en la tabla.
     function loadEmployes() {
-      let pedidos = arreglo;
-      let pedidoTableBody = $("#employe-table-body");
-      pedidoTableBody.empty();
-      pedidos.forEach((pedido) => {
-        pedidoTableBody.append(`
+      let ventas = arreglo;
+      let ventaTableBody = $("#employe-table-body");
+      ventaTableBody.empty();
+      ventas.forEach((venta) => {
+        ventaTableBody.append(`
                       <tr>
-                          <td>${pedido.id}</td>
-                          <td>${pedido.cliente}</td>
-                          <td>${pedido.empleado}</td>                          
-                          <td>${pedido.mesa}</td>
-                          <td>${pedido.formaPago}</td>
-                          <td>${pedido.iva}</td>
-                          <td>${pedido.total}</td>                          
-                          <td>${pedido.fecha}</td>
+                          <td>${venta.id}</td>
+                          <td>${venta.cliente}</td>
+                          <td>${venta.empleado}</td>
+                          <td>${venta.formaPago}</td>
+                          <td>${venta.fecha}</td>
                           <td>
-                             <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${pedido.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
-                             <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${pedido.id}"><i class="fa-solid fa-trash fs-6"></i></button>
+                             <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${venta.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
+                             <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${venta.id}"><i class="fa-solid fa-trash fs-6"></i></button>
                           </td>
                       </tr>
                   `);
@@ -100,16 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
   
-    //funcion para agregar los pedidos
-    $("#formUsuarios").submit(function (event){
+    //funcion para agregar los usuarios
+    $("#formVentas").submit(function (event){
       event.preventDefault();
-      let userId = $("#pedido-id").val();
-      let cliente = $("#nombreCliente").val().split(" ");
-      let empleado = $("#nombreEmpleado").val().split(" ");
-      let mesa = $("#mesa").val();
+      let userId = $("#venta-id").val();
+      let cliente = $("#cliente").val();
+      let empleado = $("#empleado").val();
       let formaPago = $("#formaPago").val();
-      let iva = $("#iva").val();
-      let total = $("#total").val();      
       let fecha = $("#fecha").val();
       let method = userId ? "PUT" : "POST";
   
@@ -119,26 +101,20 @@ document.addEventListener('DOMContentLoaded', () => {
           id: newId,
           cliente: cliente,
           empleado: empleado,
-          mesa : mesa,
-          formaPago:formaPago,
-          iva: iva,
-          total: total,
-            fecha: fecha,                       
+          formaPago: formaPago,
+          fecha: fecha,
         });
       }else {
         let objeto = searchObject(userId);
   
         objeto.cliente = cliente;
         objeto.empleado= empleado;
-        objeto.mesa= mesa;
         objeto.formaPago= formaPago;
-        objeto. iva = iva;
-        objeto.total= total;
         objeto.fecha = fecha;
       }
       loadEmployes();
       alert();
-      $("#modalEmpleados").modal("hide");
+      $("#modalVentas").modal("hide");
     });
   
     function searchObject(id) {
@@ -159,25 +135,23 @@ document.addEventListener('DOMContentLoaded', () => {
       let objeto = searchObject(userId);
   
       let employe = objeto;
-      $("#pedido-id").val(employe.id);
-      $("#nombreCliente").val(employe.cliente);
-      $("#nombreEmpleado").val(employe.empleado);
-      $("#mesa").val(employe.mesa);
-      $("#total").val(employe.total);
+      $("#venta-id").val(employe.id);
+      $("#cliente").val(employe.cliente);
+      $("#empleado").val(employe.empleado);
       $("#formaPago").val(employe.formaPago);
-      $("#iva").val(employe.iva);        
-      $("#modalUsuariosLabel").text("Editar Pedido");
-      $("#modalUsuarios").modal("show");
+      $("#fecha").val(employe.fecha);
+      $("#modalVentasLabel").text("Editar Venta");
+      $("#modalVentas").modal("show");
     });
   
   
     // Eliminar usuario
       // Eliminar usuario
       $(document).on("click", ".delete-user-btn", function () {
-        let empleadoId = $(this).data("id");
+        let ventaId = $(this).data("id");
         let indice = -1;
         for (let i = 0; i < arreglo.length; i++) {
-          if (empleadoId == arreglo[i].id) {
+          if (ventaId == arreglo[i].id) {
             indice = i;
             break;
           }
@@ -213,10 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   
       // Resetear modal al cerrarlo
-      $("#modalUsuarios").on("hidden.bs.modal", function () {
-        $("#formUsuarios")[0].reset();
-        $("#usuario-id").val("");
-        $("#modalUsuariosLabel").text("Agregar Pedido");
+      $("#modalVentas").on("hidden.bs.modal", function () {
+        $("#formVentas")[0].reset();
+        $("#venta-id").val("");
+        $("#modalVentasLabel").text("Agregar Venta");
       });
     
   

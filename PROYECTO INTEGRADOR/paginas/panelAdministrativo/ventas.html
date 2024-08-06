@@ -7,11 +7,10 @@
     <link rel="stylesheet" href="../../css/adminlte.min.css">
     <link rel="stylesheet" href="../../css/dashboard.css">
     <link rel="stylesheet" href="../../css/bootstrap.css">
-    <title>Ventas</title>
-    <link rel="icon" type="img/jpg" href="../../recursos/imagenes/logo.jpeg">
+    <title>Pedidos</title>
+    <link rel="icon" type="img/jpg" href="../recursos/imagenes/logo.jpeg">
 </head>
 <body>
-
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-primary" style="width: 280px; height: 1000px;" id="container-sidebar">
         <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" href="../../index.html">
           <img src="../../recursos/logo-removebg-preview.png" alt="" width="50px">
@@ -78,32 +77,10 @@
         </div>
       </div>
 
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Formulario de Registro de Ventas</h2>
-            <form>
-                <label for="nombre_cliente">Nombre Cliente:</label>
-                <input type="text" id="nombre_cliente" name="nombre_cliente"  placeholder="Nombre_cliente" required>
-                <label for="nombre_empleado">Nombre Empleado:</label>
-                <input type="text" id="nombre_empleado" name="nombre_empleado"  placeholder="Nombre_empleado" required>
-                <label for="forma_pago">Forma de pago:</label><br>                    
-                <SELECT NAME="forma_pago">
-                  <OPTION>Efectivo
-                  <OPTION>Tarjeta de Débito
-                  <OPTION>Tarjeta de Crédito
-                </SELECT>
-                <label for="fecha">Fecha:</label>
-                <input type="date" id="fecha" name="fecha" placeholder="fecha" required>
-                <button type="submit" class="btn-login" onclick="location.href='recetas.html'">Registrar Receta</button>
-            </form>
-        </div>
-    </div>
-
     <div class="main-content">
         <div class="header">
             <div class="title-header">
-                <h2>Administración de Ventas</h2>
+                <h2>Panel Administrativo</h2>
             </div>
         </div>
 
@@ -114,11 +91,10 @@
               <!-- Default box -->
               <div class="card">
                 <div class="card-header">
-        
                   <div class="card-tools">
                     <!-- Button trigger modal -->
-                   <button type="button" class="btn text-bg-primary" data-bs-toggle="modal"  data-bs-target="#modalVentas">
-                    <i class="fa-solid fa-user-plus"></i> Nueva Venta
+                   <button type="button" class="btn text-bg-primary" data-bs-toggle="modal"  data-bs-target="#modalUsuarios">
+                    <i class="fa-solid fa-user-plus"></i> Nuevo Pedido
                    </button>
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                       <i class="fas fa-minus"></i>
@@ -137,27 +113,18 @@
                         <thead class="table-primary">
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Nombre del Cliente</th>
-                                <th scope="col">Nombre del Empleado</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Empleado</th>                       
+                                <th scope="col">Numero de mesa</th>
                                 <th scope="col">Forma de pago</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Acciones</th>
+                                <th scope="col">IVA</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Fecha</th>         
+                                <th scope="col">Operaciones</th>
                             </tr>
                         </thead>
-                        <tbody id="employe-table-body">
-                            <!-- Registo de ejemplo -->
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Angel Geovany Alvarez Ordinola</td>
-                                <td>Jose Manuel Lara Villalobos</td>
-                                <td>Debito</td>
-                                <td>20/04/2020</td>
-                                <td>
-                                  <a href="" class="link-primary"><i class="fa-solid fa-pen-to-square fs-5"></i></a>
-                                  <a href="" class="link-danger"><i class="fa-solid fa-trash fs-5"></i></a>
-                                  <a href="" class="link-success"><i class="fa-solid fa-eye fs-5"></i></a>
-                                </td>
-                            </tr>
+                        <tbody id="employe-table-body" >
+                            
                         </tbody>
                     </table>
                 </div>
@@ -169,36 +136,59 @@
             <!-- /.content -->
           </div>
 
-           <!-- Modal -->
-        <div class="modal fade" id="modalVentas" tabindex="-1" aria-labelledby="modalVentasLabel" aria-hidden="true">
+
+          <!-- Modal -->
+        <div class="modal fade" id="modalUsuarios" tabindex="-1" aria-labelledby="modalUsuariosTitle" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="modalVentasLabel">Agregar Venta</h5>
+                  <h5 class="modal-title" id="modalUsuariosTitle">Agregar Pedido</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form id="formVentas">
+                  <form id="formUsuarios">
                     <input type="hidden" name="accion" value="1">
                     <div class="mb-3">
-                      <label for="cliente" class="form-label">Nombre del Cliente</label>
-                      <input type="text" class="form-control" id="cliente" name="cliente" placeholder="Nombre Cliente">
+                      <label for="nombreCliente" class="form-label">Nombre del Cliente</label>
+                      <input type="text" class="form-control" id="nombreCliente" name="nombreCliente" placeholder="Nombre del Cliente">
                     </div>
                     <div class="mb-3">
-                      <label for="empleado" class="form-label">Nombre del Empleado</label>
-                      <input type="text" class="form-control" id="empleado" name="empleado" placeholder="Nombre Empleado">
+                        <label for="nombreEmpleado" class="form-label">Nombre del Empleado</label>
+                        <input type="text" class="form-control" id="nombreEmpleado" name="nombreEmpleado" placeholder="Nombre del Empleado">
                     </div>
                     <div class="mb-3">
-                      <label for="formaPago" class="form-label">Forma de Pago</label>
-                      <input type="text" class="form-control" id="formaPago" name="formaPago" placeholder="Forma de Pago">
-                    </div>
+                      <label for="formaPago" class="form-label">Forma de pago</label>
+                        <select name="formaPago" id="formaPago" class="form-select">
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Tarjeta de Credito">Tarjeta de Credito</option>
+                            <option value="Tarjeta de Debito">Tarjeta de Debito</option>
+                            <option value="Transferencia">Transferencia</option>
+                        </select></div>
                     <div class="row">
                       <div class="mb-3 col-md-6">
-                        <label for="fecha" class="form-label">Fecha de Venta</label>
-                        <input type="date" class="form-control" id="fecha" name="fecha" placeholder="Contraseña">
+                        <label for="mesa" class="form-label">Numero de mesa</label>
+                        <select name="mesa" id="mesa" class="form-select">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="iva" class="form-label">Iva a pagar</label>
+                        <input type="number" class="form-control" id="iva" name="iva" placeholder="IVA">
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="fecha">Fecha de Pedido</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha" placeholder="10/10/2023">
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="total">Total</label>
+                        <input type="number" class="form-control" id="total" name="total" placeholder="$">
                       </div>
                     </div>
-                    <input type="hidden" id="venta-id">
+                    <input type="hidden" id="pedido-id">
+
                     <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                   </form>
@@ -206,15 +196,14 @@
               </div>
             </div>
           </div>
-  
-
-      <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
-      <script src="../../js/script.js"></script>
-      <script src="../../js/jquery.js"></script>
-      <script src="../../js/bootstrap.bundle.min.js"></script>
-      <script src="../../js/sweetalert2.all.min.js"></script>
-      <script src="../../js/popper.min.js"></script>
-      <script src="../../js/adminlte.min.js"></script>
-      <script src="../../js/apis/api.ventas.js"></script>
+           
+        <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
+        <script src="../../js/script.js"></script>
+        <script src="../../js/jquery.js"></script>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script src="../../js/popper.min.js"></script>
+        <script src="../../js/adminlte.min.js"></script>      
+        <script src="../../js/apis/api.ventas.js"></script>
+        <script src="../../js/sweetalert2.all.min.js"></script>
 </body>
 </html>
