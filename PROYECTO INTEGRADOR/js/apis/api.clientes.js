@@ -50,16 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
         nombre: "Jose",
         apellidoPaterno: "Perez",
         apellidoMaterno: "Gomez",
-        correo: "jose@gmail.com",
-        contrasena: "jose122",
+        telefono: "2717802451",
       },
       {
         id: 2,
         nombre: "Angel",
         apellidoPaterno: "Rivera",
         apellidoMaterno: "Sanchez",
-        correo: "rivera@gmail.com",
-        contrasena: "rivera23",
+        telefono: "2717802943",
       },
     ];
   
@@ -75,8 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
                           <td>${cliente.nombre}</td>
                           <td>${cliente.apellidoPaterno}</td>
                           <td>${cliente.apellidoMaterno}</td>
-                          <td>${cliente.correo}</td>
-                          <td>${cliente.contrasena}</td>
+                          <td>${cliente.telefono}</td>
                           <td>
                              <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${cliente.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
                              <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${cliente.id}"><i class="fa-solid fa-trash fs-6"></i></button>
@@ -101,8 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let clienteName = $("#nombre").val();
       let apellidoPaterno = $("#paterno").val();
       let apellidoMaterno = $("#materno").val();
-      let correo = $("#email").val();
-      let contrasena = $("#contrasena").val();
+      let telefono = $("#telefono").val();
       let method = userId ? "PUT" : "POST";
   
       if(method == "POST"){
@@ -112,8 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
           nombre: clienteName,
           apellidoPaterno: apellidoPaterno,
           apellidoMaterno: apellidoMaterno,
-          correo: correo,
-          contrasena: contrasena,
+          telefono : telefono,
         });
       }else {
         let objeto = searchObject(userId);
@@ -121,8 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         objeto.nombre = clienteName;
         objeto.apellidoPaterno= apellidoPaterno;
         objeto.apellidoMaterno= apellidoMaterno;
-        objeto.correo = correo;
-        objeto.contrasena= contrasena;
+        objeto.telefono = telefono;
       }
       loadEmployes();
       alert();
@@ -151,8 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
       $("#nombre").val(employe.nombre);
       $("#paterno").val(employe.apellidoPaterno);
       $("#materno").val(employe.apellidoPaterno);
-      $("#email").val(employe.correo);
-      $("#contrasena").val(employe.contrasena);
+      $("#telefono").val(employe.telefono);
       $("#modalClientesLabel").text("Editar Cliente");
       $("#modalClientes").modal("show");
     });

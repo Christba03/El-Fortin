@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         id: 1,
         nombre: "Empanada",
+        empleado: "Jose Angel Lopez Rivera",
         tiempo: "15 minutos",
         descripcion: "(1 pieza de pan de baguette 100 gr. de salami. 150 gr. de queso manchego, rebanado. 1 cucharada de mayonesa ½ pieza de tomate. ¼ pieza de cebolla morada. 3 hojas de lechuga sangría. ½ pieza de aguacate. ¼ pieza de pepino. ¼ taza de arúgula. 1.- Vamos a comenzar lavando y desinfectando las verduras, el tomate, la cebolla morada, lechuga y pepino. Rebanamos el tomate, el pepino y la cebolla. 2.- Rebanamos el pan por la mitad y untamos un poco de mayonesa por ambos lados, colocamos una cama de lechuga y arúgula, después agregamos las rebanadas de queso manchego.  3.- Luego ponemos las demás verduras en rebanadas, por último, colocamos las rebanadas de salami y cerramos. 4.- Servimos y disfrutamos."
       },
@@ -63,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       <tr>
                           <td>${receta.id}</td>
                           <td>${receta.nombre}</td>
+                          <td>${receta.empleado}</td>
                           <td>${receta.tiempo}</td>
                           <td>${receta.descripcion}</td>
                           <td>
@@ -89,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let nombre = $("#nombre").val();
       let tiempo = $("#tiempo").val();
       let descripcion = $("#descripcion").val();
+      let empleado = $("#empleado").val();
       let method = userId ? "PUT" : "POST";
   
       if(method == "POST"){
@@ -98,12 +101,14 @@ document.addEventListener('DOMContentLoaded', () => {
           nombre: nombre,
           tiempo: tiempo,
           descripcion: descripcion,
+          empleado : empleado,
         });
       }else {
         let objeto = searchObject(userId);
         objeto.nombre = nombre;
         objeto.tiempo = tiempo;
         objeto.descripcion = descripcion;
+        objeto.empleado = empleado;
       }
       loadEmployes();
       alert();
@@ -132,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
       $("#nombre").val(employe.nombre);
       $("#tiempo").val(employe.tiempo);
       $("#descripcion").val(employe.descripcion);
+      $("#empleado").val(employe.empleado);
       $("#modalRecetasLabel").text("Editar Receta");
       $("#modalRecetas").modal("show");
     });
