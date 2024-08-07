@@ -592,4 +592,16 @@ GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ADMINISTRADOR;
 
 
 
+CREATE VIEW vista_usuarios AS  
+	SELECT u.usuario_id, pe.correo, pgp_sym_decrypt(u.contrasena::bytea, 'AES_KEY') AS contrasena 
+	FROM PERSONAS pe INNER JOIN USUARIOS u 
+	ON pe.persona_id = u.persona_id;
+	
+
+CREATE VIEW vista_usuarios_encriptada AS  
+	SELECT u.usuario_id, pe.correo, u.contrasena 
+	FROM PERSONAS pe INNER JOIN USUARIOS u 
+	ON pe.persona_id = u.persona_id;
+		
+	
 
