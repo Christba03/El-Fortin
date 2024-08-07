@@ -1,22 +1,17 @@
-/*--Validacion de alfanumerico--*/
-function validarLetras(e,field){
-    const key = e.keyCode ? e.keyCode : e.which;
 
-    console.log(event);
-    console.log(field);
-    if (key === 8) {
+/*--Validacion de alfanumerico--*/
+function validarLetras(e, field) {
+    const key = e.keyCode ? e.keyCode : e.which;
+    const char = String.fromCharCode(key);
+
+    if (key === 8) { // Permitir retroceso
         return true;
     }
-    if (key > 47 && key < 58) {
-    return false;
+    if (key >= 48 && key <= 57) { // Evitar números
+        return false;
     }
-    if (key ===(/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+([a-zA-ZÀ-ÿ\u00f1\u00d1])[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g)){
-    return true;
-    } else {
-        return false
-
-    }
-
+    const regex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
+    return regex.test(char);
 }
 
 /*--Validacion de flotantes--*/

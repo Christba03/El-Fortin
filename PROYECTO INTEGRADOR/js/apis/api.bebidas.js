@@ -48,6 +48,7 @@ $(document).ready(function (){
                                     <i class="fa-solid fa-circle-info"></i>
                                 </button>
                             </div>
+                            
                                 <p class="precio">$23 <span>$22</span></p>
                                 <input type="hidden" value="${drink.idDrink}" class="drink-id">
                             </div>

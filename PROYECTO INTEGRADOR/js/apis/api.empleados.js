@@ -191,7 +191,7 @@ $(document).ready(function(){
           }else if(result.dismiss === Swal.DismissReason.cancel){
             Swal.fire({
               title: "Cancelado",
-              text: "Tu registro se salvó :)",
+              text: "Tu registro no fue alterado.",
               icon: "error"
             })
           }

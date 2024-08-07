@@ -51,9 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
         empleado: "Jose Manuel Lara Villalobos",
         mesa: "1",
         formaPago: "Efectivo",
-        iva: "$128",
-        total: "$929",
-        fecha: "05/10/2025"
+        iva: "128",
+        total: "929",
+        fecha: "2023-05-10"
       },
       {
         id: 2,
@@ -61,9 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
         empleado: "Jose Angel Lopez Rivera",
         mesa: "2",
         formaPago: "Tarjeta de Débito",
-        iva: "$138",
-        total: "$1929",
-        fecha: "06/10/2025"
+        iva: "138",
+        total: "1929",
+        fecha: "2022-06-10"
       },
     ];
   
@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
                           <td>${pedido.empleado}</td>                          
                           <td>${pedido.mesa}</td>
                           <td>${pedido.formaPago}</td>
-                          <td>${pedido.iva}</td>
-                          <td>${pedido.total}</td>                          
+                          <td>$${pedido.iva}</td>
+                          <td>$${pedido.total}</td>                          
                           <td>${pedido.fecha}</td>
                           <td>
                              <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${pedido.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }else if(result.dismiss === Swal.DismissReason.cancel){
               Swal.fire({
                 title: "Cancelado",
-                text: "Tu registro fue salvado :)",
+                text: "Tu registro no fue alterado.",
                 icon: "error"
               })
             }

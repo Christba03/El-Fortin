@@ -21,6 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function validarTexto(value) {
     // Expresión regular para letras incluyendo acentos y ñ/Ñ
-    const regex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]*$/;
+    const regex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*$/;
     return regex.test(value);
 }
