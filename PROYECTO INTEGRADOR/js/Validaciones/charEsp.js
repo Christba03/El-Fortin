@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Selecciona todos los inputs de tipo text con name que comienzan con 'letras'
-    const textInputs = document.querySelectorAll('input[type="text"][name^="letras"]');
+    const textInputs = document.querySelectorAll('input[type="text"][name^="textBox"]');
 
     textInputs.forEach(function(input) {
         const errorSpan = document.querySelector(`span#${input.name}`);

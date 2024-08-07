@@ -25,10 +25,11 @@ function validateBirthDate(fechaString, maxYears) {
     return age;
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
     // Selecciona todos los inputs de tipo date
     const dateInputs = document.querySelectorAll('input[type="date"]');
-    const maxYears = 50; // Puedes cambiar esto a cualquier número de años máximo que desees
+    const maxYears = 5; // Puedes cambiar esto a cualquier número de años máximo que desees
 
     dateInputs.forEach(function(input) {
         const errorSpanName = `Error-${input.name}`;
