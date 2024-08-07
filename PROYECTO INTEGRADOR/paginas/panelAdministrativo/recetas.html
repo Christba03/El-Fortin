@@ -163,7 +163,8 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="modalRecetasLabel">Agregar Receta</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" name="charEspDescripcion"aria-label="Close" required></button>
+                  <span id="totalError" name="Error-charEspDescripcion" style="color: red;"></span>
                 </div>
                 <div class="modal-body">
                   <form id="formRecetas">
@@ -171,21 +172,22 @@
                     <div class="row">
                       <div class="mb-3 col-md-6">
                         <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
                       </div>
                       <div class="row">
-                        <div class="mb-3 col-md-6">
-                          <label for="empleado" class="form-label">Empleado</label>
-                          <input type="text" class="form-control" id="empleado" name="empleado" placeholder="Empleado">
-                        </div>
+                        <label for="empleado" class="form-label">Nombre del Empleado</label>
+                        <input type="text" class="form-control" id="empleado" name="letras2" placeholder="Nombre del Empleado" required>
+                        <span id="letras2" style="color: red;"></span> 
+                    </div>
                       <div class="mb-3 col-md-6">
                         <label for="tiempo" class="form-label">Tiempo de preparacion</label>
-                        <input type="text" class="form-control" id="tiempo" name="tiempo" placeholder="Tiempo">
+                        <input type="text" class="form-control" id="tiempo" name="tiempo" placeholder="Tiempo" required>
                       </div>
                     </div>
                     <div class="mb-3">
                         <label for="descripcion">Preparación</label>
-                        <textarea name="descripcion" id="descripcion" class="form-control" placeholder="Preparacion"></textarea>
+                        <textarea name="charEspDescripcion" id="descripcion" class="form-control" placeholder="Preparación"></textarea>
+                        <span id="error-charEspDescripcion" name="Error-charEspDescripcion" style="color: red;"></span>         
                     </div>
                     <input type="hidden" id="receta-id">
                     <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>

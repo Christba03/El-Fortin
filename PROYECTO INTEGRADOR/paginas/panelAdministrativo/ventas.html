@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../../css/adminlte.min.css">
     <link rel="stylesheet" href="../../css/dashboard.css">
     <link rel="stylesheet" href="../../css/bootstrap.css">
-    <link rel="stylesheet" href="../../css/fondo.css">
     <title>Pedidos</title>
     <link rel="icon" type="img/jpg" href="../recursos/imagenes/logo.jpeg">
 </head>
@@ -148,12 +147,12 @@
                     <div class="mb-3">
                       <label for="nombreCliente" class="form-label">Nombre del Cliente</label>
                       <input type="text" class="form-control" id="nombreCliente" name="letras1" placeholder="Nombre del Cliente">
-                      <span id="letras1" style="color: red;"></span> <!-- ID coincide con name del input -->
+                      <span id="letras1" style="color: red;"></span> 
                   </div>
                   <div class="mb-3">
                       <label for="nombreEmpleado" class="form-label">Nombre del Empleado</label>
                       <input type="text" class="form-control" id="nombreEmpleado" name="letras2" placeholder="Nombre del Empleado">
-                      <span id="letras2" style="color: red;"></span> <!-- ID coincide con name del input -->
+                      <span id="letras2" style="color: red;"></span> 
                   </div>
                     <div class="mb-3">
                       <label for="formaPago" class="form-label">Forma de pago</label>
@@ -165,17 +164,14 @@
                         </select></div>
                     <div class="row">
                       <div class="mb-3 col-md-6">
-                        <label for="mesa" class="form-label">Numero de mesa</label>
-                        <select name="mesa" id="mesa" class="form-select">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
+                        <label for="mesa" class="form-label">Mesa</label>
+                        <input type="number" class="form-control" id="mwsa" name="number" placeholder="Mesa" required>
+
                       </div>
                       <div class="mb-3 col-md-6">
                         <label for="iva" class="form-label">Iva a pagar</label>
-                        <input type="number" class="form-control" id="iva" name="iva" placeholder="IVA" required>
+                        <input type="number" step="0.01"class="form-control" id="iva" name="number_float1" placeholder="IVA" required>
+                        <span id="numError" name="Error-number_float1" style="color: red;"></span>
                       </div>
                       <div class="mb-3 col-md-6">
                         <label for="fecha">Fecha de Pedido</label>
@@ -184,8 +180,8 @@
                       </div>
                       <div class="mb-3 col-md-6">
                         <label for="total">Total</label>
-                        <input type="number" class="form-control" id="total" name="total" placeholder="$" required>
-                        <span id="totalError" style="color: red;"></span>
+                        <input type="number" step="0.01" class="form-control" id="total" name="number_float2" placeholder="$" required>
+                        <span id="totalError" name="Error-number_float2" style="color: red;"></span>
                       </div>
                     </div>
                     <input type="hidden" id="pedido-id">
@@ -199,6 +195,7 @@
            
         <script src="../../js/Validaciones/fecha.js"></script>
         <script src="../../js/Validaciones/letras.js"></script>
+        <script src="../../js/Validaciones/charEsp.js"></script>
         <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
         <script src="../../js/script.js"></script>
         <script src="../../js/jquery.js"></script>
