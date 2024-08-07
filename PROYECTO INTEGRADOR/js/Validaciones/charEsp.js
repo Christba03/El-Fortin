@@ -1,29 +1,26 @@
-document.getElementById('myForm').addEventListener('submit', function(event) {
-    // Selecciona todos los inputs de tipo texto
-    const inputs = document.querySelectorAll('input[type="textarea"][name^="charEsp"]');
-    const ProhibidosCharsRegex = /['";<>&]/g;
-    let isValid = true;
+document.addEventListener('DOMContentLoaded', function () {
+    // Selecciona todos los inputs de tipo text con name que comienzan con 'letras'
+    const textInputs = document.querySelectorAll('input[type="text"][name^="letras"]');
 
-    inputs.forEach(input => {
-        const errorSpan = document.querySelector(`span[name="Error-${input.name}"]`);
-        const value = input.value;
+    textInputs.forEach(function(input) {
+        const errorSpan = document.querySelector(`span#${input.name}`);
 
-        // Validación del valor del campo
-        const validationResult = ProhibidosCharsRegex.test(value)
-            ? 'El campo no debe contener los caracteres siguientes: [\'";<>&]'
-            : '';
+        input.addEventListener('input', function () {
+            const isValid = validarTexto(input.value);
 
-        if (validationResult) {
-            errorSpan.textContent = validationResult; // Muestra el mensaje de error
-            input.setCustomValidity(validationResult); // Establece el mensaje de error de validación
-            isValid = false;
-        } else {
-            errorSpan.textContent = ''; // Limpia cualquier mensaje de error
-            input.setCustomValidity(''); // Limpia la validez personalizada
-        }
+            if (!isValid) {
+                errorSpan.textContent = 'Solo se permiten caracteres alfabéticos.';
+                input.setCustomValidity('Entrada no válida'); // Establece el mensaje de error de validación
+            } else {
+                errorSpan.textContent = ''; // Limpia cualquier mensaje de error
+                input.setCustomValidity(''); // Limpia la validez personalizada
+            }
+        });
     });
-
-    if (!isValid) {
-        event.preventDefault(); // Evita el envío del formulario si hay errores
-    }
 });
+
+function validarTexto(value) {
+    // Expresión regular para letras incluyendo acentos y ñ/Ñ
+    const prohibidosCharsRegex = /['";<>&]/g;
+    return !prohibidosCharsRegex.test(value);;
+}
