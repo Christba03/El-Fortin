@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cliente: "Jose Manuel Lara Villalobos",
         empleado: "Jose Angel Lopez Rivera",
         mesa: "2",
-        formaPago: "Tarjeta de Débito",
+        formaPago: "Tarjeta de Debito",
         iva: "138",
         total: "1929",
         fecha: "2022-06-10"
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
   
-    //funcion para agregar los pedidos
+    //funcion para agregar los ventas
     $("#formUsuarios").submit(function (event){
       event.preventDefault();
       let userId = $("#pedido-id").val();
@@ -165,7 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
       $("#mesa").val(employe.mesa);
       $("#total").val(employe.total);
       $("#formaPago").val(employe.formaPago);
-      $("#iva").val(employe.iva);        
+      $("#iva").val(employe.iva);              
+      $("#fecha").val(employe.fecha);        
       $("#modalUsuariosLabel").text("Editar Pedido");
       $("#modalUsuarios").modal("show");
     });
@@ -215,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Resetear modal al cerrarlo
       $("#modalUsuarios").on("hidden.bs.modal", function () {
         $("#formUsuarios")[0].reset();
-        $("#usuario-id").val("");
+        $("#pedido-id").val("");
         $("#modalUsuariosLabel").text("Agregar Pedido");
       });
     
