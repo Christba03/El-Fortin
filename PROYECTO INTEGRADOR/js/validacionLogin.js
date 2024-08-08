@@ -42,7 +42,7 @@
                     confirmButtonText: 'OK'
                 }).then(() => {
                     // Redirigir si es necesario
-                    window.location.href = 'paginas/panelAdministrativo/usuarios.html';
+                    window.location.href = response.redirect;
                 });
             } else {
                 Swal.fire({

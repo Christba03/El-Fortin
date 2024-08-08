@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -19,14 +23,23 @@
             </div>
           </div>
 
-          <div class="contenedor-logo">
-            <h1 class="titleFont ">El Fortin Panaderia</h1>
-          </div>
-
-          <div class="usuario-contenedor">
-            <button type="button" class="btnSesion" id="add.user-btn" data-bs-toggle="modal" data-bs-target="#userModal">
-              <i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar Sesion
-            </button>
+              <div class="contenedor-logo">
+                <h1 class="titleFont ">El Fortin Panaderia</h1>
+              </div>
+                   <div class="usuario-contenedor">
+                   <?php if (isset($_SESSION["rol"]) && ($_SESSION["rol"] == 'administrador' || $_SESSION["rol"] == 'cliente')): ?>
+             <!-- Mostrar el botón de cerrar sesión si el usuario ha iniciado sesión -->
+                <form action="php/logoupt.php" method="post">
+                 <button type="submit" class="btnSesion" id="add.user-btn">
+                     <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión
+                   </button>
+                </form>
+           <?php else: ?>
+               <!-- Mostrar el botón de iniciar sesión si el usuario no ha iniciado sesión -->
+              <button type="button" class="btnSesion" id="add.user-btn" data-bs-toggle="modal" data-bs-target="#userModal">
+                  <i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar Sesión
+              </button>
+            <?php endif; ?>
           </div>
         </div>
       </div>
@@ -50,6 +63,16 @@
               <li class="nav-item">
                 <a class="nav-link" href="#contactanos">Contactanos</a>
               </li>
+              <?php 
+               if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "administrador")
+              {
+              ?>
+              <li class="nav-item">
+                <a class="nav-link" href="paginas/panelAdministrativo/empleados.html">Panel Administrativo</a>
+              </li>
+              <?php 
+              }
+              ?>
             </ul>
           </div>
         </div>
@@ -89,12 +112,7 @@
                   type="password"
                   class="form-control"
                   id="user-password"
-<<<<<<< Updated upstream
-                  name="contrasena2"
-=======
                   name="contrasena"
->>>>>>> Stashed changes
-                  required
                 />
                 <span id="contrasena2" name="contrasena2" style="color: red;"></span>
                 <div class="invalid-feedback">
