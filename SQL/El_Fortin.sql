@@ -42,8 +42,7 @@ CREATE TABLE EMPLEADOS (
 );
 
 CREATE TABLE RECETAS (
-  recetas_id SERIAL NOT NULL, 
-  /*preguntarle al profe "index"  int NOT NULL,*/ 
+  recetas_id SERIAL NOT NULL,  
   nombre varchar(45) NOT NULL, 
   tiempo_preparacion time NOT NULL, 
   Descripcion varchar(255) NOT NULL, 
@@ -62,9 +61,9 @@ CREATE TABLE PEDIDOS (
 CREATE TABLE DETALLES_PEDIDOS (
   detalle_pedido_id SERIAL NOT NULL, 
   cantidad int NOT NULL, 
-  fecha_pedido TIMESTAMP NOT NULL , 
+  fecha_pedido TIMESTAMP DEFAULT NOW() , 
   producto_id int NOT NULL, 
-  pedido_id int NOT NULL, 
+  pedido_id int NOT NULL,
   PRIMARY KEY (detalle_pedido_id),
   FOREIGN KEY(producto_id) REFERENCES PRODUCTOS (producto_id),
   FOREIGN KEY(pedido_id) REFERENCES PEDIDOS (pedido_id)
@@ -86,9 +85,9 @@ CREATE TABLE FORMAS_PAGOS (
 
 CREATE TABLE VENTAS (
   venta_id SERIAL NOT NULL, 
-  IVA_pagar   float NOT NULL, 
-  pago_total  float NOT NULL, 
-  fecha_venta  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+  IVA_pagar   NUMERIC(8,2) NULL, 
+  pago_total  NUMERIC(8,2) NOT NULL, 
+  fecha_venta  TIMESTAMP DEFAULT NOW(), 
   descuento_venta int, 
   empleado_id int NOT NULL, 
   Cliente_id  int NOT NULL, 
@@ -98,7 +97,7 @@ CREATE TABLE VENTAS (
 
 CREATE TABLE DETALLES_VENTA (
 	detalle_venta_id SERIAL NOT NULL,
-	subtotal float NOT NULL,
+	subtotal NUMERIC(8,2) NULL,
 	descuento_articulo int NOT NULL,
 	p_cantidad INT NOT NULL,
 	venta_id int NOT NULL,
@@ -110,19 +109,12 @@ CREATE TABLE DETALLES_VENTA (
 CREATE TABLE PRODUCTOS (
 	producto_id SERIAL NOT NULL,
 	nombre varchar(25) NOT NULL,
-	precio float NOT NULL,
+	precio NUMERIC(8,2) NOT NULL,
 	descripcion varchar(125) NOT NULL,
 	stock int NOT NULL,
 	IdCategoria INT NOT NULL,
-	PRIMARY KEY (producto_id)
+	PRIMARY KEY (producto_id),
 	FOREIGN KEY(IdCategoria) REFERENCES CATEGORIAS (IdCategoria));
-
-CREATE TABLE TIPOS (
-	tipos_id SERIAL NOT NULL,
-	producto_id int NOT NULL,
-	nombre varchar(15) NOT NULL,
-	PRIMARY KEY (tipos_id),
-	FOREIGN KEY(producto_id) REFERENCES PRODUCTOS (producto_id));
 
 CREATE TABLE PEDIDOS (
 	pedido_id SERIAL NOT NULL,
@@ -132,7 +124,14 @@ CREATE TABLE PEDIDOS (
 	PRIMARY KEY (pedido_id),
 	FOREIGN KEY(detalle_pedido_id) REFERENCES DETALLES_PEDIDOS (detalle_pedido_id));
 
+CREATE TABLE COMENTARIOS(
+	comentario_id SERIAL NOT NULL,
+	asunto VARCHAR (20) NOT NULL,
+	comentario TEXT NOT NULL,
+	fecha TIMESTAMP DEFAULT NOW(),
+	PRIMARY KEY(comentario_id));
 
+SELECT *FROM COMENTARIOS
 
 /*BITACORA PARA REGISTRAR CAMBIOS DE RECETAS*/
 	CREATE TABLE BITACORA_RECETAS(
@@ -338,12 +337,17 @@ SELECT *FROM DETALLES_VENTA
 
 /*TRIGGER PARA PROTEGER DATOS DE LAS BITACORAS*/
 	CREATE TRIGGER trigger_proteger_datos_bitacoras
-	BEFORE DELETE,UPDATE ON BITACORA_RECETAS, BITACORA_VENTAS
+	BEFORE DELETE OR UPDATE ON BITACORA_RECETAS
+	FOR EACH ROW
+	EXECUTE FUNCTION proteger_datos();
+
+	CREATE TRIGGER trigger_proteger_datos_bitacoras
+	BEFORE DELETE OR UPDATE ON  BITACORA_VENTAS
 	FOR EACH ROW
 	EXECUTE FUNCTION proteger_datos();
 
 /*TRIGGER PARA PROTEGER DATOS DE LAS FORMAS DE PAGO*/
-	CREATE TRIGGER trigger_evitar_borrado
+	CREATE TRIGGER trigger_proteger_datos_formasPagos
 	BEFORE DELETE ON FORMAS_PAGOS
 	FOR EACH ROW
 	EXECUTE FUNCTION proteger_datos();
@@ -555,18 +559,21 @@ SELECT *FROM PERSONAS
 	INSERT INTO VENTAS (IVA_pagar, pago_total, fecha_venta, descuento_venta, empleado_id, Cliente_id) VALUES (16.0, 250.0, '2024-07-05 14:00:00', 25, 5, 5);
 
 /*TABLA_DETALLES_VENTA*/
-	INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad) VALUES (1, 100.0, 5, 2);
-	INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad) VALUES (2, 200.0, 10, 3);
-	INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad) VALUES (3, 150.0, 15, 1);
-	INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad) VALUES (4, 300.0, 20, 4);
-	INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad) VALUES (5, 250.0, 25, 5);
+	INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad, producto_id) VALUES (1, 100.0, 5, 2);
+	INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad, producto_id) VALUES (2, 200.0, 10, 3);
+	INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad, producto_id) VALUES (3, 150.0, 15, 1);
+	INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad, producto_id) VALUES (4, 300.0, 20, 4);
+	INSERT INTO DETALLES_VENTA (venta_id, subtotal, descuento_articulo, p_cantidad, producto_id) VALUES (5, 250.0, 25, 5);
+	
+select *FROM DETALLES_VENTA
 
 /*TABLA PRODUCTOS*/
-	INSERT INTO PRODUCTOS (nombre, precio, descripcion, stock, categoria) VALUES ('Producto A', 10.0, 'Descripción A', 100, 'Categoría 1');
-	INSERT INTO PRODUCTOS (nombre, precio, descripcion, stock, categoria) VALUES ('Producto B', 20.0, 'Descripción B', 200, 'Categoría 2');
-	INSERT INTO PRODUCTOS (nombre, precio, descripcion, stock, categoria) VALUES ('Producto C', 30.0, 'Descripción C', 300, 'Categoría 3');
-	INSERT INTO PRODUCTOS (nombre, precio, descripcion, stock, categoria) VALUES ('Producto D', 40.0, 'Descripción D', 400, 'Categoría 4');
-	INSERT INTO PRODUCTOS (nombre, precio, descripcion, stock, categoria) VALUES ('Producto E', 50.0, 'Descripción E', 500, 'Categoría 5');
+	INSERT INTO PRODUCTOS (nombre, precio, descripcion, stock, idcategoria) VALUES ('Producto A', 10.0, 'Descripción A', 100, 2);
+	INSERT INTO PRODUCTOS (nombre, precio, descripcion, stock, idcategoria) VALUES ('Producto B', 20.0, 'Descripción B', 200, 1);
+	INSERT INTO PRODUCTOS (nombre, precio, descripcion, stock, idcategoria) VALUES ('Producto C', 30.0, 'Descripción C', 300, 3);
+	INSERT INTO PRODUCTOS (nombre, precio, descripcion, stock, idcategoria) VALUES ('Producto D', 40.0, 'Descripción D', 400, 1);
+	INSERT INTO PRODUCTOS (nombre, precio, descripcion, stock, idcategoria) VALUES ('Producto E', 50.0, 'Descripción E', 500, 2);
+SELECT *FROM PRODUCTOS
 
 /*TABLA TIPOS*/
 	INSERT INTO TIPOS (producto_id, nombre) VALUES (1, 'Tipo 1');
@@ -582,7 +589,21 @@ SELECT *FROM PERSONAS
 	INSERT INTO BITACORA_RECETAS (table_name, table_id, description, operacion) VALUES ('RECETAS', '4', 'Descripción de cambio 4', 'INSERT');
 	INSERT INTO BITACORA_RECETAS (table_name, table_id, description, operacion) VALUES ('RECETAS', '5', 'Descripción de cambio 5', 'UPDATE');
 
+/*TABLA CATEGORIAS*/
+	INSERT INTO CATEGORIAS (categoria)
+	VALUES ('Bebidas');
+	
+	INSERT INTO CATEGORIAS (categoria)
+	VALUES ('Restaurante');
+		
+	INSERT INTO CATEGORIAS (categoria)
+	VALUES ('Panaderia');
+	
+/*TABLA COMENTARIOS*/
+	INSERT INTO COMENTARIOS (asunto, comentario)
+	VALUES ('Mala recepción', 'me atendieron mal');
 
+	
 CREATE USER ADMINISTRADOR WITH PASSWORD 'administrador';
 CREATE USER VISITANTE  WITH PASSWORD 'visitante';
 
