@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../../css/bootstrap.css">
     <link rel="stylesheet" href="../../css/fondo.css">
 
-    <title>Ventas</title>
+    <title>Pedidos</title>
     <link rel="icon" type="img/jpg" href="../../recursos/imagenes/logo.jpeg">
 </head>
 <body>
@@ -116,7 +116,7 @@
                   <div class="card-tools">
                     <!-- Button trigger modal -->
                    <button type="button" class="btn text-bg-primary" data-bs-toggle="modal"  data-bs-target="#modalVentas">
-                    <i class="fa-solid fa-user-plus"></i> Nueva Pedido
+                    <i class="fa-solid fa-user-plus"></i> Nuevo Pedido
                    </button>
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                       <i class="fas fa-minus"></i>
@@ -179,22 +179,32 @@
                 <div class="modal-body">
                   <form id="formVentas">
                     <input type="hidden" name="accion" value="1">
+                   
                     <div class="mb-3">
                       <label for="cliente" class="form-label">Nombre del Cliente</label>
                       <input type="text" class="form-control" id="cliente" name="letras1" placeholder="Nombre Cliente">
+                      <span id="letras1" style="color: red;"></span>
                     </div>
+                    
                     <div class="mb-3">
                       <label for="estado" class="form-label">Estado</label>
-                      <input type="text" class="form-control" id="estado" name="estado" placeholder="Estado">
+                      <select id="estado" name="estado" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="Espera">En espera</option>
+                        <option value="Preparacion">Preparación</option>
+                        <option value="Listo">Listo</option>
+                    </select>
                     </div>
                     <div class="row">
                       <div class="mb-3 col-md-6">
                         <label for="mesa" class="form-label">Mesa</label>
-                        <input type="number" class="form-control" id="mesa" name="mesa" placeholder="Mesa" >
+                        <input type="number" class="form-control" id="mesa" name="number¨1" placeholder="Mesa" maxlength="2" required min="1" max="20">
+
                       </div>
                       <div class="mb-3 col-md-6">
                         <label for="detalle" class="form-label">Detalle de pedido</label>
-                        <input type="text" class="form-control" id="detalle" name="detalle" placeholder="Detalle pedido" >
+                        <input type="text" class="form-control" id="detalle" name="letras1" placeholder="Detalle pedido">
+                        <span id="letras1" style="color: red;"></span>
                       </div>
                     </div>
                     <input type="hidden" id="venta-id">
@@ -205,6 +215,8 @@
               </div>
             </div>
           </div>
+
+          <script src="../../js/Validaciones/letras.js"></script>
   
 
       <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
