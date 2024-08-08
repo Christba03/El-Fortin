@@ -284,11 +284,14 @@
                     <form action="">
                       <div class="mb-3">
                         <label for="inputFullName" class="form-label">Asunto</label>
-                        <input type="text" class="form-control" id="inputFullName" maxlength="20" required>
+                        <input type="text" class="form-control" id="inputFullName" name="letras1" maxlength="20" required>
+                        <span id="letras1" style="color: red;"></span>
                       </div>
                       <div class="mb-3">
                         <label for="inputTextarea" class="form-label">Comentario</label>
-                        <textarea class="form-control" id="inputTextarea" rows="3" required ></textarea>
+                        <textarea class="form-control" id="inputTextarea" name="charEsp1" rows="3" required ></textarea>
+                        <span id="charEsp1" name="charEsp1" style="color: red;"></span>         
+
                       </div>
                       <button type="submit" class="btn btn-primary text-bg-primary">Enviar</button>
 
@@ -366,6 +369,8 @@
       crossorigin="anonymous"
     ></script>
 
+    <script src="js/Validaciones/charEsp.js"></script>
+    <script src="js/Validaciones/letras.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/validacionLogin.js"></script>
