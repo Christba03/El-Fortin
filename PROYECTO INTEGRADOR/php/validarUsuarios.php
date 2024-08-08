@@ -15,9 +15,16 @@
 
  header('Content-Type: application/json');
 
-if ($cantidad > 0) {
+ if ($cantidad > 0) {
+    $usuario = pg_fetch_assoc($consulta);
     $_SESSION['correo'] = $correo;
-    echo json_encode(['status' => 'success', 'message' => 'Iniciando Sesion.']);
+    $_SESSION['rol'] = $usuario['rol']; // Suponiendo que tienes una columna 'rol' en tu tabla de usuarios
+
+    if ($usuario['rol'] == 'administrador') {
+        echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso.', 'redirect' => './index.php']);
+    } else {
+        echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso.', 'redirect' => './index.php']);
+    }
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Correo o contraseña incorrectos.']);
 }
