@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const errorSpan = document.querySelector(`span#${input.name}`);
 
         input.addEventListener('input', function () {
-            const isValid = validarTexto(input.value);
+            const isValid = validarLetras(input.value);
 
             if (!isValid) {
                 errorSpan.textContent = 'Solo se permiten caracteres alfabéticos.';
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-function validarTexto(value) {
+function validarLetras(value) {
     // Expresión regular para letras incluyendo acentos y ñ/Ñ
     const regex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*$/;
     return regex.test(value);

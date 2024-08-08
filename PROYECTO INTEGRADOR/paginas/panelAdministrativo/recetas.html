@@ -170,24 +170,26 @@
                   <form id="formRecetas">
                     <input type="hidden" name="accion" value="1">
                     <div class="row">
-                      <div class="mb-3 col-md-6">
-                        <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
+                      <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre Comida</label>
+                        <input type="text" class="form-control" id="nombre" name="letras1" placeholder="Nombre" required>
+                        <span id="letras1" style="color: red;"></span>
                       </div>
                       <div class="row">
                         <label for="empleado" class="form-label">Nombre del Empleado</label>
                         <input type="text" class="form-control" id="empleado" name="letras2" placeholder="Nombre del Empleado" required>
                         <span id="letras2" style="color: red;"></span> 
                     </div>
-                      <div class="mb-3 col-md-6">
+                      <div class="mb-3">
                         <label for="tiempo" class="form-label">Tiempo de preparacion</label>
-                        <input type="text" class="form-control" id="tiempo" name="tiempo" placeholder="Tiempo" required>
+                        <input type="text" class="form-control" id="tiempo" name="letras3" placeholder="Tiempo" required>
+                        <span id="letras3" style="color: red;"></span>
                       </div>
                     </div>
                     <div class="mb-3">
                         <label for="descripcion">Preparación</label>
-                        <textarea name="charEspDescripcion" id="descripcion" class="form-control" placeholder="Preparación"></textarea>
-                        <span id="error-charEspDescripcion" name="Error-charEspDescripcion" style="color: red;"></span>         
+                        <textarea name="charEsp1" id="descripcion" class="form-control" placeholder="Preparación"></textarea>
+                        <span id="charEsp1" name="charEsp1" style="color: red;"></span>         
                     </div>
                     <input type="hidden" id="receta-id">
                     <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>
@@ -199,6 +201,8 @@
           </div>
   
       <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
+      <script src="../../js/Validaciones/charEsp.js"></script>
+      <script src="../../js/Validaciones/letras.js"></script>
       <script src="../../js/script.js"></script>
       <script src="../../js/jquery.js"></script>
       <script src="../../js/bootstrap.bundle.min.js"></script>

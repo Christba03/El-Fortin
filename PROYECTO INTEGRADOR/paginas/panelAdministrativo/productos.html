@@ -29,7 +29,7 @@
           <li>
             <a href="usuarios.html" class="nav-link text-white">
               <i class="fa fa-user" aria-hidden="true"></i>
-              Productos
+              Usuarios
             </a>
           </li>
           <li>
@@ -146,30 +146,31 @@
                     <input type="hidden" name="accion" value="1">
                     <div class="mb-3">
                       <label for="product" class="form-label">Nombre del Producto</label>
-                      <input type="text" class="form-control" id="product" name="nombre" placeholder="Nombre">
+                      <input type="text" class="form-control" id="product" name="letras1" placeholder="Nombre">
+                      <span id="letras1" name="letras1" style="color: red;"></span>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Precio</label>
-                        <input type="number" class="form-control" id="price" name="price" placeholder="Precio">
+                        <input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="Precio">
                     </div>
                     <div class="mb-3">
                       <label for="product-id" class="form-label" hidden>Id</label>
                       <input type="number" class="form-control" id="product-id" name="product-id" placeholder="Se genera un nuevo id" disabled hidden>
-
                   </div>
                     <div class="row">
                       <div class="mb-3 col-md-6">
                         <label for="bar_code" class="form-label">Codigo barras</label>
-                        <input type="number" name="bar_code" id="bar_code" class="form-select">
+                        <input type="number" name="bar_code" id="bar_code" class="form-select" min="0" max="999999999999">
                       </div>
                       <div class="mb-3 col-md-6">
                         <label for="stock" class="form-label">Stock</label>
-                        <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock">
+                        <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock" min="0" max="999" required>
                       </div>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Descripción</label>
-                        <textarea name="descripcion" id="description" class="form-control" placeholder="Ingrese la descripcion"></textarea>
+                        <textarea name="charEsp1" id="description" class="form-control" placeholder="Ingrese la descripcion" required></textarea>
+                        <span id="charEsp1" name="charEsp1" style="color: red;"></span>         
                     </div>
                     <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -179,7 +180,11 @@
             </div>
           </div>
 
+
+
         <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
+        <script src="../../js/Validaciones/charEsp.js"></script>
+        <script src="../../js/Validaciones/letras.js"></script>
         <script src="../../js/script.js"></script>
         <script src="../../js/jquery.js"></script>
         <script src="../../js/bootstrap.bundle.min.js"></script>

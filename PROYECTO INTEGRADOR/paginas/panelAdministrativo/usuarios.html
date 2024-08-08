@@ -121,18 +121,6 @@
                     </tr>
                 </thead>
                 <tbody id="employe-table-body">
-                    <!-- Registo de ejemplo -->
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Juan123</td>
-                        <td>juanperez@utcv.edu.mx</td>
-                        <td>juanClave123</td>
-                        <td>
-                          <a href="" class="link-primary"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
-                          <a href="" class="link-danger"><i class="fa-solid fa-trash fs-5 me-3"></i></a>
-                          <a href="" class="link-success"><i class="fa-solid fa-eye fs-5"></i></a>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -158,16 +146,21 @@
                     <input type="hidden" name="accion" value="1">
                     <div class="mb-3">
                       <label for="nombreUsuario" class="form-label">Nombre de Usuario</label>
-                      <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Nombre">
+                      <input type="text" class="form-control" id="nombreUsuario" name="letras1" placeholder="Nombre" required>
+                      <span id="letras1" name="letras1" style="color: red;"></span>
                     </div>
                     <div class="row">
                       <div class="mb-3 col-md-6">
                         <label for="correo" class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo">
+                        <input type="email" class="form-control" id="correo" name="correo1" placeholder="Correo" required>
+                        <span id="correo1" name="correo1" style="color: red;"></span>
+
                       </div>
                       <div class="mb-3 col-md-6">
                         <label for="contrasena" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña">
+                        <input type="password" class="form-control" id="contrasena" name="contrasena1" placeholder="Contraseña" required>
+                        <span id="contrasena1" name="contrasena1" style="color: red;"></span>
+
                       </div>
                     </div>
                     <input type="hidden" id="usuario-id">
@@ -182,6 +175,9 @@
         <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
         <script src="../../js/script.js"></script>
         <script src="../../js/jquery.js"></script>
+        <script src="../../js/Validaciones/correo.js"></script>
+        <script src="../../js/Validaciones/letras.js"></script>
+        <script src="../../js/Validaciones/password.js"></script>
         <script src="../../js/bootstrap.bundle.min.js"></script>
         <script src="../../js/popper.min.js"></script>
         <script src="../../js/sweetalert2.all.min.js"></script>
