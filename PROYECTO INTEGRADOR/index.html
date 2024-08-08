@@ -74,8 +74,10 @@
                   type="email"
                   class="form-control"
                   id="user-email"
+                  name="correo2"
                   required
                 />
+                <span id="correo2" name="correo2" style="color: red;"></span>
                 <div class="invalid-feedback">
                   Ingrese un correo valido.
                 </div>
@@ -86,8 +88,10 @@
                   type="password"
                   class="form-control"
                   id="user-password"
+                  name="contrasena2"
                   required
                 />
+                <span id="contrasena2" name="contrasena2" style="color: red;"></span>
                 <div class="invalid-feedback">
                   Ingrese una contraseña valida.
                 </div>
@@ -114,39 +118,45 @@
               <div class="row">
               <div class="mb-3 col-md-6">
                 <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                <input type="text" class="form-control" id="nombre" name="letras1" placeholder="Nombre" maxlength="35">
+                <span id="letras1" style="color: red;"></span>
               </div>
 
               <div class="mb-3 col-md-6">
                 <label for="apellidoP" class="form-label">Apellido Paterno:</label>
-                <input type="text" class="form-control" id="apellidoP" name="apellidoP" placeholder="Apellido Paterno">
+                <input type="text" class="form-control" id="apellidoP" name="letras2" placeholder="Apellido Paterno" maxlength="35" required>
+                <span id="letras2" style="color: red;"></span>
               </div>
 
               <div class="mb-3 col-md-6">
                 <label for="apellidoM" class="form-label">Apellido Materno:</label>
-                <input type="text" class="form-control" id="apellidoM" name="apellidoM" placeholder="Apellido Materno">
+                <input type="text" class="form-control" id="apellidoM" name="letras3" placeholder="Apellido Materno" maxlength="35" >
+                <span id="letras3" style="color: red;"></span>
               </div>
 
               <div class="mb-3 col-md-6">
                 <label for="numeroTelefono" class="form-label">Telefono:</label>
-                <input type="text" class="form-control" id="numeroTelefono" name="numeroTelefono" placeholder="2711238909">
+                <input type="text" class="form-control" id="numeroTelefono" name="numeroTelefono" placeholder="2711238909" minlength="10" maxlength="10" required>
               </div>
               </div>
 
               <hr>
               <div class="form-group">
                 <label for="nombreUsuario" class="form-label">Nombre de Usuario:</label>
-                <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="example">
+                <input type="text" class="form-control" id="nombreUsuario" name="letras4" placeholder="example" maxlength="15" required>
+                <span id="letras4" style="color: red;"></span>
               </div>
 
               <div class="row">
                 <div class="mb-3 col-md-6">
                   <label for="correo" class="form-label">Correo:</label>
-                  <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo">
+                  <input type="email" class="form-control" id="correo" name="correo1" placeholder="Correo" maxlength="16" required>
+                    <span id="correo1" name="correo1" style="color: red;"></span>
                 </div>
                 <div class="mb-3 col-md-6">
                   <label for="contrasena" class="form-label">Contraseña:</label>
-                  <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña">
+                  <input type="password" class="form-control" id="contrasena" name="contrasena1" placeholder="Contraseña" required>
+                  <span id="contrasena1" name="contrasena1" style="color: red;"></span>
                 </div>
               </div>
               <input type="hidden" id="usuario-id">
@@ -371,6 +381,7 @@
 
     <script src="js/Validaciones/charEsp.js"></script>
     <script src="js/Validaciones/letras.js"></script>
+    <script src="js/Validaciones/password.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/validacionLogin.js"></script>
