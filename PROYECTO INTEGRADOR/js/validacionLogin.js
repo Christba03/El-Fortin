@@ -25,65 +25,41 @@
   });
 
 
+  $('#user-form').submit(function(event) {
+    event.preventDefault(); // Previene el envío predeterminado del formulario
 
-  $(document).ready(function(){
-  //debemos validar lo que enviemos con un arreglo de usuarios registrados XD
-  let usuariosRegistrados = [
-    {
-      id: 1,
-      correo: "angel@gmail.com",
-      contrasena: "angel1234",
-    },
-    {
-      id: 2,
-      correo: "joseangel@gmail.com",
-      contrasena: "pepe",
-    },
-  ];
-
-  function error(){
-    Swal.fire({
-      icon: "error",
-      title: "Credenciales incorrectas.",
+    $.ajax({
+        url: "php/validarUsuarios.php", // El archivo PHP que procesará la solicitud
+        type: "POST", // Método de envío
+        data: $(this).serialize(), // Serializa los datos del formulario
+        dataType: 'json', // Espera una respuesta JSON
+        success: function(response) {
+            if (response.status === 'success') {
+                Swal.fire({
+                    title: 'Correcto',
+                    text: response.message,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    // Redirigir si es necesario
+                    window.location.href = 'paginas/panelAdministrativo/usuarios.html';
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: response.message,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un problema con la solicitud.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
     });
-  }
-
-
-  $("#user-form").submit(function (event) {
-    event.preventDefault();
-    let correo = $("#user-email").val();
-    let contrasena = $("#user-password").val();
-
-    // Verificar si los campos están vacíos
-        if (correo === "" || contrasena === "") {
-        return; // No hacer nada si los campos están vacíos
-      }
-
-      let credencialesCorrectas = false;
-
-    for(let i = 0; i<usuariosRegistrados.length; i++){
-       if(correo == usuariosRegistrados[i].correo && contrasena == usuariosRegistrados[i].contrasena){
-           credencialesCorrectas = true;
-           break;
-       }
-    }
-
-    if(credencialesCorrectas){
-      $("#userModal").modal("hide");
-
-       // Mostrar SweetAlert y redirigir después de que el usuario haga clic en "OK"
-    Swal.fire({
-    title: '¡Correcto!',
-    text: 'Iniciando sesión',
-    icon: 'success',
-    timer: 1300, // Tiempo en milisegundos antes de redirigir
-    showConfirmButton: false
-    }).then((result) => {
-    // Redirigir a otra página
-    location.href = "paginas/panelAdministrativo/empleados.html";
-    });
-    }else{
-      error();
-    }
-  });
 });
