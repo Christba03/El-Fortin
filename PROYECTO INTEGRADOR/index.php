@@ -31,7 +31,7 @@ session_start();
              <!-- Mostrar el botón de cerrar sesión si el usuario ha iniciado sesión -->
                 <form action="php/logoupt.php" method="post">
                  <button type="submit" class="btnSesion" id="add.user-btn">
-                     <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión
+                     <i class="fa fa-sign-in" aria-hidden="true"></i> Cerrar Sesión
                    </button>
                 </form>
            <?php else: ?>
@@ -403,10 +403,10 @@ session_start();
       crossorigin="anonymous"
     ></script>
 
+    <script src="js/jquery.js"></script>
     <script src="js/Validaciones/charEsp.js"></script>
     <script src="js/Validaciones/letras.js"></script>
     <script src="js/Validaciones/password.js"></script>
-    <script src="js/jquery.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/validacionLogin.js"></script>
     <script src="js/sweetalert2.all.min.js"></script>
