@@ -182,6 +182,8 @@ session_start();
                   <span id="contrasena1" name="contrasena1" style="color: red;"></span>
                 </div>
               </div>
+
+              <input type="hidden" id="rol" name="rol" value="cliente">
               <input type="hidden" id="usuario-id">
               <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -327,7 +329,6 @@ session_start();
 
                       </div>
                       <button type="submit" class="btn btn-primary text-bg-primary">Enviar</button>
-
                     </form>
                   </div>
                 </div>
