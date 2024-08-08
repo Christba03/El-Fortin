@@ -19,6 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function validarCharEsp(value) {
-    const regex = /['";<>&]/g;
+    const regex = /[/'";<>&]/g;
     return !regex.test(value);
 }
