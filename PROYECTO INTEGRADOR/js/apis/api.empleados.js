@@ -76,7 +76,6 @@ $(document).ready(function(){
                         <td>${empleado.apellidoPaterno}</td>
                         <td>${empleado.apellidoMaterno}</td>
                         <td>${empleado.correo}</td>
-                        <td>${empleado.contrasena}</td>
                         <td>
                            <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
                            <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-trash fs-6"></i></button>

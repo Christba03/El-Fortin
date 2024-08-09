@@ -1,7 +1,7 @@
 <?php
 
 $host='localhost';
-$bd='El-Fortin';
+$bd='ElFortin';
 $user='postgres';
 $pass='emersson';
 

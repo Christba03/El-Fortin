@@ -49,13 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
         id: 1,
         nombre: "Jose",
         correo: "jose@gmail.com",
-        contrasena: "jose122",
+        rol: "cliente",
       },
       {
         id: 2,
         nombre: "Angel",
         correo: "rivera@gmail.com",
-        contrasena: "rivera23",
+        rol: "administrador",
       },
     ];
   
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                           <td>${empleado.id}</td>
                           <td>${empleado.nombre}</td>
                           <td>${empleado.correo}</td>
-                          <td>${empleado.contrasena}</td>
+                          <td>${empleado.rol}</td>
                           <td>
                              <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
                              <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-trash fs-6"></i></button>
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let userId = $("#usuario-id").val();
       let empleadoName = $("#nombreUsuario").val();
       let correo = $("#correo").val();
-      let contrasena = $("#contrasena").val();
+      let rol = $("#rol").val();
       let method = userId ? "PUT" : "POST";
   
       if(method == "POST"){
@@ -103,14 +103,14 @@ document.addEventListener('DOMContentLoaded', () => {
           id: newId,
           nombre: empleadoName,
           correo: correo,
-          contrasena: contrasena,
+          rol: rol,
         });
       }else {
         let objeto = searchObject(userId);
   
         objeto.nombre = empleadoName;
         objeto.correo = correo;
-        objeto.contrasena= contrasena;
+        objeto.rol= rol;
       }
       loadEmployes();
       alert();
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
       $("#usuario-id").val(employe.id);
       $("#nombreUsuario").val(employe.nombre);
       $("#correo").val(employe.correo);
-      $("#contrasena").val(employe.contrasena);
+      $("#rol").val(employe.rol);
       $("#modalUsuariosTitle").text("Editar Usuario");
       $("#modalUsuarios").modal("show");
     });
