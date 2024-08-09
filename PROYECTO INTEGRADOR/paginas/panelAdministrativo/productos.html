@@ -16,7 +16,7 @@
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-primary" style="width: 280px; height: 1000px;" id="container-sidebar">
         <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" href="../../index.html">
           <img src="../../recursos/logo-removebg-preview.png" alt="" width="50px">
-          <span class="fs-5">Pagina Principal</span>
+          <span class="fs-5">Página principal</span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto" id="nav-links">
@@ -78,12 +78,12 @@
     <div class="main-content">
         <div class="header">
             <div class="title-header">
-                <h2>Administración de Productos</h2>
+                <h2>Administración de productos</h2>
             </div>
         </div>
 
         <div class="tabular-wrappe">
-            <h3 class="main-title">Tabla de Registros</h3>
+            <h3 class="main-title">Tabla de registros</h3>
             <section class="content">
         
               <!-- Default box -->
@@ -93,7 +93,7 @@
                   <div class="card-tools">
                     <!-- Button trigger modal -->
                    <button type="button" class="btn text-bg-primary" data-bs-toggle="modal"  data-bs-target="#modalProductos">
-                    <i class="fa-solid fa-user-plus"></i> Agregar Producto
+                    <i class="fa-solid fa-user-plus"></i> Agregar producto
                    </button>
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                       <i class="fas fa-minus"></i>
@@ -115,7 +115,7 @@
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Precio</th>
                                 <th scope="col">Código de barras</th>
-                                <th scope="col">Stock</th>
+                                <th scope="col">Cantidad</th>
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Operaciones</th>
                             </tr>
@@ -138,14 +138,14 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="modalProductosTitle">Formulario de Productos</h5>
+                  <h5 class="modal-title" id="modalProductosTitle">Formulario de productos</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                   <form id="formProductos">
                     <input type="hidden" name="accion" value="1">
                     <div class="mb-3">
-                      <label for="product" class="form-label">Nombre del Producto</label>
+                      <label for="product" class="form-label">Nombre del producto</label>
                       <input type="text" class="form-control" id="product" name="letras1" placeholder="Nombre">
                       <span id="letras1" name="letras1" style="color: red;"></span>
                     </div>
@@ -159,11 +159,11 @@
                   </div>
                     <div class="row">
                       <div class="mb-3 col-md-6">
-                        <label for="bar_code" class="form-label">Codigo barras</label>
+                        <label for="bar_code" class="form-label">Código barras</label>
                         <input type="number" name="bar_code" id="bar_code" class="form-select" m>
                       </div>
                       <div class="mb-3 col-md-6">
-                        <label for="stock" class="form-label">Stock</label>
+                        <label for="stock" class="form-label">Cantidad</label>
                         <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock" min="0" max="999" required>
                       </div>
                     </div>

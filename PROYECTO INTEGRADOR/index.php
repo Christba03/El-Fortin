@@ -31,13 +31,13 @@ session_start();
              <!-- Mostrar el botón de cerrar sesión si el usuario ha iniciado sesión -->
                 <form action="php/logoupt.php" method="post">
                  <button type="submit" class="btnSesion" id="add.user-btn">
-                     <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión
+                     <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión
                    </button>
                 </form>
            <?php else: ?>
                <!-- Mostrar el botón de iniciar sesión si el usuario no ha iniciado sesión -->
               <button type="button" class="btnSesion" id="add.user-btn" data-bs-toggle="modal" data-bs-target="#userModal">
-                  <i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar Sesión
+                  <i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar sesión
               </button>
             <?php endif; ?>
           </div>
@@ -58,17 +58,17 @@ session_start();
                 <a class="nav-link" href="#servicios">Servicios</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#nosotros">Acerca de Nosotros</a>
+                <a class="nav-link" href="#nosotros">Acerca de nosotros</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#contactanos">Contactanos</a>
+                <a class="nav-link" href="#contactanos">Contáctanos</a>
               </li>
               <?php 
                if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "administrador")
               {
               ?>
               <li class="nav-item">
-                <a class="nav-link" href="paginas/panelAdministrativo/empleados.html">Panel Administrativo</a>
+                <a class="nav-link" href="paginas/panelAdministrativo/empleados.html">Panel administrativo</a>
               </li>
               <?php 
               }
@@ -132,7 +132,7 @@ session_start();
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalUsuariosTitle">Formulario de Registro</h5>
+            <h5 class="modal-title" id="modalUsuariosTitle">Formulario de registro</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -146,13 +146,13 @@ session_start();
               </div>
 
               <div class="mb-3 col-md-6">
-                <label for="apellidoP" class="form-label">Apellido Paterno:</label>
+                <label for="apellidoP" class="form-label">Apellido paterno:</label>
                 <input type="text" class="form-control" id="apellidoP" name="letras2" placeholder="Apellido Paterno" maxlength="35" required>
                 <span id="letras2" style="color: red;"></span>
               </div>
 
               <div class="mb-3 col-md-6">
-                <label for="apellidoM" class="form-label">Apellido Materno:</label>
+                <label for="apellidoM" class="form-label">Apellido materno:</label>
                 <input type="text" class="form-control" id="apellidoM" name="letras3" placeholder="Apellido Materno" maxlength="35" >
                 <span id="letras3" style="color: red;"></span>
               </div>
@@ -165,7 +165,7 @@ session_start();
 
               <hr>
               <div class="form-group">
-                <label for="nombreUsuario" class="form-label">Nombre de Usuario:</label>
+                <label for="nombreUsuario" class="form-label">Nombre de usuario:</label>
                 <input type="text" class="form-control" id="nombreUsuario" name="letras4" placeholder="example" maxlength="15" required>
                 <span id="letras4" style="color: red;"></span>
               </div>
@@ -220,7 +220,7 @@ session_start();
         data-bs-slide="prev"
       >
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
+        <span class="visually-hidden">Previo</span>
       </a>
       <a
         class="carousel-control-next"
@@ -229,7 +229,7 @@ session_start();
         data-bs-slide="next"
       >
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
+        <span class="visually-hidden">Siguiente</span>
       </a>
     </div>
 
@@ -255,11 +255,11 @@ session_start();
 
       <section class="container-products" id="nosotros">
         <br>
-        <h1 class="heading-1">Acerca de Nosotros</h1>
+        <h1 class="heading-1">Acerca de osotros</h1>
         <div class="about-us">
           <div class="text">
               <p>
-                En El Fortín, nuestra pasión es crear productos recien hechos que deleiten los sentidos y aporten un toque de tradición y calidez a cada momento. Con un compromiso firme hacia la calidad, elaboramos nuestros panes, pasteles y postres con ingredientes frescos y seleccionados cuidadosamente. Cada día, nuestros panaderos artesanos trabajan con dedicación para ofrecerte productos frescos y llenos de sabor. Situados en el corazón de Fortin, somos un lugar donde se fusionan la tradición y la innovación, para brindarte experiencias gastronómicas únicas en un ambiente acogedor. ¡Ven y descubre el sabor auténtico de El Fortín!              </p>
+             *Ubicaciones de google maps*              </p>
           </div>
           <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -343,7 +343,7 @@ session_start();
       <div class="container text-center text-md-left">
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-6">
-            <h3 class="mb-4 font-weight-bold">Contactanos</h3>
+            <h3 class="mb-4 font-weight-bold">Contáctanos</h3>
             <div class="textwidget">
               <p class="contactos">
                 <i class="fa fa-phone" aria-hidden="true" id="hasicon"></i>
