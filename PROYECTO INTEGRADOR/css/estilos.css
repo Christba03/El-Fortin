@@ -199,7 +199,7 @@ i{
     background-color: var(--primary-color);
     display: inline-block;
     padding: 1rem 2rem;
-    text-transform: uppercase;
+    font-size: 20px;
     border-radius: 2rem;
     border: none;
     font-size: 15px;
@@ -648,6 +648,8 @@ i{
     overflow: hidden;
   }
 
+  
+
   /*********** Para la seccion de contactanos *********************/
 
   .contact-us {
@@ -655,6 +657,15 @@ i{
     align-items: flex-start; /* Alinea al inicio para que el texto esté arriba */
     justify-content: space-between;
     gap: 20px;
+  }
+
+  .contact-us .text {
+    flex: 1;
+    margin-right: 20px;
+    border-color: var(--primary-color);
+    border-style: solid;
+    border-radius: 30px;
+    padding: 20px;
   }
   
   .contact-us .text {
@@ -670,6 +681,15 @@ i{
     margin-top: 10px;
     font-size: 18px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  .contact-us .text i{
+    color: var(--primary-color);
+    font-size: 25px;
+  }
+
+  .contact-us .text p{
+    font-size: 18px;
   }
   
   .cardForm {
