@@ -22,7 +22,6 @@ session_start();
              <img src="recursos/fortin.jpeg" alt="" class="logoFortin">
             </div>
           </div>
-
               <div class="contenedor-logo">
                 <h1 class="titleFont ">El Fortin Panaderia</h1>
               </div>
@@ -52,7 +51,7 @@ session_start();
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">Inicio</a>
+                <a class="nav-link" href="index.php">Inicio</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#servicios">Servicios</a>
@@ -255,11 +254,12 @@ session_start();
 
       <section class="container-products" id="nosotros">
         <br>
-        <h1 class="heading-1">Acerca de osotros</h1>
+        <h1 class="heading-1">Acerca de nosotros</h1>
         <div class="about-us">
           <div class="text">
-              <p>
-             *Ubicaciones de google maps*              </p>
+            <p>
+            En El Fortín, nos dedicamos a crear productos recién hechos con ingredientes frescos y de alta calidad. Nuestros panaderos artesanos combinan tradición e innovación para ofrecer panes, pasteles y postres que deleitan los sentidos. Ubicados en el corazón de Fortín, ofrecemos una experiencia gastronómica única en un ambiente acogedor. ¡Descubre el auténtico sabor de El Fortín!
+            </p>
           </div>
           <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -302,7 +302,11 @@ session_start();
         <div class="contact-us">
           <div class="text">
             <h1>Contáctanos</h1>
-            <p>En El Fortín, nos encanta escuchar a nuestros clientes y estar a su disposición para cualquier consulta, pedido especial o comentario. Puedes visitarnos en nuestra tienda ubicada en Av. 5 No.102 B, Centro, #94470  en Fortin de las flores, donde nuestro amable personal estará encantado de atenderte.<br> También puedes llamarnos al 271 123 45 67 o enviarnos un correo electrónico . No dudes en seguirnos en nuestras redes sociales para estar al tanto de nuestras últimas novedades y promociones. <br>¡Estamos aquí para ayudarte y hacer que tu experiencia con nosotros sea excepcional!</p>
+             <br>
+             <p><i class="fa-solid fa-location-dot"></i> Avenida 3 & Calle 7, Centro, 94500 Córdoba, Ver.</p>
+             <p><i class="fa-solid fa-location-dot"></i> Av. 4 910, Centro, 94500 Córdoba, Ver.</p>
+             <p><i class="fa-solid fa-location-dot"></i> Av. 5 No.102 B, Centro, 94470 Fortín de las Flores, Ver.</p>
+             <p>  <i class="fa fa-phone" aria-hidden="true"></i> +52 271-713-1390</p>
           </div>
           <div class="cardForm">
             <div class="card mb-3">
