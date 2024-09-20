@@ -22,7 +22,6 @@ session_start();
              <img src="recursos/fortin.jpeg" alt="" class="logoFortin">
             </div>
           </div>
-
               <div class="contenedor-logo">
                 <h1 class="titleFont ">El Fortin Panaderia</h1>
               </div>
@@ -31,13 +30,13 @@ session_start();
              <!-- Mostrar el botón de cerrar sesión si el usuario ha iniciado sesión -->
                 <form action="php/logoupt.php" method="post">
                  <button type="submit" class="btnSesion" id="add.user-btn">
-                     <i class="fa fa-sign-in" aria-hidden="true"></i> Cerrar Sesión
+                     <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión
                    </button>
                 </form>
            <?php else: ?>
                <!-- Mostrar el botón de iniciar sesión si el usuario no ha iniciado sesión -->
               <button type="button" class="btnSesion" id="add.user-btn" data-bs-toggle="modal" data-bs-target="#userModal">
-                  <i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar Sesión
+                  <i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar sesión
               </button>
             <?php endif; ?>
           </div>
@@ -52,23 +51,23 @@ session_start();
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">Inicio</a>
+                <a class="nav-link" href="index.php">Inicio</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#servicios">Servicios</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#nosotros">Acerca de Nosotros</a>
+                <a class="nav-link" href="#nosotros">Acerca de nosotros</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#contactanos">Contactanos</a>
+                <a class="nav-link" href="#contactanos">Contáctanos</a>
               </li>
               <?php 
                if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "administrador")
               {
               ?>
               <li class="nav-item">
-                <a class="nav-link" href="paginas/panelAdministrativo/empleados.html">Panel Administrativo</a>
+                <a class="nav-link" href="paginas/panelAdministrativo/empleados.html">Panel administrativo</a>
               </li>
               <?php 
               }
@@ -132,7 +131,7 @@ session_start();
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalUsuariosTitle">Formulario de Registro</h5>
+            <h5 class="modal-title" id="modalUsuariosTitle">Formulario de registro</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -146,13 +145,13 @@ session_start();
               </div>
 
               <div class="mb-3 col-md-6">
-                <label for="apellidoP" class="form-label">Apellido Paterno:</label>
+                <label for="apellidoP" class="form-label">Apellido paterno:</label>
                 <input type="text" class="form-control" id="apellidoP" name="letras2" placeholder="Apellido Paterno" maxlength="35" required>
                 <span id="letras2" style="color: red;"></span>
               </div>
 
               <div class="mb-3 col-md-6">
-                <label for="apellidoM" class="form-label">Apellido Materno:</label>
+                <label for="apellidoM" class="form-label">Apellido materno:</label>
                 <input type="text" class="form-control" id="apellidoM" name="letras3" placeholder="Apellido Materno" maxlength="35" >
                 <span id="letras3" style="color: red;"></span>
               </div>
@@ -165,7 +164,7 @@ session_start();
 
               <hr>
               <div class="form-group">
-                <label for="nombreUsuario" class="form-label">Nombre de Usuario:</label>
+                <label for="nombreUsuario" class="form-label">Nombre de usuario:</label>
                 <input type="text" class="form-control" id="nombreUsuario" name="letras4" placeholder="example" maxlength="15" required>
                 <span id="letras4" style="color: red;"></span>
               </div>
@@ -220,7 +219,7 @@ session_start();
         data-bs-slide="prev"
       >
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
+        <span class="visually-hidden">Previo</span>
       </a>
       <a
         class="carousel-control-next"
@@ -229,7 +228,7 @@ session_start();
         data-bs-slide="next"
       >
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
+        <span class="visually-hidden">Siguiente</span>
       </a>
     </div>
 
@@ -255,11 +254,12 @@ session_start();
 
       <section class="container-products" id="nosotros">
         <br>
-        <h1 class="heading-1">Acerca de Nosotros</h1>
+        <h1 class="heading-1">Acerca de nosotros</h1>
         <div class="about-us">
           <div class="text">
-              <p>
-                En El Fortín, nuestra pasión es crear productos recien hechos que deleiten los sentidos y aporten un toque de tradición y calidez a cada momento. Con un compromiso firme hacia la calidad, elaboramos nuestros panes, pasteles y postres con ingredientes frescos y seleccionados cuidadosamente. Cada día, nuestros panaderos artesanos trabajan con dedicación para ofrecerte productos frescos y llenos de sabor. Situados en el corazón de Fortin, somos un lugar donde se fusionan la tradición y la innovación, para brindarte experiencias gastronómicas únicas en un ambiente acogedor. ¡Ven y descubre el sabor auténtico de El Fortín!              </p>
+            <p>
+            En El Fortín, nos dedicamos a crear productos recién hechos con ingredientes frescos y de alta calidad. Nuestros panaderos artesanos combinan tradición e innovación para ofrecer panes, pasteles y postres que deleitan los sentidos. Ubicados en el corazón de Fortín, ofrecemos una experiencia gastronómica única en un ambiente acogedor. ¡Descubre el auténtico sabor de El Fortín!
+            </p>
           </div>
           <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -302,7 +302,11 @@ session_start();
         <div class="contact-us">
           <div class="text">
             <h1>Contáctanos</h1>
-            <p>En El Fortín, nos encanta escuchar a nuestros clientes y estar a su disposición para cualquier consulta, pedido especial o comentario. Puedes visitarnos en nuestra tienda ubicada en Av. 5 No.102 B, Centro, #94470  en Fortin de las flores, donde nuestro amable personal estará encantado de atenderte.<br> También puedes llamarnos al 271 123 45 67 o enviarnos un correo electrónico . No dudes en seguirnos en nuestras redes sociales para estar al tanto de nuestras últimas novedades y promociones. <br>¡Estamos aquí para ayudarte y hacer que tu experiencia con nosotros sea excepcional!</p>
+             <br>
+             <p><i class="fa-solid fa-location-dot"></i> Avenida 3 & Calle 7, Centro, 94500 Córdoba, Ver.</p>
+             <p><i class="fa-solid fa-location-dot"></i> Av. 4 910, Centro, 94500 Córdoba, Ver.</p>
+             <p><i class="fa-solid fa-location-dot"></i> Av. 5 No.102 B, Centro, 94470 Fortín de las Flores, Ver.</p>
+             <p>  <i class="fa fa-phone" aria-hidden="true"></i> +52 271-713-1390</p>
           </div>
           <div class="cardForm">
             <div class="card mb-3">
@@ -343,7 +347,7 @@ session_start();
       <div class="container text-center text-md-left">
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-6">
-            <h3 class="mb-4 font-weight-bold">Contactanos</h3>
+            <h3 class="mb-4 font-weight-bold">Contáctanos</h3>
             <div class="textwidget">
               <p class="contactos">
                 <i class="fa fa-phone" aria-hidden="true" id="hasicon"></i>
@@ -403,10 +407,10 @@ session_start();
       crossorigin="anonymous"
     ></script>
 
-    <script src="js/jquery.js"></script>
     <script src="js/Validaciones/charEsp.js"></script>
     <script src="js/Validaciones/letras.js"></script>
     <script src="js/Validaciones/password.js"></script>
+    <script src="js/jquery.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/validacionLogin.js"></script>
     <script src="js/sweetalert2.all.min.js"></script>

@@ -161,19 +161,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
         if (indice !== -1) {
           Swal.fire({
-            title: "Estas seguro?",
+            title: "¿Estas seguro?",
             text: "No podras revertir el cambio!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#09A62E",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Si, bórralo!"
+            confirmButtonText: "¡Si, bórralo!"
           }).then((result) => {
             if (result.isConfirmed) {
               arreglo.splice(indice, 1);
               loadEmployes();
               Swal.fire({
-                title: "Borrado!",
+                title: "¡Borrado!",
                 text: "Tu registro fue eliminado.",
                 icon: "success"
               });
