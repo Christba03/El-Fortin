@@ -33,7 +33,7 @@ $(document).ready(function () {
           usersTableBody.append(`
               <tr>
                   <td>${user.id}</td>
-                  <td>${user.name}</td>
+                  <td>${user.nickname}</td>
                   <td>${user.email}</td>
                   <td>${userType}</td>
                   <td>${user.phone}</td>
@@ -63,27 +63,29 @@ $(document).ready(function () {
       }, 3000);
   }
 
-  // Función para guardar o actualizar un usuario
-  function saveUser(userData, userId = null) {
-      const method = userId ? 'PUT' : 'POST';
-      const url = userId ? `${apiUrl}/${userId}` : apiUrl;
+ // Función para guardar o actualizar un usuario
+function saveUser(userData, userId = null) {
+  const method = userId ? 'PUT' : 'POST';
+  const url = userId ? `${apiUrl}/${userId}` : apiUrl;
 
-      $.ajax({
-          url: url,
-          method: method,
-          contentType: 'application/json',
-          data: JSON.stringify(userData),
-          success: function () {
-              loadUsers();
-              showAlert('Usuario guardado exitosamente', 'success');
-              $('#modalUsuarios').modal('hide');
-          },
-          error: function (error) {
-              console.error("Error al guardar el usuario:", error);
-              showAlert('Error al guardar el usuario', 'danger');
-          }
-      });
-  }
+  // Realiza la solicitud AJAX con la estructura modificada
+  $.ajax({
+      url: url,
+      method: method,
+      contentType: 'application/json',
+      data: JSON.stringify(userData), // Se envía el objeto userData con la estructura requerida
+      success: function (response) {
+          loadUsers(); // Recargar usuarios después de guardar
+          showAlert('Usuario guardado exitosamente', 'success');
+          $('#modalUsuarios').modal('hide'); // Cerrar el modal
+      },
+      error: function (error) {
+          console.error("Error al guardar el usuario:", error);
+          showAlert('Error al guardar el usuario', 'danger');
+      }
+  });
+}
+
 
   // Función para eliminar un usuario
   function deleteUser(userId) {
@@ -101,20 +103,26 @@ $(document).ready(function () {
       });
   }
 
-  // Evento al enviar el formulario para agregar o editar un usuario
-  $('#formUsuarios').submit(function (event) {
-      event.preventDefault();
+ 
+// Evento del formulario para guardar o actualizar el usuario
+$('#formUsuarios').submit(function (event) {
+  event.preventDefault();
 
-      const userId = $('#usuario-id').val();
-      const userData = {
-          name: $('#nombreUsuario').val(),
-          email: $('#correo').val(),
-          phone: $('#telefono').val(),
-          user_type: $('#rol').val(),
-      };
+  // Captura el ID del usuario (si existe) y los datos del formulario
+  const userId = $('#usuario-id').val();
 
-      saveUser(userData, userId);
-  });
+  const userData = {
+      name: $('#nombreUsuario').val(),
+      email: $('#correo').val(),
+      phone: $('#telefono').val(),
+      user_type: $('#rol').val(),
+      nickname: $('#nickname').val(), // Nuevo campo para el nickname
+      encrypted_password: $('#password').val() // Campo para la contraseña cifrada
+  };
+
+  // Llamada a la función saveUser para guardar o actualizar el usuario
+  saveUser(userData, userId);
+});
 
   // Evento al hacer clic en el botón de editar usuario
   $(document).on('click', '.edit-user-btn', function () {
@@ -129,6 +137,8 @@ $(document).ready(function () {
               $('#correo').val(user.email);
               $('#telefono').val(user.phone);
               $('#rol').val(user.user_type);
+              $('#nickname').val(user.nickname);
+              $('#contrasena').val(user.encrypted_password);
 
               $('#modalUsuariosLabel').text('Editar Usuario');
               $('#modalUsuarios').modal('show');
