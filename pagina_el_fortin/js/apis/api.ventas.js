@@ -1,227 +1,167 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Obtener todos los enlaces de navegación
-    const navLinks = document.querySelectorAll('#nav-links .nav-link');
-  
-    // Obtener la URL actual y extraer el nombre del archivo
-    const currentUrl = window.location.pathname.split('/').pop();
-  
-    // Iterar sobre los enlaces y añadir la clase 'active' al enlace que coincide con la URL actual
-    navLinks.forEach(link => {
-      if (link.getAttribute('href') === currentUrl) {
-        link.classList.add('active');
-      }
-    });
-  });
-  
-  
-  function searchTable() {
-    // Obtener el valor del input de búsqueda
-    let input = document.getElementById("buscar").value.toLowerCase();
-    // Obtener todas las filas de la tabla
-    let rows = document.querySelectorAll("#contenidoTabla table tbody tr");
-  
-    // Iterar sobre cada fila y mostrar/ocultar según el criterio de búsqueda
-    rows.forEach(row => {
-      let match = false;
-      // Obtener las celdas de la fila actual
-      let cells = row.getElementsByTagName("td");
-      // Iterar sobre las celdas y verificar si alguna coincide con la búsqueda
-      Array.from(cells).forEach(cell => {
-        let cellText = cell.textContent.toLowerCase();
-        if (cellText.includes(input)) {
-          match = true;
-        }
-      });
-      // Mostrar u ocultar la fila según el resultado de la búsqueda
-      if (match) {
-        row.style.display = "";
-      } else {
-        row.style.display = "none";
-      }
-    });
-  }
-  
-  $(document).ready(function(){
-  
-    //primero vamos a crear un arreglo con los datos de los usuarios que se van a mostrar de ejemplo
-    let arreglo = [
-      {
-        id: 1,
-        cliente: "Jose Angel Lopez Rivera",
-        empleado: "Jose Manuel Lara Villalobos",
-        mesa: "1",
-        formaPago: "Efectivo",
-        iva: "128",
-        total: "929",
-        fecha: "2023-05-10"
-      },
-      {
-        id: 2,
-        cliente: "Jose Manuel Lara Villalobos",
-        empleado: "Jose Angel Lopez Rivera",
-        mesa: "2",
-        formaPago: "Tarjeta de Debito",
-        iva: "138",
-        total: "1929",
-        fecha: "2022-06-10"
-      },
-    ];
-  
-    //se creara una funcion para cargar los usuarios que esten en la tabla.
-    function loadEmployes() {
-      let pedidos = arreglo;
-      let pedidoTableBody = $("#employe-table-body");
-      pedidoTableBody.empty();
-      pedidos.forEach((pedido) => {
-        pedidoTableBody.append(`
-                      <tr>
-                          <td>${pedido.id}</td>
-                          <td>${pedido.cliente}</td>
-                          <td>${pedido.empleado}</td>                          
-                          <td>${pedido.mesa}</td>
-                          <td>${pedido.formaPago}</td>
-                          <td>$${pedido.iva}</td>
-                          <td>$${pedido.total}</td>                          
-                          <td>${pedido.fecha}</td>
-                          <td>
-                             <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${pedido.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
-                             <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${pedido.id}"><i class="fa-solid fa-trash fs-6"></i></button>
-                          </td>
-                      </tr>
-                  `);
-      });
-    }
-  
-    function alert(){
-      Swal.fire({
-        icon: "success",
-        title: "Guardado",
-      });
-    }
-  
-  
-    //funcion para agregar los ventas
-    $("#formUsuarios").submit(function (event){
-      event.preventDefault();
-      let userId = $("#pedido-id").val();
-      let cliente = $("#nombreCliente").val();
-      let empleado = $("#nombreEmpleado").val();
-      let mesa = $("#mesa").val();
-      let formaPago = $("#formaPago").val();
-      let iva = $("#iva").val();
-      let total = $("#total").val();      
-      let fecha = $("#fecha").val();
-      let method = userId ? "PUT" : "POST";
-  
-      if(method == "POST"){
-        let newId = arreglo[arreglo.length - 1].id + 1;
-        arreglo.push({
-          id: newId,
-          cliente: cliente,
-          empleado: empleado,
-          mesa: mesa,
-          formaPago:formaPago,
-          iva: iva,
-          total: total,
-          fecha: fecha                       
-        });
-      }else {
-        let objeto = searchObject(userId);
+$(document).ready(function () {
+  const apiUrl = 'https://fortin.christba.com/api/ventas'; // URL base de la API de ventas
 
-        objeto.cliente = cliente;
-        objeto.empleado= empleado;
-        objeto.mesa= mesa;
-        objeto.formaPago= formaPago;
-        objeto.iva = iva;
-        objeto.total= total;
-        objeto.fecha = fecha;
-      }
-      loadEmployes();
-      alert();
-      $("#modalEmpleados").modal("hide");
-    });
-  
-    function searchObject(id) {
-      let objeto = {};
-      for (let i = 0; i < arreglo.length; i++) {
-        if (id == arreglo[i].id) {
-          objeto = arreglo[i];
-          break;
-        }
-      }
-      return objeto;
-    }
-  
-  
-     // Editar usuario
-     $(document).on("click", ".edit-user-btn", function () {
-      let userId = $(this).data("id");
-      let objeto = searchObject(userId);
-  
-      let employe = objeto;
-      $("#pedido-id").val(employe.id);
-      $("#nombreCliente").val(employe.cliente);
-      $("#nombreEmpleado").val(employe.empleado);
-      $("#mesa").val(employe.mesa);
-      $("#total").val(employe.total);
-      $("#formaPago").val(employe.formaPago);
-      $("#iva").val(employe.iva);              
-      $("#fecha").val(employe.fecha);        
-      $("#modalUsuariosLabel").text("Editar Pedido");
-      $("#modalUsuarios").modal("show");
-    });
-  
-  
-    // Eliminar usuario
-      // Eliminar usuario
-      $(document).on("click", ".delete-user-btn", function () {
-        let empleadoId = $(this).data("id");
-        let indice = -1;
-        for (let i = 0; i < arreglo.length; i++) {
-          if (empleadoId == arreglo[i].id) {
-            indice = i;
-            break;
+  // Función para cargar las ventas desde la API
+  function loadSales() {
+      $.ajax({
+          url: apiUrl,
+          method: 'GET',
+          success: function (response) {
+              if (response.codigo !== 200 || !Array.isArray(response.data)) {
+                  showAlert("Error al cargar las ventas: datos inválidos", "danger");
+                  return;
+              }
+
+              const sales = response.data;
+              populateSalesTable(sales); // Llenar la tabla con las ventas
+          },
+          error: function (error) {
+              console.error("Error al cargar las ventas:", error);
+              showAlert("Error al cargar las ventas", "danger");
           }
-        }
-    
-        if (indice !== -1) {
-          Swal.fire({
-            title: "Estas seguro?",
-            text: "No podras revertir el cambio!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#09A62E",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Si, bórralo!"
-          }).then((result) => {
-            if (result.isConfirmed) {
-              arreglo.splice(indice, 1);
-              loadEmployes();
-              Swal.fire({
-                title: "Borrado!",
-                text: "Tu registro fue eliminado.",
-                icon: "success"
-              });
-            }else if(result.dismiss === Swal.DismissReason.cancel){
-              Swal.fire({
-                title: "Cancelado",
-                text: "Tu registro no fue alterado.",
-                icon: "error"
-              })
-            }
-          });
-        }
       });
-  
-      // Resetear modal al cerrarlo
-      $("#modalUsuarios").on("hidden.bs.modal", function () {
-        $("#formUsuarios")[0].reset();
-        $("#pedido-id").val("");
-        $("#modalUsuariosLabel").text("Agregar Pedido");
+  }
+
+  // Función para llenar la tabla con las ventas
+  function populateSalesTable(sales) {
+      const salesTableBody = $('#sales-table-body');
+      salesTableBody.empty();
+
+      sales.forEach(sale => {
+          const formattedDate = new Date(sale.report_date).toLocaleDateString();
+          salesTableBody.append(`
+              <tr>
+                  <td>${sale.id}</td>
+                  <td>${sale.restaurant_id}</td>
+                  <td>${formattedDate}</td>
+                  <td>$${sale.total_sales}</td>
+                  <td>
+                      <button class="btn btn-sm text-bg-secondary edit-sale-btn" data-id="${sale.id}">
+                          <i class="fa-solid fa-pen-to-square fs-6"></i>
+                      </button>
+                      <button class="btn btn-sm text-bg-primary delete-sale-btn" data-id="${sale.id}">
+                          <i class="fa-solid fa-trash fs-6"></i>
+                      </button>
+                  </td>
+              </tr>
+          `);
       });
-    
-  
-     // Inicializar la tabla de usuarios
-  
-     loadEmployes();
+  }
+
+  // Función para mostrar alertas
+  function showAlert(message, type) {
+      $('#alert-container').html(`
+          <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+              ${message}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      `);
+      setTimeout(() => {
+          $('#alert-container').html('');
+      }, 3000);
+  }
+
+  // Función para guardar ventas (crear o actualizar)
+  function saveSale(saleData, saleId = null) {
+      const method = saleId ? 'PUT' : 'POST';
+      const url = saleId ? `${apiUrl}/${saleId}` : apiUrl;
+
+      $.ajax({
+          url: url,
+          method: method,
+          contentType: 'application/json',
+          data: JSON.stringify(saleData),
+          success: function () {
+              loadSales();
+              showAlert('Venta guardada exitosamente', 'success');
+              $('#modalSales').modal('hide');
+          },
+          error: function (error) {
+              console.error("Error al guardar la venta:", error);
+              showAlert('Error al guardar la venta', 'danger');
+          }
+      });
+  }
+
+  // Función para eliminar una venta
+  function deleteSale(saleId) {
+      $.ajax({
+          url: `${apiUrl}/${saleId}`,
+          method: 'DELETE',
+          success: function () {
+              loadSales();
+              showAlert('Venta eliminada exitosamente', 'success');
+          },
+          error: function (error) {
+              console.error("Error al eliminar la venta:", error);
+              showAlert('Error al eliminar la venta', 'danger');
+          }
+      });
+  }
+
+  // Evento al enviar el formulario para agregar o editar ventas
+  $('#formSales').submit(function (event) {
+      event.preventDefault();
+
+      const saleId = $('#sale-id').val();
+      const saleData = {
+          restaurant_id: $('#restaurant-id').val(),
+          report_date: $('#report-date').val(),
+          total_sales: $('#total-sales').val()
+      };
+
+      saveSale(saleData, saleId);
   });
+
+  // Evento al hacer clic en el botón de editar venta
+  $(document).on('click', '.edit-sale-btn', function () {
+      const saleId = $(this).data('id');
+
+      $.ajax({
+          url: `${apiUrl}/${saleId}`,
+          method: 'GET',
+          success: function (sale) {
+              $('#sale-id').val(sale.id);
+              $('#restaurant-id').val(sale.restaurant_id);
+              $('#report-date').val(new Date(sale.report_date).toISOString().split('T')[0]);
+              $('#total-sales').val(sale.total_sales);
+
+              $('#modalSalesLabel').text('Editar Venta');
+              $('#modalSales').modal('show');
+          },
+          error: function (error) {
+              console.error("Error al obtener los detalles de la venta:", error);
+              showAlert('Error al obtener los detalles de la venta', 'danger');
+          }
+      });
+  });
+
+  // Evento al hacer clic en el botón de eliminar venta
+  $(document).on('click', '.delete-sale-btn', function () {
+      const saleId = $(this).data('id');
+
+      Swal.fire({
+          title: "¿Estás seguro?",
+          text: "No podrás revertir esto",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#09A62E",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Sí, bórralo"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              deleteSale(saleId);
+          }
+      });
+  });
+
+  // Resetear modal al cerrarlo
+  $('#modalSales').on('hidden.bs.modal', function () {
+      $('#formSales')[0].reset();
+      $('#sale-id').val('');
+      $('#modalSalesLabel').text('Agregar Venta');
+  });
+
+  // Inicializar la carga de ventas
+  loadSales();
+});

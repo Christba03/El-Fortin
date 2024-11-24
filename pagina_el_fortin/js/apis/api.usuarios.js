@@ -1,199 +1,171 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Obtener todos los enlaces de navegación
-    const navLinks = document.querySelectorAll('#nav-links .nav-link');
-  
-    // Obtener la URL actual y extraer el nombre del archivo
-    const currentUrl = window.location.pathname.split('/').pop();
-  
-    // Iterar sobre los enlaces y añadir la clase 'active' al enlace que coincide con la URL actual
-    navLinks.forEach(link => {
-      if (link.getAttribute('href') === currentUrl) {
-        link.classList.add('active');
-      }
-    });
-  });
-  
-  
-  function searchTable() {
-    // Obtener el valor del input de búsqueda
-    let input = document.getElementById("buscar").value.toLowerCase();
-    // Obtener todas las filas de la tabla
-    let rows = document.querySelectorAll("#contenidoTabla table tbody tr");
-  
-    // Iterar sobre cada fila y mostrar/ocultar según el criterio de búsqueda
-    rows.forEach(row => {
-      let match = false;
-      // Obtener las celdas de la fila actual
-      let cells = row.getElementsByTagName("td");
-      // Iterar sobre las celdas y verificar si alguna coincide con la búsqueda
-      Array.from(cells).forEach(cell => {
-        let cellText = cell.textContent.toLowerCase();
-        if (cellText.includes(input)) {
-          match = true;
-        }
-      });
-      // Mostrar u ocultar la fila según el resultado de la búsqueda
-      if (match) {
-        row.style.display = "";
-      } else {
-        row.style.display = "none";
-      }
-    });
-  }
-  
-  $(document).ready(function(){
-  
-    //primero vamos a crear un arreglo con los datos de los usuarios que se van a mostrar de ejemplo
-    let arreglo = [
-      {
-        id: 1,
-        nombre: "Jose",
-        correo: "jose@gmail.com",
-        rol: "cliente",
-      },
-      {
-        id: 2,
-        nombre: "Angel",
-        correo: "rivera@gmail.com",
-        rol: "administrador",
-      },
-    ];
-  
-    //se creara una funcion para cargar los usuarios que esten en la tabla.
-    function loadEmployes() {
-      let empleados = arreglo;
-      let empleadoTableBody = $("#employe-table-body");
-      empleadoTableBody.empty();
-      empleados.forEach((empleado) => {
-        empleadoTableBody.append(`
-                      <tr>
-                          <td>${empleado.id}</td>
-                          <td>${empleado.nombre}</td>
-                          <td>${empleado.correo}</td>
-                          <td>${empleado.rol}</td>
-                          <td>
-                             <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
-                             <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-trash fs-6"></i></button>
-                          </td>
-                      </tr>
-                  `);
-      });
-    }
-  
-    function alert(){
-      Swal.fire({
-        icon: "success",
-        title: "Guardado",
-      });
-    }
-  
-  
-    //funcion para agregar los usuarios
-    $("#formUsuarios").submit(function (event){
-      event.preventDefault();
-      let userId = $("#usuario-id").val();
-      let empleadoName = $("#nombreUsuario").val();
-      let correo = $("#correo").val();
-      let rol = $("#rol").val();
-      let method = userId ? "PUT" : "POST";
-  
-      if(method == "POST"){
-        let newId = arreglo[arreglo.length - 1].id + 1;
-        arreglo.push({
-          id: newId,
-          nombre: empleadoName,
-          correo: correo,
-          rol: rol,
-        });
-      }else {
-        let objeto = searchObject(userId);
-  
-        objeto.nombre = empleadoName;
-        objeto.correo = correo;
-        objeto.rol= rol;
-      }
-      loadEmployes();
-      alert();
-      $("#modalUsuarios").modal("hide");
-    });
-  
-    function searchObject(id) {
-      let objeto = {};
-      for (let i = 0; i < arreglo.length; i++) {
-        if (id == arreglo[i].id) {
-          objeto = arreglo[i];
-          break;
-        }
-      }
-      return objeto;
-    }
-  
-  
-     // Editar usuario
-     $(document).on("click", ".edit-user-btn", function () {
-      let userId = $(this).data("id");
-      let objeto = searchObject(userId);
-  
-      let employe = objeto;
-      $("#usuario-id").val(employe.id);
-      $("#nombreUsuario").val(employe.nombre);
-      $("#correo").val(employe.correo);
-      $("#rol").val(employe.rol);
-      $("#modalUsuariosTitle").text("Editar Usuario");
-      $("#modalUsuarios").modal("show");
-    });
-  
-  
-    // Eliminar usuario
-      // Eliminar usuario
-      $(document).on("click", ".delete-user-btn", function () {
-        let empleadoId = $(this).data("id");
-        let indice = -1;
-        for (let i = 0; i < arreglo.length; i++) {
-          if (empleadoId == arreglo[i].id) {
-            indice = i;
-            break;
+$(document).ready(function () {
+  const apiUrl = 'https://fortin.christba.com/api/usuarios'; // URL base de la API de usuarios
+
+  // Función para cargar los usuarios desde la API
+  function loadUsers() {
+      $.ajax({
+          url: apiUrl,
+          method: 'GET',
+          success: function (response) {
+             
+
+              const users = response;
+              populateUsersTable(users); // Llenar la tabla con los usuarios
+          },
+          error: function (error) {
+              console.error("Error al cargar los usuarios:", error);
+              showAlert("Error al cargar los usuarios", "danger");
           }
-        }
-    
-        if (indice !== -1) {
-          Swal.fire({
-            title: "Estas seguro?",
-            text: "No podras revertir este cambio!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#09A62E",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Si, bórralo!"
-          }).then((result) => {
-            if (result.isConfirmed) {
-              arreglo.splice(indice, 1);
-              loadEmployes();
-              Swal.fire({
-                title: "Borrado!",
-                text: "Tu registro fue borrado.",
-                icon: "success"
-              });
-            }else if(result.dismiss === Swal.DismissReason.cancel){
-              Swal.fire({
-                title: "Cancelado",
-                text:  "Tu registro no fue alterado.",
-                icon: "error"
-              })
-            }
-          });
-        }
       });
-  
-      // Resetear modal al cerrarlo
-      $("#modalUsuarios").on("hidden.bs.modal", function () {
-        $("#formUsuarios")[0].reset();
-        $("#usuario-id").val("");
-        $("#modalUsuariosLabel").text("Agregar Usuario");
+  }
+
+  // Función para llenar la tabla con los usuarios
+  function populateUsersTable(users) {
+      const usersTableBody = $('#users-table-body');
+      usersTableBody.empty();
+
+      users.forEach(user => {
+        let userType = "";
+        if (user.user_type == "worker"){
+          userType = "Trabajador";
+        }else userType = "Cliente";
+          const formattedDate = new Date(user.created_at).toLocaleDateString();
+          usersTableBody.append(`
+              <tr>
+                  <td>${user.id}</td>
+                  <td>${user.name}</td>
+                  <td>${user.email}</td>
+                  <td>${userType}</td>
+                  <td>${user.phone}</td>
+                  <td>
+                      <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${user.id}">
+                          <i class="fa-solid fa-pen-to-square fs-6"></i>
+                      </button>
+                      <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${user.id}">
+                          <i class="fa-solid fa-trash fs-6"></i>
+                      </button>
+                  </td>
+              </tr>
+          `);
       });
-    
-  
-     // Inicializar la tabla de usuarios
-  
-     loadEmployes();
+  }
+
+  // Función para mostrar alertas
+  function showAlert(message, type) {
+      $('#alert-container').html(`
+          <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+              ${message}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      `);
+      setTimeout(() => {
+          $('#alert-container').html('');
+      }, 3000);
+  }
+
+  // Función para guardar o actualizar un usuario
+  function saveUser(userData, userId = null) {
+      const method = userId ? 'PUT' : 'POST';
+      const url = userId ? `${apiUrl}/${userId}` : apiUrl;
+
+      $.ajax({
+          url: url,
+          method: method,
+          contentType: 'application/json',
+          data: JSON.stringify(userData),
+          success: function () {
+              loadUsers();
+              showAlert('Usuario guardado exitosamente', 'success');
+              $('#modalUsuarios').modal('hide');
+          },
+          error: function (error) {
+              console.error("Error al guardar el usuario:", error);
+              showAlert('Error al guardar el usuario', 'danger');
+          }
+      });
+  }
+
+  // Función para eliminar un usuario
+  function deleteUser(userId) {
+      $.ajax({
+          url: `${apiUrl}/${userId}`,
+          method: 'DELETE',
+          success: function () {
+              loadUsers();
+              showAlert('Usuario eliminado exitosamente', 'success');
+          },
+          error: function (error) {
+              console.error("Error al eliminar el usuario:", error);
+              showAlert('Error al eliminar el usuario', 'danger');
+          }
+      });
+  }
+
+  // Evento al enviar el formulario para agregar o editar un usuario
+  $('#formUsuarios').submit(function (event) {
+      event.preventDefault();
+
+      const userId = $('#usuario-id').val();
+      const userData = {
+          name: $('#nombreUsuario').val(),
+          email: $('#correo').val(),
+          phone: $('#telefono').val(),
+          user_type: $('#rol').val(),
+      };
+
+      saveUser(userData, userId);
   });
+
+  // Evento al hacer clic en el botón de editar usuario
+  $(document).on('click', '.edit-user-btn', function () {
+      const userId = $(this).data('id');
+
+      $.ajax({
+          url: `${apiUrl}/${userId}`,
+          method: 'GET',
+          success: function (user) {
+              $('#usuario-id').val(user.id);
+              $('#nombreUsuario').val(user.name);
+              $('#correo').val(user.email);
+              $('#telefono').val(user.phone);
+              $('#rol').val(user.user_type);
+
+              $('#modalUsuariosLabel').text('Editar Usuario');
+              $('#modalUsuarios').modal('show');
+          },
+          error: function (error) {
+              console.error("Error al obtener los detalles del usuario:", error);
+              showAlert('Error al obtener los detalles del usuario', 'danger');
+          }
+      });
+  });
+
+  // Evento al hacer clic en el botón de eliminar usuario
+  $(document).on('click', '.delete-user-btn', function () {
+      const userId = $(this).data('id');
+
+      Swal.fire({
+          title: "¿Estás seguro?",
+          text: "No podrás revertir esto",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#09A62E",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Sí, bórralo"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              deleteUser(userId);
+          }
+      });
+  });
+
+  // Resetear modal al cerrarlo
+  $('#modalUsuarios').on('hidden.bs.modal', function () {
+      $('#formUsuarios')[0].reset();
+      $('#usuario-id').val('');
+      $('#modalUsuariosLabel').text('Agregar Usuario');
+  });
+
+  // Inicializar la carga de usuarios
+  loadUsers();
+});

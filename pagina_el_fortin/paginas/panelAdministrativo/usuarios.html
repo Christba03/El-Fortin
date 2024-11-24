@@ -14,9 +14,9 @@
 </head>
 <body>
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-primary" style="width: 280px; height: 1000px;" id="container-sidebar">
-        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" href="../../index.php">
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" href="../../index.html">
           <img src="../../recursos/logo-removebg-preview.png" alt="" width="50px">
-          <span class="fs-5">Página principal</span>
+          <span class="fs-5">Pagina Principal</span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto" id="nav-links">
@@ -78,14 +78,14 @@
     <div class="main-content">
         <div class="header">
             <div class="title-header">
-                <h2>Administración de usuarios</h2>
+                <h2>Administración de Usuarios</h2>
             </div>
         </div>
 
 
  <!-- Main content -->
   <div class="tabular-wrappe">
-    <h3 class="main-title">Tabla de registros</h3>
+    <h3 class="main-title">Tabla de Registros</h3>
     <section class="content">
 
       <!-- Default box -->
@@ -95,7 +95,7 @@
           <div class="card-tools">
             <!-- Button trigger modal -->
            <button type="button" class="btn text-bg-primary" id="add.user-btn" data-bs-toggle="modal"  data-bs-target="#modalUsuarios">
-            <i class="fa-solid fa-user-plus"></i> Agregar usuario
+            <i class="fa-solid fa-user-plus"></i> Agregar Usuario
            </button>
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
               <i class="fas fa-minus"></i>
@@ -114,13 +114,15 @@
                 <thead class="table-primary">
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Nombre del usuario</th>
+                        <th scope="col">Nombre de Usuario</th>
                         <th scope="col">Correo</th>
                         <th scope="col">Rol</th>
+                        <th scope="col">Telefono</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="employe-table-body">
+                <tbody id="users-table-body">
+
                 </tbody>
             </table>
         </div>
@@ -138,29 +140,43 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="modalUsuariosTitle">Formulario de usuarios</h5>
+                  <h5 class="modal-title" id="modalUsuariosTitle">Formulario de Usuarios</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                   <form id="formUsuarios">
                     <input type="hidden" name="accion" value="1">
                     <div class="mb-3">
-                      <label for="nombreUsuario" class="form-label">Nombre del usuario</label>
+                      <label for="nombreUsuario" class="form-label">Nombre Completo</label>
                       <input type="text" class="form-control" id="nombreUsuario" name="letras1" placeholder="Nombre" required>
                       <span id="letras1" name="letras1" style="color: red;"></span>
+                    </div>
+                    <div class="mb-3">
+                      <label for="nickname" class="form-label">Nombre de Usuario (Nickname)</label>
+                      <input type="text" class="form-control" id="nickname" placeholder="Nombre de Usuario" required>
                     </div>
                     <div class="row">
                       <div class="mb-3 col-md-6">
                         <label for="correo" class="form-label">Correo</label>
                         <input type="email" class="form-control" id="correo" name="correo1" placeholder="Correo" required>
                         <span id="correo1" name="correo1" style="color: red;"></span>
-
                       </div>
                       <div class="mb-3 col-md-6">
-                        <label for="rol" class="form-label">Rol</label>
-                        <input type="text" class="form-control" id="rol" name="letras2" placeholder="administrador" required>
-                        <span id="letras2" name="letras2" style="color: red;"></span>
-
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input type="text" class="form-control" id="telefono" placeholder="Teléfono">
+                      </div>
+                      <div class="row">
+                        <div class="mb-3 col-md-6">
+                          <label for="tipoUsuario" class="form-label">Tipo de Usuario</label>
+                          <select class="form-select" id="tipoUsuario">
+                            <option value="worker">Trabajador</option>
+                            <option value="admin">Administrador</option>
+                          </select>
+                        </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="contrasena" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="contrasena" name="contrasena1" placeholder="Contraseña" required>
+                        <span id="contrasena1" name="contrasena1" style="color: red;"></span>
                       </div>
                     </div>
                     <input type="hidden" id="usuario-id">
@@ -172,16 +188,25 @@
             </div>
           </div>
 
-        <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
-        <script src="../../js/script.js"></script>
-        <script src="../../js/jquery.js"></script>
-        <script src="../../js/Validaciones/correo.js"></script>
-        <script src="../../js/Validaciones/letras.js"></script>
-        <script src="../../js/apis/api.usuarios.js"></script>
-        <script src="../../js/Validaciones/password.js"></script>
-        <script src="../../js/bootstrap.bundle.min.js"></script>
-        <script src="../../js/popper.min.js"></script>
-        <script src="../../js/sweetalert2.all.min.js"></script>
-        <script src="../../js/adminlte.min.js"></script>
+          <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
+
+          <!-- Cargar primero jQuery, ya que otros scripts podrían depender de él -->
+          <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+          
+          <!-- Bootstrap y Popper.js (dependen de jQuery en algunas funciones) -->
+          <script src="../../js/popper.min.js"></script>
+          <script src="../../js/bootstrap.bundle.min.js"></script>
+          
+          <!-- Otras bibliotecas externas -->
+          <script src="../../js/sweetalert2.all.min.js"></script>
+          <script src="../../js/adminlte.min.js"></script>
+          
+          <!-- Scripts de validación personalizados -->
+          <script src="../../js/Validaciones/correo.js"></script>
+          <script src="../../js/Validaciones/letras.js"></script>
+          <script src="../../js/Validaciones/password.js"></script>
+          
+          <!-- Tus scripts personalizados -->
+          <script src="../../js/apis/api.usuarios.js"></script>
 </body>
 </html>

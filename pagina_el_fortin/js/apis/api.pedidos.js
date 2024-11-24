@@ -1,202 +1,153 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Obtener todos los enlaces de navegación
-    const navLinks = document.querySelectorAll('#nav-links .nav-link');
-  
-    // Obtener la URL actual y extraer el nombre del archivo
-    const currentUrl = window.location.pathname.split('/').pop();
-  
-    // Iterar sobre los enlaces y añadir la clase 'active' al enlace que coincide con la URL actual
-    navLinks.forEach(link => {
-      if (link.getAttribute('href') === currentUrl) {
-        link.classList.add('active');
-      }
-    });
-  });
-  
-  
-  function searchTable() {
-    // Obtener el valor del input de búsqueda
-    let input = document.getElementById("buscar").value.toLowerCase();
-    // Obtener todas las filas de la tabla
-    let rows = document.querySelectorAll("#contenidoTabla table tbody tr");
-  
-    // Iterar sobre cada fila y mostrar/ocultar según el criterio de búsqueda
-    rows.forEach(row => {
-      let match = false;
-      // Obtener las celdas de la fila actual
-      let cells = row.getElementsByTagName("td");
-      // Iterar sobre las celdas y verificar si alguna coincide con la búsqueda
-      Array.from(cells).forEach(cell => {
-        let cellText = cell.textContent.toLowerCase();
-        if (cellText.includes(input)) {
-          match = true;
-        }
-      });
-      // Mostrar u ocultar la fila según el resultado de la búsqueda
-      if (match) {
-        row.style.display = "";
-      } else {
-        row.style.display = "none";
-      }
-    });
-  }
-  
-  $(document).ready(function(){
-  
-    //primero vamos a crear un arreglo con los datos de los usuarios que se van a mostrar de ejemplo
-    let arreglo = [
-      {
-        id: 1,
-        cliente: "Angel Geovany Alvarez Ordinola",
-        empleado: "Jose Manuel Lara Villalobos",
-        estado: "Pendiente",
-        mesa: "03",
-        detalle: "1"
-      },
+$(document).ready(function() {
+  const apiUrl = 'https://fortin.christba.com/api/orders';
 
-    ];
-  
-    //se creara una funcion para cargar los usuarios que esten en la tabla.
-    function loadEmployes() {
-      let ventas = arreglo;
-      let ventaTableBody = $("#employe-table-body");
-      ventaTableBody.empty();
-      ventas.forEach((venta) => {
-        ventaTableBody.append(`
-                      <tr>
-                          <td>${venta.id}</td>
-                          <td>${venta.cliente}</td>
-                          <td>${venta.estado}</td>
-                          <td>${venta.mesa}</td>
-                          <td>${venta.detalle}</td>
+  // Función para cargar los pedidos desde la API
+  function loadOrders() {
+    $.ajax({
+        url: apiUrl, // URL de la API
+        method: 'GET', // Método HTTP para obtener datos
+        success: function(response) {
+            console.log("Respuesta de la API:", response); // Inspecciona la respuesta
+            let orders = response.data; // Los pedidos están en la propiedad 'data'
 
-                          <td>
-                             <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${venta.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
-                             <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${venta.id}"><i class="fa-solid fa-trash fs-6"></i></button>
-                          </td>
-                      </tr>
-                  `);
-      });
-    }
-  
-    function alert(){
-      Swal.fire({
-        icon: "success",
-        title: "Guardado",
-      });
-    }
-  
-  
-    //funcion para agregar los usuarios
-    $("#formVentas").submit(function (event){
-      event.preventDefault();
-      let userId = $("#venta-id").val();
-      let cliente = $("#cliente").val();
-      let estado = $("#estado").val();
-      let mesa = $("#mesa").val();
-      let detalle = $("#detalle").val();
-      let method = userId ? "PUT" : "POST";
-  
-      if(method == "POST"){
-        let newId = arreglo[arreglo.length - 1].id + 1;
-        arreglo.push({
-          id: newId,
-          cliente: cliente,
-          estado: estado,
-          mesa: mesa,
-          detalle: detalle
-        });
-      }else {
-        let objeto = searchObject(userId);
-  
-        objeto.cliente = cliente;
-        objeto.estado= estado;
-        objeto.mesa = mesa;
-        objeto.detalle = detalle;
-      }
-      loadEmployes();
-      alert();
-      $("#modalVentas").modal("hide");
-    });
-  
-    function searchObject(id) {
-      let objeto = {};
-      for (let i = 0; i < arreglo.length; i++) {
-        if (id == arreglo[i].id) {
-          objeto = arreglo[i];
-          break;
-        }
-      }
-      return objeto;
-    }
-  
-  
-     // Editar usuario
-     $(document).on("click", ".edit-user-btn", function () {
-      let userId = $(this).data("id");
-      let objeto = searchObject(userId);
-  
-      let employe = objeto;
-      $("#venta-id").val(employe.id);
-      $("#cliente").val(employe.cliente);
-      $("#estado").val(employe.estado);
-      $("#mesa").val(employe.mesa);
-      $("#detalle").val(employe.detalle);
-      $("#modalVentasLabel").text("Editar Venta");
-      $("#modalVentas").modal("show");
-    });
-  
-  
-    // Eliminar usuario
-      // Eliminar usuario
-      $(document).on("click", ".delete-user-btn", function () {
-        let ventaId = $(this).data("id");
-        let indice = -1;
-        for (let i = 0; i < arreglo.length; i++) {
-          if (ventaId == arreglo[i].id) {
-            indice = i;
-            break;
-          }
-        }
-    
-        if (indice !== -1) {
-          Swal.fire({
-            title: "¿Estas seguro?",
-            text: "No podras revertir el cambio!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#09A62E",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "¡Si, bórralo!"
-          }).then((result) => {
-            if (result.isConfirmed) {
-              arreglo.splice(indice, 1);
-              loadEmployes();
-              Swal.fire({
-                title: "¡Borrado!",
-                text: "Tu registro fue eliminado.",
-                icon: "success"
-              });
-            }else if(result.dismiss === Swal.DismissReason.cancel){
-              Swal.fire({
-                title: "Cancelado",
-                text: "Tu registro no fue alterado.",
-                icon: "error"
-              })
+            // Validar que la respuesta sea un arreglo
+            if (!Array.isArray(orders)) {
+                console.error("La propiedad 'data' no es un arreglo:", orders);
+                showAlert("Error al cargar los pedidos: datos inválidos", "danger");
+                return;
             }
-          });
+
+            let orderTableBody = $('#employe-table-body'); // ID correcto según tu tabla
+            orderTableBody.empty(); // Vaciar la tabla antes de llenarla
+
+            // Recorrer los pedidos y añadirlos a la tabla
+            orders.forEach((order) => {
+                const formattedDate = new Date(order.order_date).toLocaleDateString(); // Formatear la fecha
+                orderTableBody.append(`
+                    <tr>
+                        <td>${order.id}</td>
+                        <td>${order.client_id}</td>
+                        <td>${order.payment_method_id}</td>
+                        <td>${order.table_number}</td>
+                        <td>${order.total_amount}</td>
+                        <td>${formattedDate}</td>
+                        <td>
+                            <button class="btn btn-sm text-bg-secondary edit-order-btn" data-id="${order.id}">
+                                <i class="fa-solid fa-pen-to-square fs-6"></i>
+                            </button>
+                            <button class="btn btn-sm text-bg-primary delete-order-btn" data-id="${order.id}">
+                                <i class="fa-solid fa-trash fs-6"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `);
+            });
+        },
+        error: function(error) {
+            console.error("Error al cargar los pedidos:", error);
+            showAlert('Error al cargar los pedidos', 'danger');
         }
+    });
+}
+
+
+  // Función para mostrar alertas
+  function showAlert(message, type) {
+      $('#alert-container').html(`
+          <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+              ${message}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      `);
+      setTimeout(() => {
+          $('#alert-container').html('');
+      }, 3000);
+  }
+
+  // Evento al enviar el formulario para agregar o editar pedidos
+  $('#formVentas').submit(function(event) {
+      event.preventDefault(); // Prevenir envío tradicional
+
+      let orderId = $('#venta-id').val();
+      let cliente = $('#cliente').val();
+      let estado = $('#estado').val();
+      let mesa = $('#mesa').val();
+      let detalle = $('#detalle').val();
+
+      let method = orderId ? 'PUT' : 'POST';
+      let url = orderId ? `${apiUrl}/${orderId}` : apiUrl;
+
+      $.ajax({
+          url: url, // URL de la API
+          method: method, // Método HTTP (POST o PUT)
+          contentType: 'application/json', // Tipo de contenido
+          data: JSON.stringify({
+              client_id: cliente,
+              status_id: estado,
+              table_number: mesa,
+              description: detalle
+          }),
+          success: function() {
+              loadOrders();
+              showAlert('Pedido guardado exitosamente', 'success');
+              $('#modalVentas').modal('hide');
+          },
+          error: function(error) {
+              console.error("Error al guardar el pedido:", error);
+              showAlert('Error al guardar el pedido', 'danger');
+          }
       });
-  
-      // Resetear modal al cerrarlo
-      $("#modalVentas").on("hidden.bs.modal", function () {
-        $("#formVentas")[0].reset();
-        $("#venta-id").val("");
-        $("#modalVentasLabel").text("Agregar Venta");
-      });
-    
-  
-     // Inicializar la tabla de usuarios
-  
-     loadEmployes();
   });
+
+  // Evento al hacer clic en el botón de editar pedido
+  $(document).on('click', '.edit-order-btn', function() {
+      let orderId = $(this).data('id');
+
+      $.ajax({
+          url: `${apiUrl}/${orderId}`, // URL con el ID del pedido
+          method: 'GET', // Método HTTP para obtener datos
+          success: function(order) {
+              $('#venta-id').val(order.id);
+              $('#cliente').val(order.client_id);
+              $('#estado').val(order.status_id);
+              $('#mesa').val(order.table_number);
+              $('#detalle').val(order.description);
+
+              $('#modalVentasLabel').text('Editar Pedido');
+              $('#modalVentas').modal('show');
+          },
+          error: function(error) {
+              console.error("Error al obtener los detalles del pedido:", error);
+              showAlert('Error al obtener los detalles del pedido', 'danger');
+          }
+      });
+  });
+
+  // Evento al hacer clic en el botón de eliminar pedido
+  $(document).on('click', '.delete-order-btn', function() {
+      let orderId = $(this).data('id');
+
+      $.ajax({
+          url: `${apiUrl}/${orderId}`, // URL con el ID del pedido
+          method: 'DELETE', // Método HTTP para eliminar datos
+          success: function() {
+              loadOrders();
+              showAlert('Pedido eliminado exitosamente', 'success');
+          },
+          error: function(error) {
+              console.error("Error al eliminar el pedido:", error);
+              showAlert('Error al eliminar el pedido', 'danger');
+          }
+      });
+  });
+
+  // Evento al cerrar el modal
+  $('#modalVentas').on('hidden.bs.modal', function() {
+      $('#formVentas')[0].reset(); // Resetear el formulario
+      $('#venta-id').val(''); // Limpiar el campo de ID
+      $('#modalVentasLabel').text('Formulario de pedido');
+  });
+
+  // Inicializar los pedidos al cargar la página
+  loadOrders();
+});
