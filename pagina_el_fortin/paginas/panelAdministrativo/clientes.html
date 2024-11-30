@@ -113,13 +113,13 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">Apellido materno</th>
                                 <th scope="col">Apellido paterno</th>
+                                <th scope="col">Apellido materno</th>
                                 <th scope="col">Teléfono</th>
                                 <th scope="col">Operaciones</th>
                             </tr>
                         </thead>
-                        <tbody id="employe-table-body">
+                        <tbody id="client-table-body">
 
                         </tbody>
                     </table>
@@ -132,47 +132,52 @@
             <!-- /.content -->
           </div>
 
-           <!-- Modal -->
-        <div class="modal fade" id="modalClientes" tabindex="-1" aria-labelledby="modalClientesLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modalClientesLabel">Formulario de clientes</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form id="formClientes">
-                    <input type="hidden" name="accion" value="1">
-                    <div class="mb-3">
-                      <label for="nombre" class="form-label">Nombre</label>
-                      <input type="text" class="form-control" id="nombre" name="letras1" placeholder="Nombre" required>
-                      <span id="letras1" name="letras1" style="color: red;"></span>
-                    </div>
-                    <div class="mb-3">
-                      <label for="paterno" class="form-label">Paterno</label>
-                      <input type="text" class="form-control" id="paterno" name="letras2" placeholder="Apellido paterno" required>
-                      <span id="letras2" name="letras2" style="color: red;"></span>
-                    </div>
-                    <div class="mb-3">
-                      <label for="materno" class="form-label">Materno</label>
-                      <input type="text" class="form-control" id="materno" name="letras3" placeholder="Apellido materno">
-                      <span id="letras3" name="letras3" style="color: red;"></span>
-                    </div>
-                    <div class="row">
-                      <div class="mb-3 col-md-6">
-                        <label for="telefono">Número de teléfono:</label>
-                        <input type="number" id="telefono" name="telefono"  title="Ingrese exactamente 10 dígitos." required></div>
-                      
-                    </div>
-                    <input type="hidden" id="cliente-id">
-
-                    <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                  </form>
-                </div>
-              </div>
+          <!-- Modal -->
+<div class="modal fade" id="modalClientes" tabindex="-1" aria-labelledby="modalClientesLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalClientesLabel">Formulario de clientes</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formClientes">
+          <input type="hidden" name="accion" value="1">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre completo</label>
+            <input type="text" class="form-control" id="nombre" name="letras1" placeholder="Nombre completo" required>
+            <span id="letras1" name="letras1" style="color: red;"></span>
+          </div>
+          <div class="mb-3">
+            <label for="paterno" class="form-label">Nombre de usuario</label>
+            <input type="text" class="form-control" id="userName" name="userName" placeholder="Nombre de usuario" required>
+            <span id="letras2" name="letras2" style="color: red;"></span>
+          </div>
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="number" class="form-control" id="telefono" name="telefono" title="Ingrese exactamente 10 dígitos." placeholder="Teléfono" required>
+            <span id="telefono" name="telefono" style="color: red;"></span>
+          </div>
+          <div class="row">
+            <div class="mb-3 col-md-6">
+              <label for="materno" class="form-label">Correo</label>
+              <input type="email" class="form-control" id="email" name="letras3" placeholder="Correo">
+              <span id="correo" name="letras3" style="color: red;"></span>
+            </div>
+            <div class="mb-3 col-md-6">
+              <label for="contrasena" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="contrasena" name="contrasena1" placeholder="Contraseña" required>
+              <span id="contrasena1" name="contrasena1" style="color: red;"></span>
             </div>
           </div>
+          <input type="hidden" id="cliente-id">
+          <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
         <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
         <script src="../../js/Validaciones/letras.js"></script>
