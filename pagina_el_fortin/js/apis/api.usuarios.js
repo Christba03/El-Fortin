@@ -1,3 +1,30 @@
+
+function searchTable() {
+    // Obtener el valor del input de búsqueda
+    let input = document.getElementById("buscar").value.toLowerCase();
+    // Obtener todas las filas de la tabla
+    let rows = document.querySelectorAll("#contenidoTabla table tbody tr");
+  
+    // Iterar sobre cada fila y mostrar/ocultar según el criterio de búsqueda
+    rows.forEach(row => {
+      let match = false;
+      // Obtener las celdas de la fila actual
+      let cells = row.getElementsByTagName("td");
+      // Iterar sobre las celdas y verificar si alguna coincide con la búsqueda
+      Array.from(cells).forEach(cell => {
+        let cellText = cell.textContent.toLowerCase();
+        if (cellText.includes(input)) {
+          match = true;
+        }
+      });
+      // Mostrar u ocultar la fila según el resultado de la búsqueda
+      if (match) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+  }
 $(document).ready(function () {
   const apiUrl = 'https://fortin.christba.com/api/usuarios'; // URL base de la API de usuarios
 
@@ -18,6 +45,8 @@ $(document).ready(function () {
           }
       });
   }
+
+
 
   // Función para llenar la tabla con los usuarios
   function populateUsersTable(users) {

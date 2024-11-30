@@ -1,19 +1,230 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Obtener todos los enlaces de navegación
-  const navLinks = document.querySelectorAll('#nav-links .nav-link');
+$(document).ready(function () {
+  const apiUrl = 'https://fortin.christba.com/api/usuarios'; // URL base de la API de usuarios
 
-  // Obtener la URL actual y extraer el nombre del archivo
-  const currentUrl = window.location.pathname.split('/').pop();
+  // Función para cargar empleados desde la API
+  function loadEmployees() {
+    $.ajax({
+      url: apiUrl,
+      method: 'GET',
+      success: function (response) {
+        const employees = response.filter(user => user.user_type?.trim().toLowerCase() === 'worker'); // Filtrar empleados con rol "worker"
+        populateEmployeesTable(employees);
+        
+      },
+      error: function (error) {
+        console.error('Error al cargar los empleados:', error);
+        showAlert('Error al cargar los empleados', 'danger');
+      }
+    });
+  }
 
-  // Iterar sobre los enlaces y añadir la clase 'active' al enlace que coincide con la URL actual
-  navLinks.forEach(link => {
-    if (link.getAttribute('href') === currentUrl) {
-      link.classList.add('active');
-    }
+  // Función para llenar la tabla con los empleados
+  function populateEmployeesTable(employees) {
+    const employeeTableBody = $('#employe-table-body');
+    employeeTableBody.empty();
+
+    employees.forEach(employee => {
+      // Validación y separación del nombre completo
+      let name = employee.name ? employee.name.trim() : "Sin nombre";
+      let firstName = "Sin nombre";
+      let lastNamePaterno = "Sin apellido paterno";
+      let lastNameMaterno = "Sin apellido materno";
+
+      if (name !== "Sin nombre") {
+        const nameParts = name.split(" ").filter(part => part); // Dividir y eliminar espacios vacíos
+        const partsCount = nameParts.length;
+
+        if (partsCount === 3) {
+          // Caso de 3 palabras
+          firstName = nameParts[0]; // Primer nombre
+          lastNamePaterno = nameParts[1]; // Primer apellido
+          lastNameMaterno = nameParts[2]; // Segundo apellido
+        } else if (partsCount === 4) {
+          // Caso de 4 palabras
+          firstName = `${nameParts[0]} ${nameParts[1]}`; // Dos primeras palabras como nombre
+          lastNamePaterno = nameParts[2]; // Primer apellido
+          lastNameMaterno = nameParts[3]; // Segundo apellido
+        } else if (partsCount > 4) {
+          // Caso de más de 4 palabras
+          firstName = `${nameParts[0]} ${nameParts[1]}`; // Dos primeras palabras como nombre
+          lastNamePaterno = nameParts[2]; // Primer apellido
+          lastNameMaterno = nameParts.slice(3).join(" "); // Restantes como segundo apellido
+        } else if (partsCount === 2) {
+          // Caso de 2 palabras
+          firstName = nameParts[0]; // Primer nombre
+          lastNamePaterno = nameParts[1]; // Primer apellido
+        } else {
+          // Caso de una sola palabra
+          firstName = nameParts[0]; // Solo nombre
+        }
+      }
+
+      // Capitalizar cada palabra
+      const capitalize = (str) =>
+        str
+          .toLowerCase()
+          .split(" ")
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ");
+
+      firstName = capitalize(firstName);
+      lastNamePaterno = capitalize(lastNamePaterno);
+      lastNameMaterno = capitalize(lastNameMaterno);
+
+      // Renderizar la fila de la tabla
+      employeeTableBody.append(`
+          <tr>
+              <td>${employee.id}</td>
+              <td>${firstName}</td>
+              <td>${lastNamePaterno}</td>
+              <td>${lastNameMaterno}</td>
+              <td>${employee.email || "Correo no disponible"}</td>
+              <td>
+                  <button class="btn btn-sm text-bg-secondary edit-employee-btn" data-id="${employee.id}">
+                      <i class="fa-solid fa-pen-to-square fs-6"></i>
+                  </button>
+                  <button class="btn btn-sm text-bg-primary delete-employee-btn" data-id="${employee.id}">
+                      <i class="fa-solid fa-trash fs-6"></i>
+                  </button>
+              </td>
+          </tr>
+      `);
+    });
+  }
+
+  // Función para mostrar alertas
+  function showAlert(message, type) {
+    $('#alert-container').html(`
+      <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    `);
+    setTimeout(() => {
+      $('#alert-container').html('');
+    }, 3000);
+  }
+
+  // Función para guardar o actualizar un empleado
+  function saveEmployee(employeeData, employeeId = null) {
+    const method = employeeId ? 'PUT' : 'POST';
+    const url = employeeId ? `${apiUrl}/${employeeId}` : apiUrl;
+
+    const payload = {
+      name: employeeData.name || "",
+      email: employeeData.email || "",
+      phone: employeeData.phone || "",
+      image_url: employeeData.image_url || "",
+      user_type: 'worker', // Asegurar que el tipo sea 'worker'
+      nickname: employeeData.nickname || "",
+      password: employeeData.encrypted_password || "",
+    };
+
+
+    $.ajax({
+      url: url,
+      method: method,
+      contentType: 'application/json',
+      data: JSON.stringify(payload),
+      success: function (response) {
+        loadEmployees(); // Recargar la lista de empleados
+        showAlert('Empleado guardado exitosamente', 'success');
+        $('#modalEmpleados').modal('hide'); // Cerrar el modal
+      },
+      error: function (error) {
+        console.error('Error al guardar el empleado:', error);
+        showAlert('Error al guardar el empleado', 'danger');
+      }
+
+    });
+console.log("Metodo: " + employeeId ? 'PUT' : 'POST');
+    console.log("payload: " + payload);
+  }
+
+  // Función para eliminar un empleado
+  function deleteEmployee(employeeId) {
+    $.ajax({
+      url: `${apiUrl}/${employeeId}`,
+      method: 'DELETE',
+      success: function () {
+        loadEmployees(); // Recargar la lista de empleados
+        showAlert('Empleado eliminado exitosamente', 'success');
+      },
+      error: function (error) {
+        console.error('Error al eliminar el empleado:', error);
+        showAlert('Error al eliminar el empleado', 'danger');
+      }
+    });
+  }
+
+  // Manejo del formulario para guardar o actualizar empleado
+  $('#formEmpleados').submit(function (event) {
+    event.preventDefault();
+
+    const employeeId = $('#empleado-id').val();
+    const employeeData = {
+      name: $('#nombreEmpleado').val(),
+      nickname: $('#userName').val(),
+      email: $('#correo').val(),
+      phone: $('#telefono').val(),
+      encrypted_password: $('#contrasena').val(),
+    };
+    saveEmployee(employeeData, employeeId);
   });
+
+  // Evento al hacer clic en editar empleado
+  $(document).on('click', '.edit-employee-btn', function () {
+    const employeeId = $(this).data('id');
+
+    $.ajax({
+      url: `${apiUrl}/${employeeId}`,
+      method: 'GET',
+      success: function (employee) {
+        $('#empleado-id').val(employee.id);
+        $('#nombreEmpleado').val(employee.name);
+        $('#userName').val(employee.nickname);
+        $('#correo').val(employee.email);
+        $('#telefono').val(employee.phone);
+        $('#contrasena').val(employee.encrypted_password);
+        $('#modalEmpleadosLabel').text('Editar Empleado');
+        $('#modalEmpleados').modal('show');
+      },
+      error: function (error) {
+        console.error('Error al obtener los detalles del empleado:', error);
+        showAlert('Error al obtener los detalles del empleado', 'danger');
+      }
+    });
+  });
+
+  // Evento al hacer clic en eliminar empleado
+  $(document).on('click', '.delete-employee-btn', function () {
+    const employeeId = $(this).data('id');
+
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'No podrás revertir esto',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#09A62E',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, bórralo'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteEmployee(employeeId);
+      }
+    });
+  });
+
+  // Resetear modal al cerrarlo
+  $('#modalEmpleados').on('hidden.bs.modal', function () {
+    $('#formEmpleados')[0].reset();
+    $('#empleado-id').val('');
+    $('#modalEmpleadosLabel').text('Agregar Empleado');
+  });
+
+  // Inicializar la carga de empleados
+  loadEmployees();
 });
-
-
 function searchTable() {
   // Obtener el valor del input de búsqueda
   let input = document.getElementById("buscar").value.toLowerCase();
@@ -40,173 +251,3 @@ function searchTable() {
     }
   });
 }
-
-$(document).ready(function(){
-
-  //primero vamos a crear un arreglo con los datos de los usuarios que se van a mostrar de ejemplo
-  let arreglo = [
-    {
-      id: 1,
-      nombre: "Jose",
-      apellidoPaterno: "Perez",
-      apellidoMaterno: "Gomez",
-      correo: "jose@gmail.com",
-      contrasena: "jose122",
-    },
-    {
-      id: 2,
-      nombre: "Angel",
-      apellidoPaterno: "Rivera",
-      apellidoMaterno: "Sanchez",
-      correo: "rivera@gmail.com",
-      contrasena: "rivera23",
-    },
-  ];
-
-  //se creara una funcion para cargar los usuarios que esten en la tabla.
-  function loadEmployes() {
-    let empleados = arreglo;
-    let empleadoTableBody = $("#employe-table-body");
-    empleadoTableBody.empty();
-    empleados.forEach((empleado) => {
-      empleadoTableBody.append(`
-                    <tr>
-                        <td>${empleado.id}</td>
-                        <td>${empleado.nombre}</td>
-                        <td>${empleado.apellidoPaterno}</td>
-                        <td>${empleado.apellidoMaterno}</td>
-                        <td>${empleado.correo}</td>
-                        <td>
-                           <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-pen-to-square fs-6"></i></button>
-                           <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${empleado.id}"><i class="fa-solid fa-trash fs-6"></i></button>
-                        </td>
-                    </tr>
-                `);
-    });
-  }
-
-  function alert(){
-    Swal.fire({
-      icon: "success",
-      title: "Guardado",
-    });
-  }
-
-
-  //funcion para agregar los usuarios
-  $("#formEmpleados").submit(function (event){
-    event.preventDefault();
-    let userId = $("#empleado-id").val();
-    let empleadoName = $("#nombreEmpleado").val().split(" ");
-    let apellidoPaterno = $("#apPaterno").val();
-    let apellidoMaterno = $("#apMaterno").val();
-    let correo = $("#correo").val();
-    let contrasena = $("#contrasena").val();
-    let method = userId ? "PUT" : "POST";
-
-    if(method == "POST"){
-      let newId = arreglo[arreglo.length - 1].id + 1;
-      arreglo.push({
-        id: newId,
-        nombre: empleadoName,
-        apellidoPaterno: apellidoPaterno,
-        apellidoMaterno: apellidoMaterno,
-        correo: correo,
-        contrasena: contrasena,
-      });
-    }else {
-      let objeto = searchObject(userId);
-
-      objeto.nombre = empleadoName;
-      objeto.apellidoPaterno= apellidoPaterno;
-      objeto.apellidoMaterno= apellidoMaterno;
-      objeto.correo = correo;
-      objeto.contrasena= contrasena;
-    }
-    loadEmployes();
-    alert();
-    $("#modalEmpleados").modal("hide");
-  });
-
-  function searchObject(id) {
-    let objeto = {};
-    for (let i = 0; i < arreglo.length; i++) {
-      if (id == arreglo[i].id) {
-        objeto = arreglo[i];
-        break;
-      }
-    }
-    return objeto;
-  }
-
-
-   // Editar usuario
-   $(document).on("click", ".edit-user-btn", function () {
-    let userId = $(this).data("id");
-    let objeto = searchObject(userId);
-
-    let employe = objeto;
-    $("#empleado-id").val(employe.id);
-    $("#nombreEmpleado").val(employe.nombre);
-    $("#apPaterno").val(employe.apellidoPaterno);
-    $("#apMaterno").val(employe.apellidoPaterno);
-    $("#correo").val(employe.correo);
-    $("#contrasena").val(employe.contrasena);
-    $("#modalEmpleadosLabel").text("Editar Empleado");
-    $("#modalEmpleados").modal("show");
-  });
-
-
-  // Eliminar usuario
-    // Eliminar usuario
-    $(document).on("click", ".delete-user-btn", function () {
-      let empleadoId = $(this).data("id");
-      let indice = -1;
-      for (let i = 0; i < arreglo.length; i++) {
-        if (empleadoId == arreglo[i].id) {
-          indice = i;
-          break;
-        }
-      }
-  
-      if (indice !== -1) {
-        Swal.fire({
-          title: "Estas seguro?",
-          text: "No podras revertir este cambio!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#09A62E",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Si, bórralo!"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            arreglo.splice(indice, 1);
-            loadEmployes();
-            Swal.fire({
-              title: "Borrado!",
-              text: "Tu registro fue borrado.",
-              icon: "success"
-            });
-          }else if(result.dismiss === Swal.DismissReason.cancel){
-            Swal.fire({
-              title: "Cancelado",
-              text: "Tu registro no fue alterado.",
-              icon: "error"
-            })
-          }
-        });
-      }
-    });
-
-    // Resetear modal al cerrarlo
-    $("#modalEmpleados").on("hidden.bs.modal", function () {
-      $("#formEmpleados")[0].reset();
-      $("#empleado-id").val("");
-      $("#modalEmpleadosLabel").text("Agregar Empleado");
-    });
-  
-
-   // Inicializar la tabla de usuarios
-
-   loadEmployes();
-});

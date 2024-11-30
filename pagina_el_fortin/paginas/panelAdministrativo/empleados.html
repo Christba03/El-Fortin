@@ -116,10 +116,9 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Apellido materno</th>
                         <th scope="col">Apellido paterno</th>
+                        <th scope="col">Apellido materno</th>
                         <th scope="col">Correo</th>
-                        <th scope="col">Contraseña</th>
                         <th scope="col">Operaciones</th>
                     </tr>
                 </thead>
@@ -149,18 +148,18 @@
                 <form id="formEmpleados">
                   <input type="hidden" name="accion" value="1">
                   <div class="mb-3">
-                    <label for="nombreEmpleado" class="form-label">Nombre</label>
+                    <label for="nombreEmpleado" class="form-label">Nombre completo</label>
                     <input type="text" class="form-control" id="nombreEmpleado" name="letras1" placeholder="Nombre" required>
                     <span id="letras1" name="letras1" style="color: red;"></span>
                   </div>
                   <div class="mb-3">
-                    <label for="apPaterno" class="form-label">Paterno</label>
-                    <input type="text" class="form-control" id="apPaterno" name="letras2" placeholder="Apellido paterno" required>
-                    <span id="letras2" name="letras2" style="color: red;"></span>
+                    <label for="userName" class="form-label">Nombre de usuario</label>
+                    <input type="text" class="form-control" id="userName" name="userName" placeholder="Nombre de usuario" required>
+                    <span id="userName" name="userName" style="color: red;"></span>
                   </div>
                   <div class="mb-3">
-                    <label for="apMaterno" class="form-label">Materno</label>
-                    <input type="text" class="form-control" id="apMaterno" name="letras3" placeholder="Apellido materno">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="number" class="form-control" id="telefono" name="letras3" placeholder="Teléfono">
                     <span id="letras3" name="letras3" style="color: red;"></span>
                   </div>
                   <div class="row">
