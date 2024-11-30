@@ -27,7 +27,6 @@ $(document).ready(function() {
                     <tr>
                         <td>${order.id}</td>
                         <td>${order.client_id}</td>
-                        <td>${order.payment_method_id}</td>
                         <td>${order.table_number}</td>
                         <td>${order.total_amount}</td>
                         <td>${formattedDate}</td>

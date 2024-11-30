@@ -114,8 +114,7 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Precio</th>
-                                <th scope="col">Código de barras</th>
-                                <th scope="col">Cantidad</th>
+                                <th scope="col">Categoria</th>
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Operaciones</th>
                             </tr>
@@ -133,52 +132,66 @@
             <!-- /.content -->
           </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="modalProductos" tabindex="-1" aria-labelledby="modalProductosTitle" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modalProductosTitle">Formulario de productos</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form id="formProductos">
-                    <input type="hidden" name="accion" value="1">
-                    <div class="mb-3">
-                      <label for="product" class="form-label">Nombre del producto</label>
-                      <input type="text" class="form-control" id="product" name="letras1" placeholder="Nombre">
-                      <span id="letras1" name="letras1" style="color: red;"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="price" class="form-label">Precio</label>
-                        <input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="Precio">
-                    </div>
-                    <div class="mb-3">
-                      <label for="product-id" class="form-label" hidden>Id</label>
-                      <input type="number" class="form-control" id="product-id" name="product-id" placeholder="Se genera un nuevo id" disabled hidden>
-                  </div>
-                    <div class="row">
-                      <div class="mb-3 col-md-6">
-                        <label for="bar_code" class="form-label">Código barras</label>
-                        <input type="number" name="bar_code" id="bar_code" class="form-select" m>
-                      </div>
-                      <div class="mb-3 col-md-6">
-                        <label for="stock" class="form-label">Cantidad</label>
-                        <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock" min="0" max="999" required>
-                      </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Descripción</label>
-                        <textarea name="charEsp1" id="description" class="form-control" placeholder="Ingrese la descripcion" required></textarea>
-                        <span id="charEsp1" name="charEsp1" style="color: red;"></span>         
-                    </div>
-                    <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                  </form>
-                </div>
-              </div>
-            </div>
+       <!-- Modal -->
+<div class="modal fade" id="modalProductos" tabindex="-1" aria-labelledby="modalProductosTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalProductosTitle">Formulario de productos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formProductos">
+          <input type="hidden" name="accion" value="1">
+
+          <!-- Nombre del producto -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre del producto</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" required>
+            <span id="letras1" name="letras1" style="color: red;"></span>
           </div>
+
+          <!-- Categoría -->
+          <div class="mb-3">
+            <label for="category" class="form-label">Categoría</label>
+            <select name="category" id="category" class="form-select" required>
+              <option value="null">Selecciona una categoría</option>
+              <option value="restaurante">Restaurante</option>
+              <option value="panaderia">Panadería</option>
+              <option value="bebidas">Bebidas</option>
+            </select>
+          </div>
+
+          <!-- Precio y Descripción -->
+          <div class="row">
+            <!-- Precio -->
+            <div class="mb-3 col-md-6">
+              <label for="price" class="form-label">Precio</label>
+              <input type="number" name="price" id="price" class="form-control" placeholder="Precio" required>
+            </div>
+
+            <!-- ID del Producto (Oculto) -->
+            <input type="hidden" id="product-id" name="product-id" value="Se genera un nuevo id">
+          </div>
+
+          <!-- Descripción -->
+          <div class="mb-3">
+            <label for="description" class="form-label">Descripción</label>
+            <textarea name="charEsp1" id="description" class="form-control" placeholder="Ingrese la descripción" rows="3" required></textarea>
+            <span id="charEsp1" name="charEsp1" style="color: red;"></span>
+          </div>
+
+          <!-- Botones -->
+          <!-- USAR DIV PARA BOTONES -->
+            <button type="submit"  class="btn btn-primary text-bg-primary">Guardar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 

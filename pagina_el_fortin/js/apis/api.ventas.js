@@ -1,167 +1,239 @@
 $(document).ready(function () {
-  const apiUrl = 'https://fortin.christba.com/api/ventas'; // URL base de la API de ventas
+    const apiUrl = 'https://fortin.christba.com/api/ventas'; // URL base de la API de ventas
 
-  // Función para cargar las ventas desde la API
-  function loadSales() {
-      $.ajax({
-          url: apiUrl,
-          method: 'GET',
-          success: function (response) {
-              if (response.codigo !== 200 || !Array.isArray(response.data)) {
-                  showAlert("Error al cargar las ventas: datos inválidos", "danger");
-                  return;
-              }
+    function loadRestaurant(idRestaurant) {
+        const urlRestaurants = 'https://fortin.christba.com/api/restaurantes/';
 
-              const sales = response.data;
-              populateSalesTable(sales); // Llenar la tabla con las ventas
-          },
-          error: function (error) {
-              console.error("Error al cargar las ventas:", error);
-              showAlert("Error al cargar las ventas", "danger");
-          }
-      });
-  }
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: urlRestaurants + idRestaurant,
+                method: 'GET',
+                success: function (response) {
+                    // Verificar si la respuesta contiene la clave `data` con la información del restaurante
+                    if (response.data) {
+                        const restaurant = response.data;
+                        resolve(restaurant); // Retorna los datos del restaurante
+                    } else {
+                        reject('No se encontraron datos para este restaurante');
+                    }
+                },
+                error: function (error) {
+                    reject('Error al cargar los datos del restaurante');
+                }
+            });
+        });
+    }
 
-  // Función para llenar la tabla con las ventas
-  function populateSalesTable(sales) {
-      const salesTableBody = $('#sales-table-body');
-      salesTableBody.empty();
+    // Función para cargar las ventas desde la API
+    function loadSales() {
+        $.ajax({
+            url: apiUrl,
+            method: 'GET',
+            success: function (response) {
+                if (response.codigo !== 200 || !Array.isArray(response.data)) {
+                    showAlert("Error al cargar las ventas: datos inválidos", "danger");
+                    return;
+                }
 
-      sales.forEach(sale => {
-          const formattedDate = new Date(sale.report_date).toLocaleDateString();
-          salesTableBody.append(`
-              <tr>
-                  <td>${sale.id}</td>
-                  <td>${sale.restaurant_id}</td>
-                  <td>${formattedDate}</td>
-                  <td>$${sale.total_sales}</td>
-                  <td>
-                      <button class="btn btn-sm text-bg-secondary edit-sale-btn" data-id="${sale.id}">
-                          <i class="fa-solid fa-pen-to-square fs-6"></i>
-                      </button>
-                      <button class="btn btn-sm text-bg-primary delete-sale-btn" data-id="${sale.id}">
-                          <i class="fa-solid fa-trash fs-6"></i>
-                      </button>
-                  </td>
-              </tr>
-          `);
-      });
-  }
+                const sales = response.data;
+                populateSalesTable(sales); // Llenar la tabla con las ventas
+            },
+            error: function (error) {
+                console.error("Error al cargar las ventas:", error);
+                showAlert("Error al cargar las ventas", "danger");
+            }
+        });
+    }
 
-  // Función para mostrar alertas
-  function showAlert(message, type) {
-      $('#alert-container').html(`
-          <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-              ${message}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-      `);
-      setTimeout(() => {
-          $('#alert-container').html('');
-      }, 3000);
-  }
+    function populateSalesTable(sales) {
+        const salesTableBody = $('#sales-table-body');
+        salesTableBody.empty();
 
-  // Función para guardar ventas (crear o actualizar)
-  function saveSale(saleData, saleId = null) {
-      const method = saleId ? 'PUT' : 'POST';
-      const url = saleId ? `${apiUrl}/${saleId}` : apiUrl;
+        sales.forEach(sale => {
+            // Llamamos a la función loadRestaurant dentro de la promesa
+            loadRestaurant(sale.restaurant_id)
+                .then(restaurant => {
+                    // Verificar si sale.report_date tiene un valor válido
+                    const reportDate = sale.report_date ? new Date(sale.report_date) : null;
+                    const formattedDate = reportDate && !isNaN(reportDate.getTime()) 
+                        ? reportDate.toLocaleDateString() 
+                        : 'Fecha no válida';
 
-      $.ajax({
-          url: url,
-          method: method,
-          contentType: 'application/json',
-          data: JSON.stringify(saleData),
-          success: function () {
-              loadSales();
-              showAlert('Venta guardada exitosamente', 'success');
-              $('#modalSales').modal('hide');
-          },
-          error: function (error) {
-              console.error("Error al guardar la venta:", error);
-              showAlert('Error al guardar la venta', 'danger');
-          }
-      });
-  }
+                    // Ahora que tenemos los datos del restaurante, agregamos la fila a la tabla
+                    salesTableBody.append(`
+                        <tr>
+                        <td>${sale.id}</td>
+                            <td>${restaurant.name}</td> <!-- Nombre del restaurante -->
+                            <td>${formattedDate}</td>
+                            <td>$${sale.total_sales}</td>
+                            <td>
+                                <button class="btn btn-sm text-bg-secondary edit-sale-btn" data-id="${sale.id}">
+                                    <i class="fa-solid fa-pen-to-square fs-6"></i>
+                                </button>
+                                <button class="btn btn-sm text-bg-primary delete-sale-btn" data-id="${sale.id}">
+                                    <i class="fa-solid fa-trash fs-6"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `);
+                })
+                .catch(error => {
+                    console.error('Error al obtener el restaurante:', error);
+                    // Si hay un error, podríamos mostrar un nombre de restaurante predeterminado
+                    salesTableBody.append(`
+                        <tr>
+                        <td>${sale.restaurant_id}</td>
+                            <td>Error al cargar restaurante</td>
+                            <td>${new Date(sale.report_date).toLocaleDateString()}</td>
+                            <td>$${sale.total_sales}</td>
+                            <td>
+                                <button class="btn btn-sm text-bg-secondary edit-sale-btn" data-id="${sale.id}">
+                                    <i class="fa-solid fa-pen-to-square fs-6"></i>
+                                </button>
+                                <button class="btn btn-sm text-bg-primary delete-sale-btn" data-id="${sale.id}">
+                                    <i class="fa-solid fa-trash fs-6"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `);
+                });
+        });
+    }
 
-  // Función para eliminar una venta
-  function deleteSale(saleId) {
-      $.ajax({
-          url: `${apiUrl}/${saleId}`,
-          method: 'DELETE',
-          success: function () {
-              loadSales();
-              showAlert('Venta eliminada exitosamente', 'success');
-          },
-          error: function (error) {
-              console.error("Error al eliminar la venta:", error);
-              showAlert('Error al eliminar la venta', 'danger');
-          }
-      });
-  }
+    // Función para mostrar alertas
+    function showAlert(message, type) {
+        $('#alert-container').html(`
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        `);
+        setTimeout(() => {
+            $('#alert-container').html('');
+        }, 3000);
+    }
 
-  // Evento al enviar el formulario para agregar o editar ventas
-  $('#formSales').submit(function (event) {
-      event.preventDefault();
+    // Función para guardar ventas (crear o actualizar)
+    function saveSale(saleData, saleId = null) {
+        const method = saleId ? 'PUT' : 'POST';
+        const url = saleId ? `${apiUrl}/${saleId}` : apiUrl;
 
-      const saleId = $('#sale-id').val();
-      const saleData = {
-          restaurant_id: $('#restaurant-id').val(),
-          report_date: $('#report-date').val(),
-          total_sales: $('#total-sales').val()
-      };
+        $.ajax({
+            url: url,
+            method: method,
+            contentType: 'application/json',
+            data: JSON.stringify(saleData),
+            success: function () {
+                loadSales();
+                showAlert('Venta guardada exitosamente', 'success');
+                $('#modalSales').modal('hide');
+            },
+            error: function (error) {
+                console.error("Error al guardar la venta:", error);
+                showAlert('Error al guardar la venta', 'danger');
+            }
+        });
+    }
 
-      saveSale(saleData, saleId);
-  });
+    // Función para eliminar una venta
+    function deleteSale(saleId) {
+        $.ajax({
+            url: `${apiUrl}/${saleId}`,
+            method: 'DELETE',
+            success: function () {
+                loadSales();
+                showAlert('Venta eliminada exitosamente', 'success');
+            },
+            error: function (error) {
+                console.error("Error al eliminar la venta:", error);
+                showAlert('Error al eliminar la venta', 'danger');
+            }
+        });
+    }
 
-  // Evento al hacer clic en el botón de editar venta
-  $(document).on('click', '.edit-sale-btn', function () {
-      const saleId = $(this).data('id');
+    // Evento al enviar el formulario para agregar o editar ventas
+    $('#formSales').submit(function (event) {
+        event.preventDefault();
 
-      $.ajax({
-          url: `${apiUrl}/${saleId}`,
-          method: 'GET',
-          success: function (sale) {
-              $('#sale-id').val(sale.id);
-              $('#restaurant-id').val(sale.restaurant_id);
-              $('#report-date').val(new Date(sale.report_date).toISOString().split('T')[0]);
-              $('#total-sales').val(sale.total_sales);
+        const saleId = $('#sale-id').val();
+        const saleData = {
+            restaurant_id: $('#restaurant-id').val(),
+            report_date: $('#report-date').val(),
+            total_sales: $('#total-sales').val()
+        };
 
-              $('#modalSalesLabel').text('Editar Venta');
-              $('#modalSales').modal('show');
-          },
-          error: function (error) {
-              console.error("Error al obtener los detalles de la venta:", error);
-              showAlert('Error al obtener los detalles de la venta', 'danger');
-          }
-      });
-  });
+        saveSale(saleData, saleId);
+    });
 
-  // Evento al hacer clic en el botón de eliminar venta
-  $(document).on('click', '.delete-sale-btn', function () {
-      const saleId = $(this).data('id');
+    $(document).on('click', '.edit-sale-btn', function () {
+        const saleId = $(this).data('id');
+    
+        $.ajax({
+            url: `${apiUrl}/${saleId}`,
+            method: 'GET',
+            success: function (sale) {
+                $('#sale-id').val(sale.id);
+                $('#restaurant-id').val(sale.restaurant_id);
+    
+                // Verificar si sale.report_date existe y es válida
+                let reportDate = sale.report_date ? new Date(sale.report_date) : null;
+                console.log("sale.report_date:", sale.report_date);
+    
+                // Si la fecha es válida, formatearla
+                if (reportDate && !isNaN(reportDate.getTime())) {
+                    $('#report-date').val(reportDate.toISOString().split('T')[0]); // Convertir la fecha
+                } else {
+                    // Si la fecha es inválida, mostrar un mensaje de error
+                    console.error("Fecha inválida:", reportDate);
+                    showAlert('La fecha de la venta es inválida', 'danger');
+                    $('#report-date').val(''); // Limpiar el campo de fecha en el modal
+                }
+    
+                $('#total-sales').val(sale.total_sales);
+    
+                $('#modalSalesLabel').text('Editar Venta');
+                $('#modalSales').modal('show');
+            },
+            error: function (error) {
+                console.error("Error al obtener los detalles de la venta:", error);
+                showAlert('Error al obtener los detalles de la venta', 'danger');
+            }
+        });
+    });
+    
 
-      Swal.fire({
-          title: "¿Estás seguro?",
-          text: "No podrás revertir esto",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#09A62E",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Sí, bórralo"
-      }).then((result) => {
-          if (result.isConfirmed) {
-              deleteSale(saleId);
-          }
-      });
-  });
+    // Función para verificar si una fecha es válida
+    function isValidDate(date) {
+        const parsedDate = new Date(date);
+        return !isNaN(parsedDate.getTime()); // Retorna true si la fecha es válida, de lo contrario false
+    }
 
-  // Resetear modal al cerrarlo
-  $('#modalSales').on('hidden.bs.modal', function () {
-      $('#formSales')[0].reset();
-      $('#sale-id').val('');
-      $('#modalSalesLabel').text('Agregar Venta');
-  });
+    // Evento al hacer clic en el botón de eliminar venta
+    $(document).on('click', '.delete-sale-btn', function () {
+        const saleId = $(this).data('id');
 
-  // Inicializar la carga de ventas
-  loadSales();
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "No podrás revertir esto",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#09A62E",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, bórralo"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteSale(saleId);
+            }
+        });
+    });
+
+    // Resetear modal al cerrarlo
+    $('#modalSales').on('hidden.bs.modal', function () {
+        $('#formSales')[0].reset();
+        $('#sale-id').val('');
+        $('#modalSalesLabel').text('Agregar Venta');
+    });
+
+    // Inicializar la carga de ventas
+    loadSales();
 });
