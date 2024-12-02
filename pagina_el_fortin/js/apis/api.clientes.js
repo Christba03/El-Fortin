@@ -1,5 +1,8 @@
 $(document).ready(function () {
   const apiUrl = 'https://fortin.christba.com/api/usuarios'; // URL base de la API de clientes
+  const pageSize = 9; // Número de clientes por página
+  let currentPage = 1; // Página actual
+  let clients = []; // Lista de clientes
 
   // Función para cargar clientes desde la API
   function loadClients() {
@@ -7,8 +10,9 @@ $(document).ready(function () {
       url: apiUrl,
       method: 'GET',
       success: function (response) {
-        const clients = response.filter(user => user.user_type?.trim().toLowerCase() === 'client'); // Filtrar clientes con rol "client"
-        populateClientsTable(clients);
+        clients = response.filter(user => user.user_type?.trim().toLowerCase() === 'client'); // Filtrar clientes con rol "client"
+        showPage(currentPage);
+        setupPagination();
       },
       error: function (error) {
         console.error('Error al cargar los clientes:', error);
@@ -17,12 +21,16 @@ $(document).ready(function () {
     });
   }
 
-  // Función para llenar la tabla con los clientes
-  function populateClientsTable(clients) {
+  // Función para llenar la tabla con los clientes de la página actual
+  function showPage(page) {
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const pageClients = clients.slice(startIndex, endIndex);
+
     const clientTableBody = $('#client-table-body');
     clientTableBody.empty();
 
-    clients.forEach(client => {
+    pageClients.forEach(client => {
       // Validación y separación del nombre completo
       let name = client.name ? client.name.trim() : "Sin nombre";
       let firstName = "Sin nombre";
@@ -66,24 +74,66 @@ $(document).ready(function () {
 
       // Renderizar la fila de la tabla
       clientTableBody.append(`
-          <tr>
-              <td>${client.id}</td>
-              <td>${firstName}</td>
-              <td>${lastNamePaterno}</td>
-              <td>${lastNameMaterno}</td>
-              <td>${client.phone || "Correo no disponible"}</td>
-              <td>
-                  <button class="btn btn-sm text-bg-secondary edit-client-btn" data-id="${client.id}">
-                      <i class="fa-solid fa-pen-to-square fs-6"></i>
-                  </button>
-                  <button class="btn btn-sm text-bg-primary delete-client-btn" data-id="${client.id}">
-                      <i class="fa-solid fa-trash fs-6"></i>
-                  </button>
-              </td>
-          </tr>
+        <tr>
+          <td>${client.id}</td>
+          <td>${firstName}</td>
+          <td>${lastNamePaterno}</td>
+          <td>${lastNameMaterno}</td>
+          <td>${client.phone || "Correo no disponible"}</td>
+          <td>
+            <button class="btn btn-sm text-bg-secondary edit-client-btn" data-id="${client.id}">
+              <i class="fa-solid fa-pen-to-square fs-6"></i>
+            </button>
+            <button class="btn btn-sm text-bg-primary delete-client-btn" data-id="${client.id}">
+              <i class="fa-solid fa-trash fs-6"></i>
+            </button>
+          </td>
+        </tr>
       `);
     });
   }
+
+  // Función para configurar la paginación
+  function setupPagination() {
+    const pageCount = Math.ceil(clients.length / pageSize);
+    const paginationContainer = $('#pagination-container');
+    paginationContainer.empty();
+
+    // Update page info
+    $('#page-info').text(`Página ${currentPage}`);
+
+    // Disable/enable buttons based on current page
+    if (currentPage <= 1) {
+      $('#prev-btn').prop('disabled', true);
+    } else {
+      $('#prev-btn').prop('disabled', false);
+    }
+
+    if (currentPage >= pageCount) {
+      $('#next-btn').prop('disabled', true);
+    } else {
+      $('#next-btn').prop('disabled', false);
+    }
+  }
+
+  // Handle "Previous" button click
+  $('#prev-btn').click(function () {
+    if (currentPage > 1) {
+      currentPage--;
+      showPage(currentPage);
+      setupPagination();
+    }
+  });
+
+  // Handle "Next" button click
+  $('#next-btn').click(function () {
+    const pageCount = Math.ceil(clients.length / pageSize);
+    if (currentPage < pageCount) {
+      currentPage++;
+      showPage(currentPage);
+      setupPagination();
+    }
+  });
 
   // Función para mostrar alertas
   function showAlert(message, type) {
@@ -97,6 +147,7 @@ $(document).ready(function () {
       $('#alert-container').html('');
     }, 3000);
   }
+
 
   // Función para guardar o actualizar un cliente
   function saveClient(clientData, clientId = null) {
@@ -218,6 +269,7 @@ $(document).ready(function () {
     $('#cliente-id').val('');
     $('#modalClientesLabel').text('Agregar Cliente');
   });
+
 
   // Inicializar la carga de clientes
   loadClients();

@@ -25,60 +25,110 @@ function searchTable() {
       }
     });
   }
-$(document).ready(function () {
-  const apiUrl = 'https://fortin.christba.com/api/usuarios'; // URL base de la API de usuarios
-
-  // Función para cargar los usuarios desde la API
-  function loadUsers() {
+  $(document).ready(function () {
+    const apiUrl = 'https://fortin.christba.com/api/usuarios'; // URL base de la API de usuarios
+    const pageSize = 8; // Número de usuarios por página
+    let currentPage = 1; // Página actual
+    let users = []; // Lista de usuarios
+  
+    // Función para cargar usuarios desde la API
+    function loadUsers() {
       $.ajax({
-          url: apiUrl,
-          method: 'GET',
-          success: function (response) {
-             
-
-              const users = response;
-              populateUsersTable(users); // Llenar la tabla con los usuarios
-          },
-          error: function (error) {
-              console.error("Error al cargar los usuarios:", error);
-              showAlert("Error al cargar los usuarios", "danger");
-          }
+        url: apiUrl,
+        method: 'GET',
+        success: function (response) {
+          users = response; // Obtener todos los usuarios sin filtrar
+          showPage(currentPage);
+          setupPagination();
+        },
+        error: function (error) {
+          console.error("Error al cargar los usuarios:", error);
+          showAlert("Error al cargar los usuarios", "danger");
+        }
       });
-  }
-
-
-
-  // Función para llenar la tabla con los usuarios
-  function populateUsersTable(users) {
+    }
+  
+    // Función para llenar la tabla con los usuarios de la página actual
+    function showPage(page) {
+      const startIndex = (page - 1) * pageSize;
+      const endIndex = startIndex + pageSize;
+      const pageUsers = users.slice(startIndex, endIndex);
+  
       const usersTableBody = $('#users-table-body');
       usersTableBody.empty();
-
-      users.forEach(user => {
+  
+      pageUsers.forEach(user => {
         let userType = "";
-        if (user.user_type == "worker"){
+        if (user.user_type === "worker") {
           userType = "Trabajador";
-        }else userType = "Cliente";
-          const formattedDate = new Date(user.created_at).toLocaleDateString();
-          usersTableBody.append(`
-              <tr>
-                  <td>${user.id}</td>
-                  <td>${user.nickname}</td>
-                  <td>${user.email}</td>
-                  <td>${userType}</td>
-                  <td>${user.phone}</td>
-                  <td>
-                      <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${user.id}">
-                          <i class="fa-solid fa-pen-to-square fs-6"></i>
-                      </button>
-                      <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${user.id}">
-                          <i class="fa-solid fa-trash fs-6"></i>
-                      </button>
-                  </td>
-              </tr>
-          `);
+        } else {
+          userType = "Cliente";
+        }
+  
+        const formattedDate = new Date(user.created_at).toLocaleDateString();
+  
+        // Renderizar la fila de la tabla
+        usersTableBody.append(`
+          <tr>
+            <td>${user.id}</td>
+            <td>${user.nickname}</td>
+            <td>${user.email}</td>
+            <td>${userType}</td>
+            <td>${user.phone}</td>
+            <td>
+              <button class="btn btn-sm text-bg-secondary edit-user-btn" data-id="${user.id}">
+                <i class="fa-solid fa-pen-to-square fs-6"></i>
+              </button>
+              <button class="btn btn-sm text-bg-primary delete-user-btn" data-id="${user.id}">
+                <i class="fa-solid fa-trash fs-6"></i>
+              </button>
+            </td>
+          </tr>
+        `);
       });
-  }
-
+    }
+  
+    // Función para configurar la paginación
+    function setupPagination() {
+      const pageCount = Math.ceil(users.length / pageSize);
+      const paginationContainer = $('#pagination-container');
+      paginationContainer.empty();
+  
+      // Update page info
+      $('#page-info').text(`Página ${currentPage}`);
+  
+      // Disable/enable buttons based on current page
+      if (currentPage <= 1) {
+        $('#prev-btn').prop('disabled', true);
+      } else {
+        $('#prev-btn').prop('disabled', false);
+      }
+  
+      if (currentPage >= pageCount) {
+        $('#next-btn').prop('disabled', true);
+      } else {
+        $('#next-btn').prop('disabled', false);
+      }
+    }
+  
+    // Handle "Previous" button click
+    $('#prev-btn').click(function () {
+      if (currentPage > 1) {
+        currentPage--;
+        showPage(currentPage);
+        setupPagination();
+      }
+    });
+  
+    // Handle "Next" button click
+    $('#next-btn').click(function () {
+      const pageCount = Math.ceil(users.length / pageSize);
+      if (currentPage < pageCount) {
+        currentPage++;
+        showPage(currentPage);
+        setupPagination();
+      }
+    });
   // Función para mostrar alertas
   function showAlert(message, type) {
       $('#alert-container').html(`

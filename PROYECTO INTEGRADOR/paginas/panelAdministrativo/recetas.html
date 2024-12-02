@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="../../css/adminlte.min.css">
     <link rel="stylesheet" href="../../css/dashboard.css">
     <link rel="stylesheet" href="../../css/bootstrap.css">
-    <title>Ventas</title>
+    <link rel="stylesheet" href="../../css/fondo.css">
+
+    <title>Recetas</title>
     <link rel="icon" type="img/jpg" href="../recursos/imagenes/logo.jpeg">
 </head>
 <body>
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-primary" style="width: 280px; height: 1000px;" id="container-sidebar">
-        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" >
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" href="../../index.html">
           <img src="../../recursos/logo-removebg-preview.png" alt="" width="50px">
-          <span class="fs-5">Página principal</span>
+          <span class="fs-5">Pagina Principal</span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto" id="nav-links">
@@ -76,21 +78,23 @@
     <div class="main-content">
         <div class="header">
             <div class="title-header">
-                <h2>Administración de ventas</h2>
+                <h2>Administración de Recetas</h2>
             </div>
+
         </div>
 
         <div class="tabular-wrappe">
-            <h3 class="main-title">Tabla de registros</h3>
+            <h3 class="main-title">Tabla de Registros</h3>
             <section class="content">
         
               <!-- Default box -->
               <div class="card">
                 <div class="card-header">
+        
                   <div class="card-tools">
                     <!-- Button trigger modal -->
-                   <button type="button" class="btn text-bg-primary" data-bs-toggle="modal"  data-bs-target="#modalUsuarios">
-                    <i class="fa-solid fa-user-plus"></i> Agregar venta
+                   <button type="button" class="btn text-bg-primary" data-bs-toggle="modal"  data-bs-target="#modalRecetas">
+                    <i class="fa-solid fa-user-plus"></i> Agregar Receta
                    </button>
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                       <i class="fas fa-minus"></i>
@@ -109,85 +113,79 @@
                         <thead class="table-primary">
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Restaurante</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Total</th>
+                                <th scope="col">Nombre</th>                                
+                                <th scope="col">Empleado</th>
+                                <th scope="col">Tiempo</th>
+                                <th scope="col">Descripción</th>
                                 <th scope="col">Operaciones</th>
                             </tr>
                         </thead>
-                        <tbody id="sales-table-body">
-                            <!-- Las filas se generarán dinámicamente mediante JS -->
+                        <tbody id="employe-table-body">
                         </tbody>
                     </table>
                 </div>
-                
                 </div>
                 <!-- /.card-footer-->
               </div>
               <!-- /.card -->
-              <div class="pagination-container">
-                <button id="prev-btn" class="btn text-bg-primary" disabled>Previous</button>
-                <span id="page-info">Página 1</span>
-                <button id="next-btn" class="btn text-bg-primary">Next</button>
-              </div>
             </section>
             <!-- /.content -->
           </div>
 
-
-          <!-- Modal -->
-        <div class="modal fade" id="modalUsuarios" tabindex="-1" aria-labelledby="modalUsuariosTitle" aria-hidden="true">
+        <!-- Modal -->
+        <div class="modal fade" id="modalRecetas" tabindex="-1" aria-labelledby="modalRecetasLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="modalUsuariosTitle">Formulario de venta</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <h5 class="modal-title" id="modalRecetasLabel">Formulario de Recetas</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" name="modalRecetasLabel" aria-label="Close" required></button>
                 </div>
                 <div class="modal-body">
-                  <form id="formUsuarios">
+                  <form id="formRecetas">
                     <input type="hidden" name="accion" value="1">
-                    <div class="mb-3">
-                      <label for="nombreCliente" class="form-label">Restaurante</label>
-                      <select name="formaPago" id="formaPago" class="form-select" required>
-                        <option value="0">Selecciona un restaurante</option>
-                        <option value="1">La Pizzería de Giovanni</option>
-                        <option value="3">Café Central</option>
-                        <option value="4">El Asador del Valle</option>    
-                    </select>
-                  </div>
-                  
-                           
-                      <div class="mb-3 col-md-6">
-                        <label for="fecha">Fecha de pedido</label>
-                        <input type="date" class="form-control" id="fecha" name="fecha1" placeholder="10/10/2023" required>
-                        <span id="date" name="Error-fecha1" style="color: red;"></span>
+                    <div class="row">
+                      <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre Comida</label>
+                        <input type="text" class="form-control" id="nombre" name="letras1" placeholder="Nombre" required>
+                        <span id="letras1" style="color: red;"></span>
                       </div>
-                      <div class="mb-3 col-md-6">
-                        <label for="total">Total</label>
-                        <input type="number" step="1" class="form-control" id="total" name="number_float2" placeholder="$" required>
-                        <span id="total" name="Error-number_float2" style="color: red;"></span>
+                      <div class="row">
+                        <div class="mb-3">
+                        <label for="empleado" class="form-label">Nombre del Empleado</label>
+                        <input type="text" class="form-control" id="empleado" name="letras2" placeholder="Nombre del Empleado" required>
+                        <span id="letras2" style="color: red;"></span> 
+                    </div>
+                      <div class="mb-3">
+                        <label for="tiempo" class="form-label">Tiempo de preparacion</label>
+                        <input type="text" class="form-control" id="tiempo" name="letras3" placeholder="Tiempo" required>
+                        <span id="letras3" style="color: red;"></span>
                       </div>
                     </div>
-                    <input type="hidden" id="pedido-id">
-                    <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button>
+                    <div class="mb-3">
+                        <label for="descripcion">Preparación</label>
+                        <textarea name="charEsp1" id="descripcion" class="form-control" placeholder="Preparación"></textarea>
+                        <span id="charEsp1" name="charEsp1" style="color: red;"></span>         
+                    </div>
+                    <input type="hidden" id="receta-id">
+                    <button type="submit" class="btn btn-primary text-bg-primary">Guardar</button><div class="mb-3"></div>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
                   </form>
                 </div>
               </div>
             </div>
           </div>
-           
-        <script src="../../js/Validaciones/fecha.js"></script>
-        <script src="../../js/Validaciones/charEsp.js"></script>
-        <script src="../../js/Validaciones/letras.js"></script>
+  
+      <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
+      <script src="../../js/Validaciones/charEsp.js"></script>
+      <script src="../../js/Validaciones/letras.js"></script>
+      <script src="../../js/script.js"></script>
+      <script src="../../js/jquery.js"></script>
+      <script src="../../js/bootstrap.bundle.min.js"></script>
+      <script src="../../js/popper.min.js"></script>
+      <script src="../../js/adminlte.min.js"></script>
+      <script src="../../js/sweetalert2.all.min.js"></script>
+      <script src="../../js/apis/api.recetas.js"></script>
 
-        <script src="https://kit.fontawesome.com/fa85015eab.js" crossorigin="anonymous"></script>
-        <script src="../../js/script.js"></script>
-        <script src="../../js/jquery.js"></script>
-        <script src="../../js/bootstrap.bundle.min.js"></script>
-        <script src="../../js/popper.min.js"></script>
-        <script src="../../js/adminlte.min.js"></script>      
-        <script src="../../js/apis/api.ventas.js"></script>
-        <script src="../../js/sweetalert2.all.min.js"></script>
 </body>
 </html>

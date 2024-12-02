@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-primary" style="width: 280px; height: 1000px;" id="container-sidebar">
-        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" href="../../index.php">
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" >
           <img src="../../recursos/logo-removebg-preview.png" alt="" width="50px">
           <span class="fs-5">Página principal</span>
         </a>
@@ -128,6 +128,11 @@
                 <!-- /.card-footer-->
               </div>
               <!-- /.card -->
+              <div class="pagination-container">
+                <button id="prev-btn" class="btn text-bg-primary" disabled>Previous</button>
+                <span id="page-info">Página 1</span>
+                <button id="next-btn" class="btn text-bg-primary">Next</button>
+              </div>
             </section>
             <!-- /.content -->
           </div>

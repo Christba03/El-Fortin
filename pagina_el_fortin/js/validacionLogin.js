@@ -24,25 +24,40 @@
     form.classList.remove('was-validated');
   });
 
-
   $('#user-form').submit(function(event) {
+    const apiUrl = 'https://fortin.christba.com/api/login'; // URL base de la API de usuarios
+
     event.preventDefault(); // Previene el envío predeterminado del formulario
 
+    // Capturar los valores de los campos del formulario
+    const emailOrNickname = $('#user-email').val();
+    const password = $('#user-password').val();
+
+    // Crear el payload JSON esperado por la API
+    const payload = JSON.stringify({
+        emailOrNickname: emailOrNickname,
+        password: password
+    });
+
     $.ajax({
-        url: "php/validarUsuarios.php", // El archivo PHP que procesará la solicitud
+        url: apiUrl,
         type: "POST", // Método de envío
-        data: $(this).serialize(), // Serializa los datos del formulario
+        contentType: 'application/json', // Tipo de contenido
+        data: payload, // Datos en formato JSON
         dataType: 'json', // Espera una respuesta JSON
         success: function(response) {
-            if (response.status === 'success') {
+            if (response.token) {
+                // Guardar el token en localStorage
+                localStorage.setItem('authToken', response.token);
+
                 Swal.fire({
                     title: 'Correcto',
                     text: response.message,
                     icon: 'success',
                     confirmButtonText: 'OK'
                 }).then(() => {
-                    // Redirigir si es necesario
-                    window.location.href = response.redirect;
+                    // Redirigir a una página protegida o dashboard
+                    window.location.href = './paginas/panelAdministrativo/clientes.html';
                 });
             } else {
                 Swal.fire({

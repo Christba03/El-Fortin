@@ -69,15 +69,15 @@
             <form id="user-form" class="needs-validation" novalidate>
               <input type="hidden" name="accion" value="1">
               <div class="form-group">
-                <label for="user-email">Correo</label>
+                <label for="user-email">Correo o Usuario</label>
                 <input
                   type="email"
                   class="form-control"
                   id="user-email"
-                  name="correo2"
+                  name="letras1"
                   required
                 />
-                <span id="correo2" name="correo2" style="color: red;"></span>
+                <span id="letras1" name="correo2" style="color: red;"></span>
                 <div class="invalid-feedback">
                   Ingrese un correo valido.
                 </div>
@@ -118,20 +118,20 @@
               <div class="row">
               <div class="mb-3 col-md-6">
                 <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="letras1" placeholder="Nombre" maxlength="35">
-                <span id="letras1" style="color: red;"></span>
-              </div>
-
-              <div class="mb-3 col-md-6">
-                <label for="apellidoP" class="form-label">Apellido Paterno:</label>
-                <input type="text" class="form-control" id="apellidoP" name="letras2" placeholder="Apellido Paterno" maxlength="35" required>
+                <input type="text" class="form-control" id="nombre" name="letras2" placeholder="Nombre" maxlength="35">
                 <span id="letras2" style="color: red;"></span>
               </div>
 
               <div class="mb-3 col-md-6">
-                <label for="apellidoM" class="form-label">Apellido Materno:</label>
-                <input type="text" class="form-control" id="apellidoM" name="letras3" placeholder="Apellido Materno" maxlength="35" >
+                <label for="apellidoP" class="form-label">Apellido Paterno:</label>
+                <input type="text" class="form-control" id="apellidoP" name="letras3" placeholder="Apellido Paterno" maxlength="35" required>
                 <span id="letras3" style="color: red;"></span>
+              </div>
+
+              <div class="mb-3 col-md-6">
+                <label for="apellidoM" class="form-label">Apellido Materno:</label>
+                <input type="text" class="form-control" id="apellidoM" name="letras4" placeholder="Apellido Materno" maxlength="35" >
+                <span id="letras4" style="color: red;"></span>
               </div>
 
               <div class="mb-3 col-md-6">
@@ -143,14 +143,14 @@
               <hr>
               <div class="form-group">
                 <label for="nombreUsuario" class="form-label">Nombre de Usuario:</label>
-                <input type="text" class="form-control" id="nombreUsuario" name="letras4" placeholder="example" maxlength="15" required>
-                <span id="letras4" style="color: red;"></span>
+                <input type="text" class="form-control" id="nombreUsuario" name="letras5" placeholder="example" maxlength="15" required>
+                <span id="letras5" style="color: red;"></span>
               </div>
 
               <div class="row">
                 <div class="mb-3 col-md-6">
                   <label for="correo" class="form-label">Correo:</label>
-                  <input type="email" class="form-control" id="correo" name="correo1" placeholder="Correo" maxlength="16" required>
+                  <input type="email" class="form-control" id="correo" name="correo1" placeholder="Correo" maxlength="40" required>
                     <span id="correo1" name="correo1" style="color: red;"></span>
                 </div>
                 <div class="mb-3 col-md-6">

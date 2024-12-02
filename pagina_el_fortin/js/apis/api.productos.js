@@ -1,5 +1,8 @@
 $(document).ready(function () {
     const apiUrl = 'https://fortin.christba.com/api/products'; // URL base de la API de productos
+    const pageSize = 8; // Número de productos por página
+    let currentPage = 1; // Página actual
+    let products = []; // Lista de productos
 
     // Función para cargar productos desde la API
     function loadProducts() {
@@ -7,8 +10,9 @@ $(document).ready(function () {
             url: apiUrl,
             method: 'GET',
             success: function (response) {
-                const products = response;
-                populateProductTable(products);
+                products = response; // Obtener todos los productos
+                showPage(currentPage); // Mostrar la página inicial
+                setupPagination(); // Configurar la paginación
             },
             error: function (error) {
                 console.error('Error al cargar los productos:', error);
@@ -17,12 +21,16 @@ $(document).ready(function () {
         });
     }
 
-    // Función para llenar la tabla con los productos
-    function populateProductTable(products) {
+    // Función para llenar la tabla con los productos de la página actual
+    function showPage(page) {
+        const startIndex = (page - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const pageProducts = products.slice(startIndex, endIndex);
+
         const productTableBody = $('#product-table-body');
         productTableBody.empty();
 
-        products.forEach(product => {
+        pageProducts.forEach(product => {
             // Renderizar la fila de la tabla
             productTableBody.append(`
                 <tr>
@@ -43,6 +51,48 @@ $(document).ready(function () {
             `);
         });
     }
+
+    // Función para configurar la paginación
+    function setupPagination() {
+        const pageCount = Math.ceil(products.length / pageSize);
+        const paginationContainer = $('#pagination-container');
+        paginationContainer.empty();
+
+        // Update page info
+        $('#page-info').text(`Página ${currentPage}`);
+
+        // Disable/enable buttons based on current page
+        if (currentPage <= 1) {
+            $('#prev-btn').prop('disabled', true);
+        } else {
+            $('#prev-btn').prop('disabled', false);
+        }
+
+        if (currentPage >= pageCount) {
+            $('#next-btn').prop('disabled', true);
+        } else {
+            $('#next-btn').prop('disabled', false);
+        }
+    }
+
+    // Handle "Previous" button click
+    $('#prev-btn').click(function () {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+            setupPagination();
+        }
+    });
+
+    // Handle "Next" button click
+    $('#next-btn').click(function () {
+        const pageCount = Math.ceil(products.length / pageSize);
+        if (currentPage < pageCount) {
+            currentPage++;
+            showPage(currentPage);
+            setupPagination();
+        }
+    });
 
     // Función para mostrar alertas
     function showAlert(message, type) {

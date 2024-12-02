@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Obtener todos los enlaces de navegación
     const navLinks = document.querySelectorAll('#nav-links .nav-link');
-  
+
     // Obtener la URL actual y extraer el nombre del archivo
     const currentUrl = window.location.pathname.split('/').pop();
   
@@ -42,7 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   $(document).ready(function(){
-  
+    const apiUrl = 'https://fortin.christba.com/api/recipes'; // URL base de la API de clientes
+
+    const pageSize = 9; // Número de clientes por página
+    let currentPage = 1; // Página actual
+    let recipes = []; // Lista de clientes
     //primero vamos a crear un arreglo con los datos de los usuarios que se van a mostrar de ejemplo
     let arreglo = [
       {
@@ -75,7 +79,47 @@ document.addEventListener('DOMContentLoaded', () => {
                   `);
       });
     }
-  
+      // Función para configurar la paginación
+  function setupPagination() {
+    const pageCount = Math.ceil(clients.length / pageSize);
+    const paginationContainer = $('#pagination-container');
+    paginationContainer.empty();
+
+    // Update page info
+    $('#page-info').text(`Página ${currentPage}`);
+
+    // Disable/enable buttons based on current page
+    if (currentPage <= 1) {
+      $('#prev-btn').prop('disabled', true);
+    } else {
+      $('#prev-btn').prop('disabled', false);
+    }
+
+    if (currentPage >= pageCount) {
+      $('#next-btn').prop('disabled', true);
+    } else {
+      $('#next-btn').prop('disabled', false);
+    }
+  }
+
+  // Handle "Previous" button click
+  $('#prev-btn').click(function () {
+    if (currentPage > 1) {
+      currentPage--;
+      showPage(currentPage);
+      setupPagination();
+    }
+  });
+
+  // Handle "Next" button click
+  $('#next-btn').click(function () {
+    const pageCount = Math.ceil(clients.length / pageSize);
+    if (currentPage < pageCount) {
+      currentPage++;
+      showPage(currentPage);
+      setupPagination();
+    }
+  });
     function alert(){
       Swal.fire({
         icon: "success",

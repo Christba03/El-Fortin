@@ -1,96 +1,137 @@
 $(document).ready(function () {
   const apiUrl = 'https://fortin.christba.com/api/usuarios'; // URL base de la API de usuarios
-
+  const pageSize = 9; // Número de clientes por página
+  let currentPage = 1; // Página actual
+  let employees = []; // Lista de clientes
   // Función para cargar empleados desde la API
-  function loadEmployees() {
-    $.ajax({
-      url: apiUrl,
-      method: 'GET',
-      success: function (response) {
-        const employees = response.filter(user => user.user_type?.trim().toLowerCase() === 'worker'); // Filtrar empleados con rol "worker"
-        populateEmployeesTable(employees);
-        
-      },
-      error: function (error) {
-        console.error('Error al cargar los empleados:', error);
-        showAlert('Error al cargar los empleados', 'danger');
-      }
-    });
-  }
+function loadEmployees() {
+  $.ajax({
+    url: apiUrl,
+    method: 'GET',
+    success: function (response) {
+      employees = response.filter(user => user.user_type?.trim().toLowerCase() === 'worker'); // Filter workers
+      showPage(employees);  // Pass the employees array to the showPage function
+      setupPagination();
+    },
+    error: function (error) {
+      console.error('Error al cargar los empleados:', error);
+      showAlert('Error al cargar los empleados', 'danger');
+    }
+  });
+}
 
   // Función para llenar la tabla con los empleados
-  function populateEmployeesTable(employees) {
+  function showPage(employees) {
+    const startIndex = (currentPage - 1) * pageSize;  // Corrected from `page`
+    const endIndex = startIndex + pageSize;
+    const pageEmployees = employees.slice(startIndex, endIndex);
+  
     const employeeTableBody = $('#employe-table-body');
-    employeeTableBody.empty();
-
-    employees.forEach(employee => {
-      // Validación y separación del nombre completo
+    employeeTableBody.empty(); // Clear the existing rows
+  
+    pageEmployees.forEach(employee => {
       let name = employee.name ? employee.name.trim() : "Sin nombre";
       let firstName = "Sin nombre";
       let lastNamePaterno = "Sin apellido paterno";
       let lastNameMaterno = "Sin apellido materno";
-
+  
       if (name !== "Sin nombre") {
-        const nameParts = name.split(" ").filter(part => part); // Dividir y eliminar espacios vacíos
+        const nameParts = name.split(" ").filter(part => part); // Split and remove extra spaces
         const partsCount = nameParts.length;
-
+  
         if (partsCount === 3) {
-          // Caso de 3 palabras
-          firstName = nameParts[0]; // Primer nombre
-          lastNamePaterno = nameParts[1]; // Primer apellido
-          lastNameMaterno = nameParts[2]; // Segundo apellido
+          firstName = nameParts[0];
+          lastNamePaterno = nameParts[1];
+          lastNameMaterno = nameParts[2];
         } else if (partsCount === 4) {
-          // Caso de 4 palabras
-          firstName = `${nameParts[0]} ${nameParts[1]}`; // Dos primeras palabras como nombre
-          lastNamePaterno = nameParts[2]; // Primer apellido
-          lastNameMaterno = nameParts[3]; // Segundo apellido
+          firstName = `${nameParts[0]} ${nameParts[1]}`;
+          lastNamePaterno = nameParts[2];
+          lastNameMaterno = nameParts[3];
         } else if (partsCount > 4) {
-          // Caso de más de 4 palabras
-          firstName = `${nameParts[0]} ${nameParts[1]}`; // Dos primeras palabras como nombre
-          lastNamePaterno = nameParts[2]; // Primer apellido
-          lastNameMaterno = nameParts.slice(3).join(" "); // Restantes como segundo apellido
+          firstName = `${nameParts[0]} ${nameParts[1]}`;
+          lastNamePaterno = nameParts[2];
+          lastNameMaterno = nameParts.slice(3).join(" ");
         } else if (partsCount === 2) {
-          // Caso de 2 palabras
-          firstName = nameParts[0]; // Primer nombre
-          lastNamePaterno = nameParts[1]; // Primer apellido
+          firstName = nameParts[0];
+          lastNamePaterno = nameParts[1];
         } else {
-          // Caso de una sola palabra
-          firstName = nameParts[0]; // Solo nombre
+          firstName = nameParts[0];
         }
       }
-
-      // Capitalizar cada palabra
+  
+      // Capitalize the names
       const capitalize = (str) =>
         str
           .toLowerCase()
           .split(" ")
           .map(word => word.charAt(0).toUpperCase() + word.slice(1))
           .join(" ");
-
+  
       firstName = capitalize(firstName);
       lastNamePaterno = capitalize(lastNamePaterno);
       lastNameMaterno = capitalize(lastNameMaterno);
-
-      // Renderizar la fila de la tabla
+  
+      // Render the row in the table
       employeeTableBody.append(`
-          <tr>
-              <td>${employee.id}</td>
-              <td>${firstName}</td>
-              <td>${lastNamePaterno}</td>
-              <td>${lastNameMaterno}</td>
-              <td>${employee.email || "Correo no disponible"}</td>
-              <td>
-                  <button class="btn btn-sm text-bg-secondary edit-employee-btn" data-id="${employee.id}">
-                      <i class="fa-solid fa-pen-to-square fs-6"></i>
-                  </button>
-                  <button class="btn btn-sm text-bg-primary delete-employee-btn" data-id="${employee.id}">
-                      <i class="fa-solid fa-trash fs-6"></i>
-                  </button>
-              </td>
-          </tr>
+        <tr>
+            <td>${employee.id}</td>
+            <td>${firstName}</td>
+            <td>${lastNamePaterno}</td>
+            <td>${lastNameMaterno}</td>
+            <td>${employee.email || "Correo no disponible"}</td>
+            <td>
+                <button class="btn btn-sm text-bg-secondary edit-employee-btn" data-id="${employee.id}">
+                    <i class="fa-solid fa-pen-to-square fs-6"></i>
+                </button>
+                <button class="btn btn-sm text-bg-primary delete-employee-btn" data-id="${employee.id}">
+                    <i class="fa-solid fa-trash fs-6"></i>
+                </button>
+            </td>
+        </tr>
       `);
     });
   }
+    // Función para configurar la paginación
+    function setupPagination() {
+      const pageCount = Math.ceil(employees.length / pageSize);
+      const paginationContainer = $('#pagination-container');
+      paginationContainer.empty();
+  
+      // Update page info
+      $('#page-info').text(`Página ${currentPage}`);
+  
+      // Disable/enable buttons based on current page
+      if (currentPage <= 1) {
+        $('#prev-btn').prop('disabled', true);
+      } else {
+        $('#prev-btn').prop('disabled', false);
+      }
+  
+      if (currentPage >= pageCount) {
+        $('#next-btn').prop('disabled', true);
+      } else {
+        $('#next-btn').prop('disabled', false);
+      }
+    }
+  
+  // Handle "Previous" button click
+  $('#prev-btn').click(function () {
+    if (currentPage > 1) {
+      currentPage--;
+      showPage(employees); // Pass the employees array
+      setupPagination();
+    }
+  });
+  
+  // Handle "Next" button click
+  $('#next-btn').click(function () {
+    const pageCount = Math.ceil(employees.length / pageSize);
+    if (currentPage < pageCount) {
+      currentPage++;
+      showPage(employees); // Pass the employees array
+      setupPagination();
+    }
+  });
 
   // Función para mostrar alertas
   function showAlert(message, type) {
