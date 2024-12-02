@@ -55,7 +55,7 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="../../index.php">Inicio</a>
+                <a class="nav-link" href="../../index.html">Inicio</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="panaderia.html">Panaderia</a>
@@ -184,80 +184,12 @@
     </div>
 
 
-    <!-- Contenedor de comidas -->
-    <section class="container-products">
+    <div class="container-products">
       <div class="conteiner-products" id="products-container">
-        <!-- Comida 1 -->
-        <div class="card-product">
-          <div class="container-img">
-            <img src="../../recursos/restaurante/cuernito.jpg" alt="${drink.strDrink}" />
-          </div>
-          <div class="content-card-product">
-            <h3>Cuernitos</h3>
-            <div class="button-container">
-              <button class="add-cart" aria-label="Add to cart">
-                <i class="fa-solid fa-clipboard"></i>
-              </button>
-              <button
-                class="add-cart"
-                aria-label="Add to cart"
-                onclick="viewDetails(${drink.idDrink})"
-              >
-                <i class="fa-solid fa-circle-info"></i>
-              </button>
-            </div>
-            <p class="precio">$23 <span>$18</span></p>
-            <input type="hidden" value="${drink.idDrink}" class="drink-id" />
-          </div>
-        </div>
-        <!-- Comida 2 -->
-        <div class="card-product">
-          <div class="container-img">
-            <img src="../../recursos/restaurante/desayuno.PNG" alt="${drink.strDrink}" />
-          </div>
-          <div class="content-card-product">
-            <h3>Desayunos</h3>
-            <div class="button-container">
-              <button class="add-cart" aria-label="Add to cart">
-                <i class="fa-solid fa-clipboard"></i>
-              </button>
-              <button
-                class="add-cart"
-                aria-label="Add to cart"
-                onclick="viewDetails(${drink.idDrink})"
-              >
-                <i class="fa-solid fa-circle-info"></i>
-              </button>
-            </div>
-            <p class="precio">$40 <span>$22</span></p>
-            <input type="hidden" value="${drink.idDrink}" class="drink-id" />
-          </div>
-        </div>
-        <!-- Comida 3 -->
-        <div class="card-product">
-          <div class="container-img">
-            <img src="../../recursos/restaurante/tacos.jpg" alt="${drink.strDrink}" />
-          </div>
-          <div class="content-card-product">
-            <h3>Tacos</h3>
-            <div class="button-container">
-              <button class="add-cart" aria-label="Add to cart">
-                <i class="fa-solid fa-clipboard"></i>
-              </button>
-              <button
-                class="add-cart"
-                aria-label="Add to cart"
-                onclick="viewDetails(${drink.idDrink})"
-              >
-                <i class="fa-solid fa-circle-info"></i>
-              </button>
-            </div>
-            <p class="precio">$23 <span>$22</span></p>
-            <input type="hidden" value="${drink.idDrink}" class="drink-id" />
-          </div>
-        </div>
       </div>
-    </section>
+    </div>
+
+    
 
     <div class="modal fade" id="modalBebida" tabindex="-1" aria-labelledby="modalBebidaTitle" aria-hidden="true">
       <div class="modal-dialog">
@@ -268,37 +200,6 @@
           </div>
           <div class="modal-body">
             <img id="modalBebidaImage" src="" alt="Imagen de la bebida" class="img-fluid mb-3">
-            <p id="modalBebidaDescription"></p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="modal fade"
-      id="modalBebida"
-      tabindex="-1"
-      aria-labelledby="modalBebidaTitle"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalBebidaTitle"></h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <img
-              id="modalBebidaImage"
-              src=""
-              alt="Imagen de la bebida"
-              class="img-fluid mb-3"
-            />
             <p id="modalBebidaDescription"></p>
           </div>
         </div>
@@ -339,8 +240,7 @@
               </div>
               <h3 class="mb-4 font-weight-bold">Siguenos en:</h3>
               <div class="facebook">
-                <a
-                  href="https://www.facebook.com/profile.php?id=100028578055216"
+                <a href="https://www.facebook.com/profile.php?id=100028578055216"
                   ><i class="fa fa-facebook" aria-hidden="true" id="social"></i
                 ></a>
               </div>

@@ -22,38 +22,38 @@ function viewDetails(productId) {
                 console.error('Producto no encontrado');
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Error al cargar los detalles del producto:', error));
 }
 
 $(document).ready(function () {
     const apiUrl = 'https://fortin.christba.com/api/products';
 
-    function loadDrinks() {
+    function loadProducts() {
         $.ajax({
             url: apiUrl,
             method: 'GET',
             success: function (response) {
-                // Filtrar los productos de la categoría "Bebidas"
-                const drinks = response.filter(product => product.category_name === "Bebidas");
-                let productsContainer = $('#products-container');
+                // Filtrar los productos por categoría "Restaurante"
+                const restaurantProducts = response.filter(product => product.category_name === "Restaurante");
+                const productsContainer = $('#products-container');
                 productsContainer.empty();
 
                 // Renderizar los productos filtrados
-                drinks.forEach(drink => {
+                restaurantProducts.forEach(product => {
                     productsContainer.append(`
                         <div class="card-product">
                             <div class="container-img">
-                                <img src="${drink.image_url || 'placeholder.jpg'}" alt="${drink.name}" />
+                                <img src="${product.image_url || 'placeholder.jpg'}" alt="${product.name}" />
                             </div>
                             <div class="content-card-product">
-                                <h3>${drink.name}</h3>
-                                <p>${drink.description || 'Sin descripción'}</p>
-                                <p class="precio">$${drink.price}</p>
+                                <h3>${product.name}</h3>
+                                <p>${product.description || 'Sin descripción disponible'}</p>
+                                <p class="precio">$${product.price || 'N/A'}</p>
                                 <div class="button-container">
                                     <button class="add-cart" aria-label="Add to cart">
                                         <i class="fa-solid fa-clipboard"></i>
                                     </button>
-                                    <button class="add-cart" aria-label="View details" onclick="viewDetails('${drink.id}')">
+                                     <button class="add-cart" aria-label="View details" onclick="viewDetails('${product.id}')">
                                         <i class="fa-solid fa-circle-info"></i>
                                     </button>
                                 </div>
@@ -61,6 +61,10 @@ $(document).ready(function () {
                         </div>
                     `);
                 });
+
+                if (restaurantProducts.length === 0) {
+                    productsContainer.append('<p>No hay productos disponibles en la categoría "Restaurante".</p>');
+                }
             },
             error: function (error) {
                 console.error('Error al cargar los productos:', error);
@@ -69,8 +73,5 @@ $(document).ready(function () {
     }
 
     // Cargar los productos al iniciar
-    loadDrinks();
+    loadProducts();
 });
-
-
-
