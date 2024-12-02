@@ -3,6 +3,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/fontawesome.css">
@@ -74,16 +75,13 @@
               <div class="form-group">
                 <label for="user-email">Correo o Usuario</label>
                 <input
-                  type="email"
+                  type="text"
                   class="form-control"
                   id="user-email"
-                  name="letras1"
+                  name="charEsp1"
                   required
                 />
-                <span id="letras1" name="correo2" style="color: red;"></span>
-                <div class="invalid-feedback">
-                  Ingrese un correo valido.
-                </div>
+                <span id="charEsp1" name="charEsp1" style="color: red;"></span>
               </div>
               <div class="form-group">
                 <label for="user-password">Contraseña</label>
@@ -121,20 +119,20 @@
               <div class="row">
               <div class="mb-3 col-md-6">
                 <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="letras2" placeholder="Nombre" maxlength="35">
-                <span id="letras2" style="color: red;"></span>
+                <input type="text" class="form-control" id="nombre" name="letras1" placeholder="Nombre" maxlength="35">
+                <span id="letras1" style="color: red;"></span>
               </div>
 
               <div class="mb-3 col-md-6">
                 <label for="apellidoP" class="form-label">Apellido Paterno:</label>
-                <input type="text" class="form-control" id="apellidoP" name="letras3" placeholder="Apellido Paterno" maxlength="35" required>
-                <span id="letras3" style="color: red;"></span>
+                <input type="text" class="form-control" id="apellidoP" name="letras2" placeholder="Apellido Paterno" maxlength="35" required>
+                <span id="letras2" style="color: red;"></span>
               </div>
 
               <div class="mb-3 col-md-6">
                 <label for="apellidoM" class="form-label">Apellido Materno:</label>
-                <input type="text" class="form-control" id="apellidoM" name="letras4" placeholder="Apellido Materno" maxlength="35" >
-                <span id="letras4" style="color: red;"></span>
+                <input type="text" class="form-control" id="apellidoM" name="letras3" placeholder="Apellido Materno" maxlength="35" >
+                <span id="letras3" style="color: red;"></span>
               </div>
 
               <div class="mb-3 col-md-6">
@@ -146,8 +144,8 @@
               <hr>
               <div class="form-group">
                 <label for="nombreUsuario" class="form-label">Nombre de Usuario:</label>
-                <input type="text" class="form-control" id="nombreUsuario" name="letras5" placeholder="example" maxlength="15" required>
-                <span id="letras5" style="color: red;"></span>
+                <input type="text" class="form-control" id="nombreUsuario" name="letras4" placeholder="example" maxlength="15" required>
+                <span id="letras4" style="color: red;"></span>
               </div>
 
               <div class="row">
@@ -237,8 +235,9 @@
         <div class="about-us">
           <div class="text">
               <p>
-                En El Fortín, nuestra pasión es crear productos recien hechos que deleiten los sentidos y aporten un toque de tradición y calidez a cada momento. Con un compromiso firme hacia la calidad, elaboramos nuestros panes, pasteles y postres con ingredientes frescos y seleccionados cuidadosamente. Cada día, nuestros panaderos artesanos trabajan con dedicación para ofrecerte productos frescos y llenos de sabor. Situados en el corazón de Fortin, somos un lugar donde se fusionan la tradición y la innovación, para brindarte experiencias gastronómicas únicas en un ambiente acogedor. ¡Ven y descubre el sabor auténtico de El Fortín!              </p>
-          </div>
+                En El Fortín, te ofrecemos productos frescos y llenos de sabor, hechos con los mejores ingredientes y mucha tradición. Ven y disfruta de una experiencia única en el corazón de Fortín. ¡Siente el sabor auténtico!
+              </p>
+              </div>
           <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -279,9 +278,12 @@
       <section class="container-products" id="contactanos">
         <div class="contact-us">
           <div class="text">
-            <h1>Contáctanos</h1>
-            <p>En El Fortín, nos encanta escuchar a nuestros clientes y estar a su disposición para cualquier consulta, pedido especial o comentario. Puedes visitarnos en nuestra tienda ubicada en Av. 5 No.102 B, Centro, #94470  en Fortin de las flores, donde nuestro amable personal estará encantado de atenderte.<br> También puedes llamarnos al 271 123 45 67 o enviarnos un correo electrónico . No dudes en seguirnos en nuestras redes sociales para estar al tanto de nuestras últimas novedades y promociones. <br>¡Estamos aquí para ayudarte y hacer que tu experiencia con nosotros sea excepcional!</p>
-          </div>
+            <h1>¿Dónde nos ubicamos?</h1>
+            <div   class="iframe-container" style="width: 100%; height: 400px;">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d390.1313581025461!2d-96.9986765742173!3d18.8981119568116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c4e49a5cabd81b%3A0xa1f1025fdee0e11b!2zUGFuYWRlcsOtYSBFbCBGb3J0w61u!5e1!3m2!1ses-419!2smx!4v1733133087338!5m2!1ses-419!2smx" width="800" height="300" style="border:0;" loading="lazy"></iframe>          
+            </div>
+
+            </div>
           <div class="cardForm">
             <div class="card mb-3">
               <div class="row g-0">
@@ -297,13 +299,13 @@
                     <form action="">
                       <div class="mb-3">
                         <label for="inputFullName" class="form-label">Asunto</label>
-                        <input type="text" class="form-control" id="inputFullName" name="letras1" maxlength="20" required>
-                        <span id="letras1" style="color: red;"></span>
+                        <input type="text" class="form-control" id="inputFullName" name="letras5" maxlength="20" required>
+                        <span id="letras5" style="color: red;"></span>
                       </div>
                       <div class="mb-3">
                         <label for="inputTextarea" class="form-label">Comentario</label>
-                        <textarea class="form-control" id="inputTextarea" name="charEsp1" rows="3" required ></textarea>
-                        <span id="charEsp1" name="charEsp1" style="color: red;"></span>         
+                        <textarea class="form-control" id="inputTextarea" name="charEsp2" rows="3" required ></textarea>
+                        <span id="charEsp2" name="charEsp2" style="color: red;"></span>         
                       </div>
                       <button type="submit" class="btn btn-primary text-bg-primary">Enviar</button>
 

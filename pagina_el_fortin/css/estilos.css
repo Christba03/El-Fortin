@@ -19,7 +19,13 @@ body {
     padding: 0;
     box-sizing: border-box;
 }
-
+.iframe-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+  }
 /*La navegacion*/
 #nav-content {
     background-color: var(--primary-color);
